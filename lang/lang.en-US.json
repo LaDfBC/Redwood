@@ -56,7 +56,7 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_RESULT}}", "Details:[1d20 ({{ROLL_RESULT}}]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"]
                     }
                 ]
             },
@@ -65,9 +65,12 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}", "Details:[1d6, 2d6, 1d20 ({{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}})]"]
+                        "value": ["```js\n# {{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}\nDetails: [1d6, 2d6, 1d20 ({{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}})]```"]
                     }
-                ]
+                ],
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
+                }
             },
             "abWildPitchCommand": {
                 "title": "Wild Pitch roll for {{USER}}",
@@ -78,7 +81,7 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["# {ROLL_RESULT}", "{{Details:[1d20 ({{ROLL_RESULT}})]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}```", "Details: [1d20 ({{ROLL_RESULT}})]"]
                     }
                 ]
             },
@@ -91,7 +94,7 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_RESULT}}", "{{Details:[1d20 ({{ROLL_RESULT}})]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}```", "{{Details: [1d20 ({{ROLL_RESULT}})]"]
                     }
                 ]
             },
@@ -104,9 +107,92 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_RESULT}}", "{{Details:[1d20 ({{ROLL_RESULT}}]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}```", "{{Details: [1d20 ({{ROLL_RESULT}}]"]
                     }
                 ]
+            },
+            "ccNameDoesNotExist": {
+                "title": "Unsuccessful custom command",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The command {{COMMAND_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM.colors.error}}"
+            },
+            "ccCreateCommandNameAlreadyExists": {
+              "title": "Unsuccessful custom command creation",
+              "fields": [
+                {
+                  "name": "Error",
+                  "value": "There is already a different command with the name {{COMMAND_NAME}}."
+                  }
+              ],
+              "color": "{{COM:colors.error}}"
+            },
+            "ccCreateCommandSuccessful": {
+              "title": "Success - {{COMMAND_NAME}} is ready for use!",
+              "color": "{{COM:colors.success}}"
+            },
+            "ccDeleteCommandSuccessful": {
+                "title": "Success - {{COMMAND_NAME}} has been deleted!",
+                "color": "{{COM:colors.success}}"
+            },
+            "ccDeleteNameDoesNotExist": {
+                "title": ":x: Failed to delete custom command",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The command {{COMMAND_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccDeleteUserNotOwner": {
+                "title": ":x: Failed to delete custom command",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "{{USER_NAME}} does not own {{COMMAND_NAME}} and therefore cannot delete it"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccDeleteUnknownError":  {
+                "title": ":x: Failed to delete custom command",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "UNKNOWN ERROR - An error was caught but was unexpected.  Please use the /help command to contact support."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccDeleteUnknownReason": {
+                "title": ":x: Failed to delete custom command",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "UNKNOWN FAILURE REASON - Something catastrophic happened -  Please use the /help command to contact support."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccMineSuccessfulResponse": {
+                "title": "Commands created by {{USER}}",
+                "fields": [
+
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccMineSingularCommandHasUsage": {
+                "name": ":arrow_forward",
+                "value": "{{ACTION}}\nBy {{OWNER}} - {{REF:ccUsageMessages.previously}} -  Last Used .... what goes here"
+            },
+            "ccMineSingularCommandNoUsage": {
+                "name": ":arrow_forward",
+                "value": "{{ACTION}}\nBy {{OWNER}} - {{REF:ccUsageMessages.never}}"
             },
             "jumpStandardCommand": {
                 "title": "Jump roll for {{USER}}",
@@ -287,7 +373,11 @@
             "test": "test",
             "d20": "d20",
             "ab": "ab",
-            "jump": "jump"
+            "jump": "jump",
+            "cc-fetch": "cc",
+            "cc-create": "cc-create",
+            "cc-delete": "cc-delete",
+            "cc-mine": "cc-mine"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -297,7 +387,12 @@
         },
         "arguments": {
             "command": "command",
-            "option": "option"
+            "option": "option",
+            "cc-create-name-option": "name",
+            "cc-create-action-option": "action",
+            "cc-name-option": "name",
+            "cc-delete-name-option": "name",
+            "cc-fetch-name-option": "name"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -306,6 +401,9 @@
             "test": "Run the test command.",
             "d20": "Roll a single d20.",
             "ab": "Roll for a plate appearance",
+            "ccCreate": "Create a custom command",
+            "ccDelete": "Delete a custom command",
+            "ccFetch": "Run a custom command",
             "jump": "Roll for baserunner's jump before stealing",
             "fielding": "Roll for a fielder's response to a ball in play"
         },
@@ -315,6 +413,10 @@
             "infoOption": "Option.",
             "d20Option": "Option.",
             "abOption": "Option.",
+            "cc-create-name-option": "Option.",
+            "cc-create-action-option": "Option.",
+            "cc-delete-name-option": "Option.",
+            "cc-fetch-name-option": "Option.",
             "jumpOption": "Option."
         },
         "fields": {
@@ -384,6 +486,18 @@
         "helpOptionDescs": {
             "contactSupport": "❓ {{REF:helpOptions.contactSupport}} ❓",
             "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
+        },
+        "ccCreateOptions": {
+          "name": "Name",
+          "action": "Action"
+        },
+        "ccCreateOptionDescs": {
+          "name": "What do you want to name this command?",
+          "action": "What do you want this command to do?"
+        },
+        "ccUsageMessages": {
+            "previouslyCount": "Used {{USAGE_COUNT}} times",
+            "neverCount": "Never used"
         },
         "infoOptions": {
             "about": "About",

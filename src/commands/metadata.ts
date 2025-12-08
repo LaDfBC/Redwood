@@ -8,7 +8,7 @@ import {
 
 import { Args } from './index.js';
 import { Language } from '../models/enum-helpers/index.js';
-import { Lang } from '../services/index.js';
+import { Lang } from "../services/index.js";
 
 export const ChatCommandMetadata: {
     [command: string]: RESTPostAPIChatInputApplicationCommandsJSONBody;
@@ -96,6 +96,55 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    CC_CREATE: {
+      type: ApplicationCommandType.ChatInput,
+      name: Lang.getRef('chatCommands.cc-create', Language.Default),
+      name_localizations: Lang.getRefLocalizationMap('chatCommands.cc-create'),
+      description: Lang.getRef('commandDescs.ccCreate', Language.Default),
+      description_localizations: Lang.getRefLocalizationMap('commandDescs.ccCreate'),
+      dm_permission: true,
+      default_member_permissions: undefined,
+      options: [
+          {
+              ...Args.CC_CREATE_NAME_OPTION,
+              required: true,
+          },
+          {
+              ...Args.CC_CREATE_ACTION_OPTION,
+              required: true
+          }
+      ],
+    },
+    CC_DELETE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.cc-delete', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.cc-delete'),
+        description: Lang.getRef('commandDescs.ccDelete', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.ccDelete'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CC_DELETE_NAME_OPTION,
+                required: true
+            }
+        ]
+    },
+    CC_FETCH: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.cc-fetch', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.cc-fetch'),
+        description: Lang.getRef('commandDescs.ccFetch', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.ccFetch'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CC_FETCH_NAME_OPTION,
+                required: true
+            }
+        ]
+    }
 };
 
 export const MessageCommandMetadata: {

@@ -42,6 +42,7 @@ export class AtBatCommand implements Command {
                 ROLL_TWO: rollTwo.toString(),
                 ROLL_TWENTY: finald20Roll.toString(),
                 USER: intr.user.displayName,
+                CHAOS_ROLL: chaosRoll.toString(),
             });
 
             await InteractionUtils.send(intr, embed);

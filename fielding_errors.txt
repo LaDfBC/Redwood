@@ -1,0 +1,308 @@
+P_0	P	0
+P_4	P	4												E1				E2
+P_6	P	6	E1										E1					E2
+P_7	P	7	E1									E1						E2
+P_8	P	8	E2			E1									E1	E1	E1	E2
+P_10	P	10	E2								E1				E1			E2
+P_11	P	11	E2									E1			E1	E1		E2
+P_12	P	12	E2			E1						E1			E1			E2
+P_13	P	13									E1		E1				E2
+P_14	P	14					E1						E1	E1			E2
+P_15	P	15		E1							E1	E1					E2
+P_16	P	16		E1					E1			E1				E1	E2
+P_17	P	17	E1			E1					E1	E1					E2
+P_18	P	18									E1	E1		E1			E2
+P_19	P	19				E1			E1			E1			E1		E2	E2
+P_20	P	20				E1				E1	E1				E1		E2	E2
+P_21	P	21					E1				E1		E1	E1			E2	E2
+P_22	P	22						E1				E1	E1	E1			E2	E2
+P_23	P	23								E1	E1	E1				E1	E2	E2
+P_24	P	24								E1	E1	E1			E1		E2	E2
+P_26	P	26	E2						E1			E1	E1	E1	E1		E2	E2
+P_27	P	27	E2							E1	E1	E1	E1				E2	E2
+P_28	P	28	E2						E1	E1	E1	E1					E2	E2
+P_30	P	30	E1							E1	E1	E1	E1		E1	E2
+P_31	P	31								E1	E1	E1	E1	E1		E2
+P_33	P	33	E1					E1		E1	E1	E1	E1			E2
+P_34	P	34							E1	E1	E1	E1	E1			E2		E2
+P_35	P	35							E1	E1	E1	E1		E1	E1	E2		E2
+P_36	P	36	E1	E1		E1	E1		E1	E1	E1	E1				E2		E2
+P_38	P	38				E1		E1		E1	E1	E1	E1		E1	E2		E2
+P_39	P	39	E2			E1	E1	E1	E1	E1		E1	E1			E2		E2
+P_40	P	40	E2	E1		E1			E1	E1	E1	E1	E1		E1	E2		E2
+P_42	P	42	E2				E1		E1	E1	E1	E1	E1	E1		E2		E2
+P_43	P	43	E2			E1	E1	E1	E1	E1		E1	E1	E1		E2		E2
+P_44	P	44	E1				E1	E1	E1	E1	E1	E1	E1			E2	E2
+P_46	P	46				E1		E1	E1	E1	E1	E1	E1		E1	E2	E2	E2
+P_47	P	47					E1	E1	E1	E1	E1	E1	E1		E1	E2	E2	E2
+P_48	P	48					E1	E1	E1	E1	E1	E1	E1	E1		E2	E2	E2
+P_50	P	50					E1	E1	E1	E1	E1	E1	E1	E1	E2		E2
+P_51	P	51					E1	E1	E1	E1	E1	E1	E1	E1	E2	E2
+C_0	C	0
+C_1	C	1															E1
+C_2	C	2	E1														E1	E1
+C_3	C	3	E1													E1		E1
+C_4	C	4														E1	E1	E2
+C_5	C	5		E1												E1	E1	E2
+C_6	C	6												E1				E2
+C_7	C	7	E1												E1	E1		E2
+C_8	C	8				E1									E1			E2
+C_9	C	9	E1										E1					E2
+C_10	C	10										E1						E2
+C_11	C	11	E1								E1							E2
+C_12	C	12	E2			E1									E1	E1	E1	E2
+C_13	C	13	E2	E1		E1									E1	E1	E1	E2
+C_14	C	14	E2									E1				E1	E1	E2
+C_15	C	15	E2								E1				E1			E2
+C_16	C	16	E2				E1							E1		E1	E1	E2
+1B_0	1B	0
+1B_1	1B	1															E1	E1
+1B_2	1B	2	E1													E1		E1
+1B_3	1B	3	E1												E1
+1B_4	1B	4												E1				E2
+1B_5	1B	5												E1			E1	E2
+1B_6	1B	6	E1						E1									E2
+1B_7	1B	7				E1			E1									E2
+1B_8	1B	8	E2			E1									E1	E1	E1	E2
+1B_9	1B	9	E2				E1							E1			E1	E2
+1B_10	1B	10	E2								E1				E1			E2
+1B_11	1B	11	E2			E1		E1							E1			E2
+1B_12	1B	12	E2			E1			E1						E1			E2
+1B_13	1B	13									E1		E1				E2
+1B_14	1B	14	E1						E1			E1					E2
+1B_15	1B	15					E1					E1		E1			E2
+1B_16	1B	16	E1								E1	E1				E1	E2
+1B_17	1B	17	E1			E1					E1	E1					E2
+1B_18	1B	18									E1	E1		E1			E2
+1B_19	1B	19								E1	E1				E1	E1	E2	E2
+1B_20	1B	20				E1				E1	E1				E1		E2	E2
+1B_21	1B	21	E1						E1	E1		E1					E2	E2
+1B_22	1B	22					E1				E1	E1		E1			E2	E2
+1B_23	1B	23								E1	E1	E1				E1	E2	E2
+1B_24	1B	24	E2								E1	E1	E1	E1			E2	E2
+1B_25	1B	25	E2						E1		E1	E1		E1			E2	E2
+1B_26	1B	26	E2						E1			E1	E1	E1	E1		E2	E2
+1B_27	1B	27	E2				E1	E1			E1		E1	E1			E2	E2
+1B_28	1B	28	E2				E1				E1	E1	E1	E1			E2	E2
+1B_29	1B	29							E1	E1	E1	E1				E2	E1
+1B_30	1B	30								E1	E1	E1	E1		E1	E2		E1
+2B_0	2B	0
+2B_1	2B	1																E1
+2B_2	2B	2	E1															E1
+2B_3	2B	3	E1														E1
+2B_4	2B	4	E1														E1	E2
+2B_5	2B	5														E1		E2
+2B_6	2B	6	E1													E1		E2
+2B_8	2B	8														E1	E1	E2
+2B_10	2B	10		E1												E1	E1	E2
+2B_11	2B	11													E1		E1	E2
+2B_12	2B	12	E2												E1		E1	E1
+2B_13	2B	13	E2											E1				E2
+2B_14	2B	14	E2												E1	E1		E2
+2B_15	2B	15	E2											E1			E1	E2
+2B_16	2B	16	E2												E1	E1	E1	E2
+2B_17	2B	17	E2			E1									E1			E2
+2B_18	2B	18	E2										E1					E2
+2B_19	2B	19	E2			E1									E1		E1	E2
+2B_20	2B	20	E1										E1				E2	E1
+2B_21	2B	21		E1									E1				E2
+2B_22	2B	22										E1					E2	E1
+2B_23	2B	23									E1						E2
+2B_24	2B	24									E1						E2	E1
+2B_25	2B	25	E1								E1						E2	E1
+2B_26	2B	26											E1		E1		E2
+2B_27	2B	27											E1		E1		E2	E1
+2B_28	2B	28	E1										E1		E1		E2	E2
+2B_29	2B	29	E1								E1					E1	E2	E2
+2B_30	2B	30										E1			E1		E2	E2
+2B_32	2B	32									E1				E1		E2	E2
+2B_34	2B	34										E1		E1			E2	E2
+2B_37	2B	37	E2								E1				E1	E1	E2	E2
+2B_39	2B	39	E2									E1	E1				E2	E2
+2B_41	2B	41	E2								E1		E1				E2	E2
+2B_44	2B	44							E1			E1				E2		E1
+2B_47	2B	47					E1					E1		E1		E2
+2B_50	2B	50									E1		E1		E1	E2		E1
+2B_53	2B	53									E1	E1			E1	E2		E2
+2B_56	2B	56				E1						E1	E1		E1	E2		E2
+2B_59	2B	59	E2			E1					E1		E1		E1	E2		E2
+2B_62	2B	62	E2			E1					E1	E1			E1	E2		E2
+2B_65	2B	65	E2				E1					E1	E1	E1		E2		E2
+2B_68	2B	68								E1	E1	E1				E2	E2
+2B_71	2B	71									E1	E1	E1		E1	E2	E2
+3B_0	3B	0
+3B_1	3B	1	E1															E2
+3B_2	3B	2	E1	E1														E2
+3B_3	3B	3	E1	E1													E2
+3B_4	3B	4	E1													E1	E2
+3B_5	3B	5													E1		E2
+3B_6	3B	6		E1											E1		E2
+3B_7	3B	7
+3B_8	3B	8	E1												E1	E1	E2	E2
+3B_9	3B	9
+3B_10	3B	10	E2										E1				E2	E2
+3B_11	3B	11				E1									E1	E2	E1
+3B_12	3B	12										E1				E2
+3B_13	3B	13									E1					E2		E2
+3B_14	3B	14	E1	E1										E1	E1	E2		E2
+3B_15	3B	15	E2										E1		E1	E2		E2
+3B_16	3B	16	E2	E1			E1							E1		E2		E2
+3B_17	3B	17										E1			E1	E2	E2
+3B_18	3B	18	E1								E1				E1	E2	E2
+3B_19	3B	19					E1							E1	E2	E1	E1
+3B_20	3B	20									E1			E1	E2
+3B_21	3B	21				E1					E1				E2	E1		E2
+3B_22	3B	22										E1		E1	E2	E1		E2
+3B_23	3B	23	E2								E1		E1		E2			E2
+3B_24	3B	24	E2						E1			E1			E2			E2
+3B_25	3B	25				E1		E1					E1		E2		E2
+3B_26	3B	26								E1	E1				E2		E2
+3B_27	3B	27							E1			E1			E2	E1	E2	E2
+3B_28	3B	28									E1		E1	E2	E1
+3B_29	3B	29							E1			E1		E2	E1
+3B_30	3B	30				E1		E1					E1	E2	E1			E2
+3B_31	3B	31								E1	E1			E2	E1			E2
+3B_32	3B	32									E1		E1	E1	E2	E2	E1	E2
+3B_33	3B	33						E1			E1		E1		E2	E2		E2
+3B_34	3B	34				E1			E1			E1		E2	E1		E2
+3B_35	3B	35									E1	E1	E1	E2			E2
+3B_37	3B	37							E1		E1	E1			E2	E2	E2
+3B_39	3B	39				E2	E1		E1			E1		E1	E2			E1
+3B_41	3B	41								E1	E1	E1	E2			E1
+3B_44	3B	44		E1		E2					E1	E1	E1	E1	E2		E2
+3B_47	3B	47						E1	E1		E1	E1	E2				E2
+3B_50	3B	50							E1	E1	E1	E1		E2	E2			E2
+3B_53	3B	53				E1		E1	E1	E1	E1		E2			E2
+3B_56	3B	56	E2					E1	E1	E1	E2	E1		E1			E1	E2
+3B_59	3B	59		E1			E1		E1	E1	E1	E1	E2		E2
+3B_62	3B	62					E1	E1	E1	E1	E1	E2		E1		E2		E2
+3B_65	3B	65					E1	E1	E1	E1	E2	E1	E1			E2		E2
+SS_0	SS	0
+SS_1	SS	1																E1
+SS_2	SS	2	E1															E1
+SS_3	SS	3															E1
+SS_4	SS	4															E1	E2
+SS_5	SS	5	E1														E1	E2
+SS_6	SS	6														E1		E2
+SS_7	SS	7	E1													E1		E2
+SS_8	SS	8														E1	E1	E2
+SS_9	SS	9
+SS_10	SS	10	E2													E1	E1	E2
+SS_11	SS	11
+SS_12	SS	12	E2												E1			E2
+SS_13	SS	13
+SS_14	SS	14		E1											E1		E2
+SS_15	SS	15
+SS_16	SS	16												E1			E2
+SS_17	SS	17													E1	E1	E2
+SS_18	SS	18													E1	E1	E2	E1
+SS_19	SS	19		E1										E1			E2
+SS_20	SS	20		E1											E1	E1	E2
+SS_21	SS	21				E1									E1		E2
+SS_22	SS	22				E1									E1		E2	E2
+SS_23	SS	23	E1										E1				E2	E2
+SS_24	SS	24		E1		E1									E1		E2	E2
+SS_25	SS	25		E1									E1				E2	E2
+SS_26	SS	26										E1					E2	E2
+SS_27	SS	27	E1									E1					E2	E2
+SS_28	SS	28	E2			E1									E1	E1	E2	E2
+SS_29	SS	29	E2								E1						E2	E2
+SS_30	SS	30	E2	E1								E1					E2	E2
+SS_31	SS	31	E2	E1		E1									E1	E1	E2	E2
+SS_32	SS	32	E2										E1		E1		E2	E2
+SS_33	SS	33											E1		E1	E2
+SS_34	SS	34											E1		E1	E2		E1
+SS_36	SS	36											E1		E1	E2	E1
+SS_38	SS	38											E1	E1		E2
+SS_40	SS	40									E1				E1	E2		E2
+SS_42	SS	42										E1		E1		E2		E2
+SS_44	SS	44						E1					E1			E2		E2
+SS_48	SS	48	E2			E1						E1			E1	E2		E2
+SS_52	SS	52									E1		E1			E2	E2	E1
+SS_56	SS	56									E1	E1				E2	E2	E1
+SS_60	SS	60					E1				E1			E1	E2
+SS_64	SS	64				E1			E1			E1			E2			E2
+SS_68	SS	68							E1			E1		E1	E2			E2
+SS_72	SS	72		E2		E1					E1		E1		E1	E2	E2
+SS_76	SS	76							E1			E1	E1		E2		E2
+SS_80	SS	80		E1							E1	E1	E1		E2		E2
+SS_84	SS	84	E2							E1	E1	E1			E2		E2
+SS_88	SS	88							E1	E1		E1		E2		E1
+LF_0	LF	0
+LF_1	LF	1	E1														E2
+LF_2	LF	2	E1													E2		E1
+LF_3	LF	3	E1												E2			E1
+LF_4	LF	4	E2	E1											E2			E3
+LF_5	LF	5		E1										E2				E3
+LF_6	LF	6	E1	E1										E2			E2	E3
+LF_7	LF	7				E2									E2	E1		E3
+LF_8	LF	8	E3			E2									E2	E1	E2	E3
+LF_9	LF	9	E3								E2					E1		E3
+LF_10	LF	10	E3	E1										E2	E2	E1	E2	E3
+LF_11	LF	11	E3	E1									E2	E2		E1		E3
+LF_12	LF	12	E3	E1									E2	E2		E1		E3
+LF_13	LF	13		E2		E1						E2			E2		E3
+LF_14	LF	14	E1			E1						E2		E2			E3
+LF_15	LF	15	E1	E2		E1						E2		E2			E3	E1
+LF_16	LF	16		E1		E1						E2	E2				E3
+LF_17	LF	17		E1		E1			E2			E2					E3
+LF_18	LF	18	E1	E1		E1					E2	E2					E3	E2
+LF_19	LF	19	E2				E1			E2	E2						E3	E3
+LF_20	LF	20	E1				E1				E2		E2		E2		E3	E3
+LF_21	LF	21	E1				E1				E2	E2			E2		E3	E3
+LF_22	LF	22	E1			E1			E2			E2		E2		E1	E3	E3
+LF_23	LF	23		E1			E1				E2	E2		E2			E3	E3
+LF_24	LF	24	E3	E1		E1		E2			E2		E2			E1	E3	E3
+LF_25	LF	25	E3	E1		E1					E2	E2	E2			E1	E3	E3
+CF_0	CF	0
+CF_1	CF	1															E2
+CF_2	CF	2	E1														E2	E2
+CF_3	CF	3	E1													E2		E1
+CF_4	CF	4		E1												E2		E3
+CF_5	CF	5		E1												E2	E2	E3
+CF_6	CF	6	E2	E1											E2			E3
+CF_7	CF	7	E1	E1											E2		E2	E3
+CF_8	CF	8	E1	E1											E2	E2		E3
+CF_9	CF	9	E1	E1										E2			E2	E3
+CF_10	CF	10	E2	E2										E2		E1		E3
+CF_11	CF	11	E2										E2			E1		E3
+CF_12	CF	12	E3	E2		E2									E2	E1		E3
+CF_13	CF	13	E3	E2		E2									E2	E1	E2	E3
+CF_14	CF	14	E3									E2				E1	E2	E3
+CF_15	CF	15	E3	E1								E2				E1	E2	E3
+CF_16	CF	16	E3	E1			E2							E2		E1		E3
+CF_17	CF	17	E3	E1			E2							E2		E1	E2	E3
+CF_18	CF	18	E3	E1										E2	E2	E1		E3
+CF_19	CF	19	E3			E1					E2				E2			E3
+CF_20	CF	20		E2		E1							E2	E2			E3
+CF_21	CF	21	E1			E1						E2		E2			E3
+CF_22	CF	22	E1	E2		E1						E2		E2			E3
+CF_23	CF	23	E1	E2		E1							E2	E2		E2	E3	E1
+CF_24	CF	24		E1		E1						E2	E2				E3
+CF_25	CF	25		E1		E1					E2		E2				E3	E2
+RF_0	RF	0
+RF_1	RF	1	E1														E2
+RF_2	RF	2	E1													E2		E1
+RF_3	RF	3	E1												E2			E1
+RF_4	RF	4	E2	E1											E2			E3
+RF_5	RF	5		E1										E2				E3
+RF_6	RF	6	E1	E1										E2			E2	E3
+RF_7	RF	7				E2									E2	E1		E3
+RF_8	RF	8	E3			E2									E2	E1	E2	E3
+RF_9	RF	9	E3								E2					E1		E3
+RF_10	RF	10	E3	E1										E2	E2	E1	E2	E3
+RF_11	RF	11	E3	E1									E2	E2		E1		E3
+RF_12	RF	12	E3	E1									E2	E2		E1		E3
+RF_13	RF	13		E2		E1						E2			E2		E3
+RF_14	RF	14	E1			E1						E2		E2			E3
+RF_15	RF	15	E1	E2		E1						E2		E2			E3	E1
+RF_16	RF	16		E1		E1						E2	E2				E3
+RF_17	RF	17		E1		E1			E2			E2					E3
+RF_18	RF	18	E1	E1		E1					E2	E2					E3	E2
+RF_19	RF	19	E2				E1			E2	E2						E3	E3
+RF_20	RF	20	E1				E1				E2		E2		E2		E3	E3
+RF_21	RF	21	E1				E1				E2	E2			E2		E3	E3
+RF_22	RF	22	E1			E1			E2			E2		E2		E1	E3	E3
+RF_23	RF	23		E1			E1				E2	E2		E2			E3	E3
+RF_24	RF	24	E3	E1		E1		E2			E2		E2			E1	E3	E3
+RF_25	RF	25	E3	E1		E1					E2	E2	E2			E1	E3	E3

@@ -51,6 +51,20 @@
                     }
                 ]
             },
+            "ccCreateCommandNameAlreadyExists": {
+              "title": "Unsuccessful custom command creation",
+              "fields": [
+                {
+                  "name": "Error",
+                  "value": " There is already a different command with the name {{COMMAND_NAME}}."
+                }
+              ],
+              "color": "{{COM:colors.error}}"
+            },
+            "ccCreateCommandSuccessful": {
+              "title": "Success - {{COMMAND_NAME}} is ready for use!",
+              "color": "{{COM:colors.success}}"
+            },
             "d20Commands": {
                 "title": "d20 roll for {{USER}}",
                 "fields": [
@@ -288,7 +302,8 @@
             "d20": "d20",
             "ab": "ab",
             "jump": "jump",
-            "fielding": "fielding"
+            "fielding": "fielding",
+            "cc-create": "cc-create"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -298,7 +313,9 @@
         },
         "arguments": {
             "command": "command",
-            "option": "option"
+            "option": "option",
+            "cc-create-name-option": "name",
+            "cc-create-action-option": "action"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -307,6 +324,7 @@
             "test": "Run the test command.",
             "d20": "Roll a single d20.",
             "ab": "Roll for a plate appearance",
+            "ccCreate": "Create a custom command",
             "jump": "Roll for baserunner's jump before stealing",
             "fielding": "Roll for a fielder's response to a ball in play"
         },
@@ -316,6 +334,8 @@
             "infoOption": "Option.",
             "d20Option": "Option.",
             "abOption": "Option.",
+            "cc-create-name-option": "Option.",
+            "cc-create-action-option": "Option.",
             "jumpOption": "Option."
         },
         "fields": {
@@ -385,6 +405,14 @@
         "helpOptionDescs": {
             "contactSupport": "❓ {{REF:helpOptions.contactSupport}} ❓",
             "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
+        },
+        "ccCreateOptions": {
+          "name": "Name",
+          "action": "Action"
+        },
+        "ccCreateOptionDescs": {
+          "name": "What do you want to name this command?",
+          "action": "What do you want this command to do?"
         },
         "infoOptions": {
             "about": "About",

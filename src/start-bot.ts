@@ -4,14 +4,18 @@ import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
 import {
-    D20Command,
-    DevCommand,
-    HelpCommand,
-    InfoCommand,
-    TestCommand,
-    JumpCommand,
-    AtBatCommand,
-} from './commands/chat/index.js';
+  D20Command,
+  DevCommand,
+  HelpCommand,
+  InfoCommand,
+  TestCommand,
+  JumpCommand,
+  AtBatCommand,
+  CcCreateCommand,
+  CcMineCommand,
+  CcFetchCommand,
+  CcDeleteCommand,
+} from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
     Command,
@@ -38,6 +42,7 @@ import {
     EventDataService,
     JobService,
     Logger,
+    DatabaseService
 } from './services/index.js';
 import { Trigger } from './triggers/index.js';
 
@@ -48,6 +53,7 @@ let Logs = require('../lang/logs.json');
 async function start(): Promise<void> {
     // Services
     let eventDataService = new EventDataService();
+    let databaseService = new DatabaseService();
 
     // Client
     let client = new CustomClient({
@@ -72,6 +78,10 @@ async function start(): Promise<void> {
         new D20Command(),
         new JumpCommand(),
         new AtBatCommand(),
+        new CcCreateCommand(databaseService),
+        // new CcMineCommand(databaseService),
+        new CcDeleteCommand(databaseService),
+        new CcFetchCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

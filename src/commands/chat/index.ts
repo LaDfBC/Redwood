@@ -5,3 +5,7 @@ export { TestCommand } from './test-command.js';
 export { D20Command } from "./d20-command.js";
 export { JumpCommand } from './jump-command.js';
 export { AtBatCommand } from './ab-command.js';
+export { CcCreateCommand } from './cc-create-command.js';
+export { CcDeleteCommand } from './cc-delete-command.js';
+export { CcMineCommand } from './cc-mine-command.js'
+export { CcFetchCommand } from './cc-command.js';
