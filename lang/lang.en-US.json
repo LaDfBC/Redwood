@@ -212,7 +212,7 @@
                     },
                     {
                         "name": "Pickoff Roll",
-                        "value": ["# {{ROLL_RESULT}}", "{{Details:[1d20 ({{ROLL_RESULT}}]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
                     }
                 ]
             },
@@ -225,7 +225,24 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_RESULT}}", "{{Details:[1d20 ({{ROLL_RESULT}}]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
+                    }
+                ]
+            },
+            "fielding": {
+                "title": "Fielding roll for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Roll Results",
+                        "value": ["```js\n# {{RANGE_ROLL}}, {{ERROR_ROLL_TOTAL}}\n\nDetails:\n1d20 | ({{RANGE_ROLL}})\n3d6 | ({{ERROR_ROLL_1}}, {{ERROR_ROLL_2}}, {{ERROR_ROLL_3}})```"]
+                    },
+                    {
+                        "name": "{{POSITION}} Range Result",
+                        "value": ["```js\n{{RANGE_NUMBERS}}\n{{RANGE_TEXT}}```"]
+                    },
+                    {
+                        "name": "Error Numbers",
+                        "value": ["```js\n{{ERROR_TEXT}}```"]
                     }
                 ]
             },
@@ -377,7 +394,8 @@
             "cc-fetch": "cc",
             "cc-create": "cc-create",
             "cc-delete": "cc-delete",
-            "cc-mine": "cc-mine"
+            "cc-mine": "cc-mine",
+            "fielding": "fielding"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -388,11 +406,12 @@
         "arguments": {
             "command": "command",
             "option": "option",
-            "cc-create-name-option": "name",
-            "cc-create-action-option": "action",
+            "ccCreateNameOption": "name",
+            "ccCreateActionOption": "action",
             "cc-name-option": "name",
-            "cc-delete-name-option": "name",
-            "cc-fetch-name-option": "name"
+            "ccDeleteNameOption": "name",
+            "ccFetchNameOption": "name",
+            "fieldingPositionOption": "position"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -413,11 +432,12 @@
             "infoOption": "Option.",
             "d20Option": "Option.",
             "abOption": "Option.",
-            "cc-create-name-option": "Option.",
-            "cc-create-action-option": "Option.",
-            "cc-delete-name-option": "Option.",
-            "cc-fetch-name-option": "Option.",
-            "jumpOption": "Option."
+            "ccCreateNameOption": "Option.",
+            "ccCreateActionOption": "Option.",
+            "ccDeleteNameOption": "Option.",
+            "ccFetchNameOption": "Option.",
+            "jumpOption": "Option.",
+            "fieldingPositionOption": "Option."
         },
         "fields": {
             "commands": "Commands",
@@ -502,6 +522,17 @@
         "infoOptions": {
             "about": "About",
             "translate": "Translate"
+        },
+        "positionOptions": {
+            "catcher": "C",
+            "pitcher": "P",
+            "firstBase": "1B",
+            "secondBase": "2B",
+            "shortstop": "SS",
+            "thirdBase": "3B",
+            "rightField": "RF",
+            "centerField": "CF",
+            "leftField": "LF"
         },
         "yesNo": {
             "yes": "Yes",

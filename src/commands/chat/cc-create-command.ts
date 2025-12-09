@@ -18,10 +18,10 @@ export class CcCreateCommand implements Command {
   public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
     let args: { name: string, action: string } = {
       name: intr.options.getString(
-        Lang.getRef('arguments.cc-create-name-option', Language.Default)
+        Lang.getRef('arguments.ccCreateNameOption', Language.Default)
       ),
       action: intr.options.getString(
-        Lang.getRef('arguments.cc-create-action-option', Language.Default)
+        Lang.getRef('arguments.ccCreateActionOption', Language.Default)
       )
     };
 

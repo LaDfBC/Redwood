@@ -9,3 +9,4 @@ export { CcCreateCommand } from './cc-create-command.js';
 export { CcDeleteCommand } from './cc-delete-command.js';
 export { CcMineCommand } from './cc-mine-command.js'
 export { CcFetchCommand } from './cc-command.js';
+export { FieldingCommand } from './fielding-command.js';

@@ -2,24 +2,35 @@ import {Knex} from "knex";
 import {createRequire} from "node:module";
 import {DeleteCommandFailureReason} from "../enums/index.js";
 import {Logger} from "./index.js";
-import { CustomCommandRow, DeleteCommandResult } from "../models/database";
+import {
+  CustomCommandRow,
+  DeleteCommandResult,
+  FieldingErrorRow,
+  FieldingRangeRow,
+} from "../models/database";
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
 
-export class DatabaseService {
-  private async connect(): Promise<Knex> {
-    return require('knex')({
-      client: 'pg',
-      connection: {
+const knex: Knex = require('knex')({
+    client: 'pg',
+    connection: {
         host: Config.database.host,
         port: Config.database.port,
         user: Config.database.username,
         database: Config.database.database,
         password: Config.database.password,
-      },
-    });
-  }
+    },
+    pool: {
+        min: 1, // Minimum number of connections in the pool
+        max: 2, // Maximum number of connections in the pool
+        acquireTimeoutMillis: 10000, // How long to wait for a connection to become available (in milliseconds)
+        idleTimeoutMillis: 30000, // How long a connection can be idle before being closed (in milliseconds)
+    }
+})
+
+export class DatabaseService {
+
 
   /**
    * TODO: Return something meaningful and add useful error handling
@@ -28,7 +39,6 @@ export class DatabaseService {
    * @param link
    */
   public async insertCommand(commandName: string, ownerUsername: string, guildId: string, link: string): Promise<void> {
-    const knex: Knex = await this.connect();
     await knex<CustomCommandRow>('custom_command')
       .insert({
           command_name: commandName,
@@ -45,7 +55,6 @@ export class DatabaseService {
    * @param guildId The guild (Server) of Discord this command belongs to
    */
   public async fetchCommand(commandName: string, guildId: string): Promise<CustomCommandRow | undefined> {
-    const knex: Knex = await this.connect();
     return knex<CustomCommandRow>('custom_command')
         .where('command_name', commandName)
         .andWhere("guild_id", guildId)
@@ -53,13 +62,11 @@ export class DatabaseService {
   }
 
   public async fetchAllCommands(): Promise<CustomCommandRow[]> {
-      const knex: Knex = await this.connect();
       return knex<CustomCommandRow>('custom_command')
   }
 
   public async fetchAllCommandsMatchingString(commandName: string, guildId: string): Promise<CustomCommandRow[]> {
-      const knex: Knex = await this.connect();
-      return knex<CustomCommandRow>('custom_command')
+      return await knex<CustomCommandRow>('custom_command')
           .whereILike('command_name', `%${commandName}%`)
           .andWhere('guild_id', guildId)
           .select('command_name')
@@ -72,7 +79,6 @@ export class DatabaseService {
           } else if ((await this.fetchCommand(commandName, guildId)).owner_username !== requestingUser) {
               return { success: false, reason: DeleteCommandFailureReason.USER_NOT_OWNER}
           } else {
-              const knex: Knex = await this.connect();
               await knex<CustomCommandRow>('custom_command').where('command_name', commandName).del();
               return { success: true, reason: undefined };
           }
@@ -80,6 +86,20 @@ export class DatabaseService {
           await Logger.error("Encountered an unexpected database error: "  + error);
           return { success: false, reason: DeleteCommandFailureReason.UNKNOWN };
       }
+  }
+
+  public async fetchFieldingRange(position: string, roll: number): Promise<FieldingRangeRow> {
+      return await knex<FieldingRangeRow>('fielding_range')
+          .where('position', position)
+          .andWhere('roll', roll)
+          .first()
+  }
+
+  public async fetchFieldingErrorData(position: string, roll: number): Promise<FieldingErrorRow[]> {
+      return await knex<FieldingErrorRow>(   'fielding_error')
+          .where('position', position)
+          .andWhere('roll', roll)
+          .select('*')
   }
 
   /**

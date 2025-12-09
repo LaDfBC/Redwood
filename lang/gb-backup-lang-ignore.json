@@ -314,8 +314,8 @@
         "arguments": {
             "command": "command",
             "option": "option",
-            "cc-create-name-option": "name",
-            "cc-create-action-option": "action"
+            "ccCreateNameOption": "name",
+            "ccCreateActionOption": "action"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -334,8 +334,8 @@
             "infoOption": "Option.",
             "d20Option": "Option.",
             "abOption": "Option.",
-            "cc-create-name-option": "Option.",
-            "cc-create-action-option": "Option.",
+            "ccCreateNameOption": "Option.",
+            "ccCreateActionOption": "Option.",
             "jumpOption": "Option."
         },
         "fields": {

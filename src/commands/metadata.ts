@@ -144,6 +144,21 @@ export const ChatCommandMetadata: {
                 required: true
             }
         ]
+    },
+    FIELDING: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.fielding', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.fielding'),
+        description: Lang.getRef('commandDescs.fielding', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.fielding'),
+        default_member_permissions: undefined,
+        dm_permission: true,
+        options: [
+            {
+                ...Args.FIELDING_POSITION_OPTION,
+                required: true
+            }
+        ]
     }
 };
 

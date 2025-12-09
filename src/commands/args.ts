@@ -1,6 +1,11 @@
 import { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from 'discord.js';
 
-import { DevCommandName, HelpOption, InfoOption } from '../enums/index.js';
+import {
+  DevCommandName,
+  HelpOption,
+  InfoOption,
+  PositionOption,
+} from "../enums/index.js";
 import { Language } from '../models/enum-helpers/index.js';
 import {DatabaseService, Lang } from '../services/index.js';
 import {CustomCommandRow} from "../models/database/index.js";
@@ -59,33 +64,88 @@ export class Args {
         ],
     };
     public static readonly CC_CREATE_NAME_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.cc-create-name-option', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.cc-create-name-option'),
-        description: Lang.getRef('argDescs.cc-create-name-option', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.cc-create-name-option'),
+        name: Lang.getRef('arguments.ccCreateNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.ccCreateNameOption'),
+        description: Lang.getRef('argDescs.ccCreateNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.ccCreateNameOption'),
         type: ApplicationCommandOptionType.String,
     };
     public static readonly CC_CREATE_ACTION_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.cc-create-action-option', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.cc-create-action-option'),
-        description: Lang.getRef('argDescs.cc-create-action-option', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.cc-create-action-option'),
+        name: Lang.getRef('arguments.ccCreateActionOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.ccCreateActionOption'),
+        description: Lang.getRef('argDescs.ccCreateActionOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.ccCreateActionOption'),
         type: ApplicationCommandOptionType.String,
     };
     public static readonly CC_DELETE_NAME_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.cc-delete-name-option', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.cc-delete-name-option'),
-        description: Lang.getRef('argDescs.cc-delete-name-option', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.cc-delete-name-option'),
+        name: Lang.getRef('arguments.ccDeleteNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.ccDeleteNameOption'),
+        description: Lang.getRef('argDescs.ccDeleteNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.ccDeleteNameOption'),
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };
     public static readonly CC_FETCH_NAME_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.cc-fetch-name-option', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.cc-fetch-name-option'),
-        description: Lang.getRef('argDescs.cc-fetch-name-option', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.cc-fetch-name-option'),
+        name: Lang.getRef('arguments.ccFetchNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.ccFetchNameOption'),
+        description: Lang.getRef('argDescs.ccFetchNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.ccFetchNameOption'),
         autocomplete: true,
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly FIELDING_POSITION_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.fieldingPositionOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.fieldingPositionOption'),
+        description: Lang.getRef('argDescs.fieldingPositionOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.fieldingPositionOption'),
+        choices: [
+            {
+                name: Lang.getRef('positionOptions.catcher', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.catcher'),
+                value: PositionOption.CATCHER,
+            },
+            {
+                name: Lang.getRef('positionOptions.pitcher', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.pitcher'),
+                value: PositionOption.PITCHER,
+            },
+            {
+                name: Lang.getRef('positionOptions.firstBase', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.firstBase'),
+                value: PositionOption.FIRST_BASE,
+            },
+            {
+                name: Lang.getRef('positionOptions.secondBase', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.secondBase'),
+                value: PositionOption.SECOND_BASE,
+            },
+            {
+                name: Lang.getRef('positionOptions.shortstop', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.shortstop'),
+                value: PositionOption.SHORTSTOP,
+            },
+            {
+                name: Lang.getRef('positionOptions.thirdBase', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.thirdBase'),
+                value: PositionOption.THIRD_BASE,
+            },
+            {
+                name: Lang.getRef('positionOptions.rightField', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.rightField'),
+                value: PositionOption.RIGHT_FIELD,
+            },
+            {
+                name: Lang.getRef('positionOptions.centerField', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.centerField'),
+                value: PositionOption.CENTER_FIELD,
+            },
+            {
+                name: Lang.getRef('positionOptions.leftField', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('positionOptions.leftField'),
+                value: PositionOption.LEFT_FIELD,
+            },
+
+        ],
         type: ApplicationCommandOptionType.String,
     };
 }

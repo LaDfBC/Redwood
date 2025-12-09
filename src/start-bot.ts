@@ -14,7 +14,7 @@ import {
   CcCreateCommand,
   CcMineCommand,
   CcFetchCommand,
-  CcDeleteCommand,
+  CcDeleteCommand, FieldingCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -82,6 +82,7 @@ async function start(): Promise<void> {
         // new CcMineCommand(databaseService),
         new CcDeleteCommand(databaseService),
         new CcFetchCommand(databaseService),
+        new FieldingCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

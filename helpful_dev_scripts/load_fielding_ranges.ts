@@ -8,11 +8,11 @@ let Config = require('../config/config.json');
 
 
 export class LoadFieldingRanges {
-    public runLoad(): void {
-        const ranges: FieldingRangeRow[] = this.loadRanges();
+    public async runLoad(): Promise<void> {
+        const ranges: FieldingRangeRow[] = await this.loadRanges();
     }
 
-    private async loadRanges(): FieldingRangeRow[] {
+    private async loadRanges(): Promise<FieldingRangeRow[]> {
         const knex: Knex = await this.connect();
 
         try {
@@ -76,4 +76,4 @@ export class LoadFieldingRanges {
     }
 }
 
-new LoadFieldingRanges().runLoad();
+await new LoadFieldingRanges().runLoad();

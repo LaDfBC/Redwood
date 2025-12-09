@@ -27,7 +27,7 @@ export class CcDeleteCommand implements Command {
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { name: string } = {
             name: intr.options.getString(
-                Lang.getRef('arguments.cc-delete-name-option', Language.Default)
+                Lang.getRef('arguments.ccDeleteNameOption', Language.Default)
             )
         };
 
