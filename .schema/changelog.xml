@@ -17,7 +17,6 @@
             <column name="created" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
         <createTable tableName="custom_command_usage">
             <column name="command_name" type="VARCHAR(255)">
@@ -99,5 +98,58 @@
             <column name="value" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-
+    <changeSet author="Jaera" id="4">
+        <createTable tableName="chart">
+            <column name="chart_name" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="server_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="channel_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="TEXT" />
+            <column name="description" type="TEXT" />
+            <column name="image_link" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="chart_usage">
+            <column name="chart_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="server_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="channel_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="calling_username" type="VARCHAR(255)"/>
+            <column name="usage_date" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="chart_name,server_id,channel_id"
+                baseTableName="chart_usage"
+                referencedColumnNames="chart_name,server_id,channel_id"
+                referencedTableName="chart"
+                constraintName="chart_name_usage_base_chart_exists"
+        />
+    </changeSet>
+    <changeSet author="Jaera" id="5">
+        <dropColumn tableName="chart_usage" columnName="channel_id"/>
+        <dropColumn tableName="chart" columnName="channel_id"/>
+    </changeSet>
+    <changeSet author="Jaera" id="6">
+        <addColumn tableName="chart">
+            <column name="owner_username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
