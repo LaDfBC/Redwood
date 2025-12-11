@@ -12,9 +12,12 @@ import {
   JumpCommand,
   AtBatCommand,
   CcCreateCommand,
-  CcMineCommand,
   CcFetchCommand,
-  CcDeleteCommand, FieldingCommand,
+  CcDeleteCommand,
+  FieldingCommand,
+  ChartCreateCommand,
+  ChartDeleteCommand,
+  ChartFetchCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -77,12 +80,15 @@ async function start(): Promise<void> {
         new TestCommand(),
         new D20Command(),
         new JumpCommand(),
-        new AtBatCommand(),
+        new AtBatCommand(databaseService),
         new CcCreateCommand(databaseService),
         // new CcMineCommand(databaseService),
         new CcDeleteCommand(databaseService),
         new CcFetchCommand(databaseService),
         new FieldingCommand(databaseService),
+        new ChartCreateCommand(databaseService),
+        new ChartDeleteCommand(databaseService),
+        new ChartFetchCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

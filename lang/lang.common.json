@@ -23,15 +23,15 @@
         "error": "#ff4a4a"
     },
     "links": {
-        "author": "https://github.com/",
+        "author": "https://github.com/LaDfBC",
         "docs": "https://top.gg/",
-        "donate": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EW389DYYSS4FC",
+        "donate": "paypal.me/Jaerapps",
         "invite": "https://discord.com/",
-        "source": "https://github.com/",
-        "stream": "https://www.twitch.tv/novakevin",
-        "support": "https://support.discord.com/",
-        "template": "https://github.com/KevinNovak/Discord-Bot-TypeScript-Template",
-        "terms": "https://github.com/KevinNovak/Discord-Bot-TypeScript-Template/blob/master/LEGAL.md#terms-of-service",
+        "source": "https://github.com/LaDfBC",
+        "stream": "",
+        "support": "https://discord.gg/trAAaKgzAD",
+        "template": "https://github.com/LaDfBC/Redwood",
+        "terms": "https://github.com/LaDfBC/Redwood/blob/master/LEGAL.md#terms-of-service",
         "vote": "https://top.gg/"
     }
 }

@@ -16,7 +16,7 @@ export class ChartCreateCommand implements Command {
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        let args: { name: string, title: string, description: string, imageLink; string } = {
+        let args: { name: string, title: string, description: string, imageLink: string } = {
             name: intr.options.getString(
                 Lang.getRef('arguments.chartCreateNameOption', Language.Default)
             ),
@@ -32,15 +32,15 @@ export class ChartCreateCommand implements Command {
         };
 
         let embed: EmbedBuilder;
-        if (await this.databaseService.commandExists(args.name, intr.guildId)) {
+        if (await this.databaseService.chartExists(args.name, intr.guildId)) {
             embed = Lang.getEmbed('displayEmbeds.chartCreateCommandNameAlreadyExists', data.lang, {
                 //TODO: Get the username of the already-existing command so that we can show a better display message.
-                COMMAND_NAME: args.name
+                CHART_NAME: args.name
             });
         } else {
-            await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.action)
+            await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, args.imageLink);
             embed = Lang.getEmbed('displayEmbeds.chartCreateCommandSuccessful', data.lang, {
-                COMMAND_NAME: args.name
+                CHART_NAME: args.name
             })
         }
 

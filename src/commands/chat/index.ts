@@ -10,3 +10,6 @@ export { CcDeleteCommand } from './cc-delete-command.js';
 export { CcMineCommand } from './cc-mine-command.js'
 export { CcFetchCommand } from './cc-command.js';
 export { FieldingCommand } from './fielding-command.js';
+export { ChartCreateCommand } from './chart-create-command.js';
+export { ChartDeleteCommand } from './chart-delete-command.js';
+export { ChartFetchCommand } from './chart-command.js';

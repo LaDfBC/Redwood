@@ -2,22 +2,28 @@ import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'di
 
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
+import {DatabaseService, Lang } from '../../services/index.js';
 import { InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class AtBatCommand implements Command {
+    constructor(
+        private databaseService: DatabaseService,
+    ) {}
+
     public names = [Lang.getRef('chatCommands.ab', Language.Default)];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const chaosRoll: number = getRandomInt(1, 20)
         if (chaosRoll === 1) { // Wild Pitch
+            await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, 1)
             await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abWildPitchCommand', data.lang, {
                 ROLL_RESULT: getRandomInt(1, 20).toString(),
                 USER: intr.user.displayName,
             }));
         } else if (chaosRoll === 2) { // Balk or Passed Ball
+            await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, 2)
             const chaosDecisionRoll: number = getRandomInt(1, 6)
             if (chaosDecisionRoll <= 3) { // Balk
                 await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abBalkCommand', data.lang, {
@@ -25,6 +31,7 @@ export class AtBatCommand implements Command {
                     USER: intr.user.displayName,
                 }));
             } else { // Passed Ball
+                await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, 3)
                 await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abPassedBallCommand', data.lang, {
                     ROLL_RESULT: getRandomInt(1, 20).toString(),
                     USER: intr.user.displayName,
@@ -35,6 +42,9 @@ export class AtBatCommand implements Command {
             const rollOne: number = getRandomInt(1, 6);
             const rollTwo: number = getRandomInt(1, 6);
             const finald20Roll: number = getRandomInt(1, 20);
+
+            await this.databaseService.logAtBatRolls(intr.user.username, intr.guildId, {d6: rollSingle, twod6: [rollOne, rollTwo], d20: finald20Roll})
+
             let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.abStandardCommand', data.lang, {
                 ROLL_SINGLE: rollSingle.toString(),
                 ROLL_RESULT: (rollOne + rollTwo).toString(),

@@ -56,11 +56,6 @@ export class Args {
                 name_localizations: Lang.getRefLocalizationMap('infoOptions.about'),
                 value: InfoOption.ABOUT,
             },
-            {
-                name: Lang.getRef('infoOptions.translate', Language.Default),
-                name_localizations: Lang.getRefLocalizationMap('infoOptions.translate'),
-                value: InfoOption.TRANSLATE,
-            },
         ],
     };
     public static readonly CC_CREATE_NAME_OPTION: APIApplicationCommandBasicOption = {
@@ -77,6 +72,34 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.ccCreateActionOption'),
         type: ApplicationCommandOptionType.String,
     };
+    public static readonly CHART_CREATE_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartCreateNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartCreateNameOption'),
+        description: Lang.getRef('argDescs.chartCreateNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartCreateNameOption'),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_CREATE_TITLE_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartCreateTitleOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartCreateTitleOption'),
+        description: Lang.getRef('argDescs.chartCreateTitleOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartCreateTitleOption'),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_CREATE_DESCRIPTION_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartCreateDescriptionOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartCreateDescriptionOption'),
+        description: Lang.getRef('argDescs.chartCreateDescriptionOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartCreateDescriptionOption'),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_CREATE_IMAGE_LINK_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartCreateImageLinkOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartCreateImageLinkOption'),
+        description: Lang.getRef('argDescs.chartCreateImageLinkOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartCreateImageLinkOption'),
+        type: ApplicationCommandOptionType.String,
+    };
     public static readonly CC_DELETE_NAME_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.ccDeleteNameOption', Language.Default),
         name_localizations: Lang.getRefLocalizationMap('arguments.ccDeleteNameOption'),
@@ -90,6 +113,22 @@ export class Args {
         name_localizations: Lang.getRefLocalizationMap('arguments.ccFetchNameOption'),
         description: Lang.getRef('argDescs.ccFetchNameOption', Language.Default),
         description_localizations: Lang.getRefLocalizationMap('argDescs.ccFetchNameOption'),
+        autocomplete: true,
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_DELETE_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartDeleteNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartDeleteNameOption'),
+        description: Lang.getRef('argDescs.chartDeleteNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartDeleteNameOption'),
+        autocomplete: true,
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_FETCH_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartFetchNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartFetchNameOption'),
+        description: Lang.getRef('argDescs.chartFetchNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartFetchNameOption'),
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };

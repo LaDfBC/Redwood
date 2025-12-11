@@ -159,7 +159,64 @@ export const ChatCommandMetadata: {
                 required: true
             }
         ]
-    }
+    },
+    CHART_CREATE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.chart-create', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.chart-create'),
+        description: Lang.getRef('commandDescs.chartCreate', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.chartCreate'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CHART_CREATE_NAME_OPTION,
+                required: true,
+            },
+            {
+                ...Args.CHART_CREATE_TITLE_OPTION,
+                required: true
+            },
+            {
+                ...Args.CHART_CREATE_DESCRIPTION_OPTION,
+                required: true
+            },
+            {
+                ...Args.CHART_CREATE_IMAGE_LINK_OPTION,
+                required: true
+            },
+        ],
+    },
+    CHART_DELETE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.chart-delete', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.chart-delete'),
+        description: Lang.getRef('commandDescs.chartDelete', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.chartDelete'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CHART_DELETE_NAME_OPTION,
+                required: true
+            }
+        ]
+    },
+    CHART_FETCH: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.chart-fetch', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.chart-fetch'),
+        description: Lang.getRef('commandDescs.chartFetch', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.chartFetch'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CHART_FETCH_NAME_OPTION,
+                required: true
+            }
+        ]
+    },
 };
 
 export const MessageCommandMetadata: {

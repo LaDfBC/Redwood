@@ -152,4 +152,36 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet author="Jaera" id="7">
+        <renameColumn tableName="chart" oldColumnName="server_id" newColumnName="guild_id" />
+    </changeSet>
+    <changeSet author="Jaera" id="8">
+        <addColumn tableName="ab_history">
+            <column name="roll_value" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <renameColumn tableName="ab_history" oldColumnName="server_id" newColumnName="guild_id" />
+        <createTable tableName="ab_history_individual_rolls">
+            <column name="uuid" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sequence_number" type="integer">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="roll_value" type="integer">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Jaera" id="9">
+        <addForeignKeyConstraint
+                baseColumnNames="uuid"
+                baseTableName="ab_history_individual_rolls"
+                referencedColumnNames="uuid"
+                referencedTableName="ab_history"
+                constraintName="ab_history_uuid_fk"
+        />
+    </changeSet>
+
 </databaseChangeLog>

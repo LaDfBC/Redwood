@@ -43,29 +43,29 @@ export class ChartDeleteCommand implements Command {
         const result: DeleteChartResult = await this.databaseService.deleteChart(args.name, intr.user.username, intr.guildId)
         if (result.success) {
             embed = Lang.getEmbed('displayEmbeds.chartDeleteCommandSuccessful', data.lang, {
-                COMMAND_NAME: args.name
+                CHART_NAME: args.name
             })
         } else {
             switch (result.reason) {
                 case DeleteChartFailureReason.CHART_DOES_NOT_EXIST:
-                    embed = Lang.getEmbed('displayEmbeds.ccDeleteNameDoesNotExist', data.lang, {
-                        COMMAND_NAME: args.name
+                    embed = Lang.getEmbed('displayEmbeds.chartDeleteNameDoesNotExist', data.lang, {
+                        CHART_NAME: args.name
                     })
                     break;
                 case DeleteChartFailureReason.USER_NOT_OWNER:
                     embed = Lang.getEmbed('displayEmbeds.chartDeleteUserNotOwner', data.lang, {
-                        COMMAND_NAME: args.name,
+                        CHART_NAME: args.name,
                         USER_NAME: intr.user.username
                     })
                     break;
                 case DeleteChartFailureReason.UNKNOWN:
                     embed = Lang.getEmbed('displayEmbeds.chartDeleteUnknownError', data.lang, {
-                        COMMAND_NAME: args.name
+                        CHART_NAME: args.name
                     })
                     break;
                 default:
                     embed = Lang.getEmbed('displayEmbeds.chartDeleteUnknownReason', data.lang, {
-                        COMMAND_NAME: args.name
+                        CHART_NAME: args.name
                     })
                     break;
             }

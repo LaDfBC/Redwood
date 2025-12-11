@@ -2,17 +2,21 @@ import {Knex} from "knex";
 import {createRequire} from "node:module";
 import {
   DeleteChartFailureReason,
-  DeleteCommandFailureReason,
+  DeleteCommandFailureReason, RollType,
 } from "../enums/index.js";
 import {Logger} from "./index.js";
 import {
-  ChartRow,
-  CustomCommandRow,
-  DeleteChartResult,
-  DeleteCommandResult,
-  FieldingErrorRow,
-  FieldingRangeRow,
+    AbHistoryRow,
+    AbHistoryIndividualRollRow,
+    ChartRow,
+    CustomCommandRow,
+    DeleteChartResult,
+    DeleteCommandResult,
+    FieldingErrorRow,
+    FieldingRangeRow,
+    RollMapping,
 } from "../models/database";
+import { randomUUID } from 'crypto'
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -158,10 +162,10 @@ export class DatabaseService {
         try {
             if (!(await this.chartExists(chartName, guildId))) {
                 return { success: false, reason: DeleteChartFailureReason.CHART_DOES_NOT_EXIST };
-            } else if ((await this.fetchCommand(chartName, guildId)).owner_username !== requestingUser) {
+            } else if ((await this.fetchChart(chartName, guildId)).owner_username !== requestingUser) {
                 return { success: false, reason: DeleteChartFailureReason.USER_NOT_OWNER}
             } else {
-                await knex<CustomCommandRow>('chart').where('chart_name', chartName).del();
+                await knex<ChartRow>('chart').where('chart_name', chartName).del();
                 return { success: true, reason: undefined };
             }
         } catch (error) {
@@ -172,5 +176,64 @@ export class DatabaseService {
 
     public async chartExists(chartName: string, guildId: string): Promise<boolean> {
         return await this.fetchChart(chartName, guildId) !== undefined;
+    }
+
+    public async logChaosRoll(username: string, guildId: string, chaosRoll: number): Promise<void> {
+        await knex<AbHistoryRow>('ab_history')
+            .insert({
+                uuid: randomUUID(),
+                username: username,
+                guild_id: guildId,
+                roll_type: RollType.CHAOS,
+                roll_value: chaosRoll,
+                roll_date: new Date(),
+            })
+    }
+
+    public async logAtBatRolls(username: string, guildId: string, rolls: RollMapping): Promise<void> {
+        const uuidFor2d6 = randomUUID()
+
+        await knex<AbHistoryRow>('ab_history')
+            .insert([
+                {
+                    uuid: randomUUID(),
+                    username: username,
+                    guild_id: guildId,
+                    roll_type: RollType.D20,
+                    roll_value: rolls.d20,
+                    roll_date: new Date(),
+                },
+                    {
+                    uuid: uuidFor2d6,
+                    username: username,
+                    guild_id: guildId,
+                    roll_type: RollType.TWOD6,
+                    roll_value: rolls.twod6.reduce((acc, currentValue) => acc + currentValue, 0),
+                    roll_date: new Date(),
+                },
+                {
+                    uuid: randomUUID(),
+                    username: username,
+                    guild_id: guildId,
+                    roll_type: RollType.D6,
+                    roll_value: rolls.d6,
+                    roll_date: new Date(),
+                }
+            ])
+
+
+        await knex<AbHistoryIndividualRollRow>('ab_history_individual_rolls')
+            .insert([
+                {
+                    uuid: uuidFor2d6,
+                    sequence_number: 1,
+                    roll_value: rolls.twod6[0]
+                },
+                {
+                    uuid: uuidFor2d6,
+                    sequence_number: 2,
+                    roll_value: rolls.twod6[1]
+                }
+            ])
     }
 }

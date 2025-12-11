@@ -112,14 +112,14 @@
                 ]
             },
             "ccNameDoesNotExist": {
-                "title": "Unsuccessful custom command",
+                "title": "Unsuccessful custom command lookup",
                 "fields": [
                     {
                         "name": "Error",
                         "value": "The command {{COMMAND_NAME}} does not exist!"
                     }
                 ],
-                "color": "{{COM.colors.error}}"
+                "color": "{{COM:colors.error}}"
             },
             "ccCreateCommandNameAlreadyExists": {
               "title": "Unsuccessful custom command creation",
@@ -193,6 +193,86 @@
             "ccMineSingularCommandNoUsage": {
                 "name": ":arrow_forward",
                 "value": "{{ACTION}}\nBy {{OWNER}} - {{REF:ccUsageMessages.never}}"
+            },
+            "chartNameDoesNotExist": {
+                "title": "Unsuccessful chart lookup",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The command {{CHART_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartFetchSuccess": {
+                "title": "Found chart {{CHART_NAME}}",
+                "fields": [
+                    {
+                        "name": "{{TITLE}}",
+                        "value": "{{DESCRIPTION}}"
+
+                    }
+                ],
+                "image": "{{IMAGE_LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
+            "chartCreateCommandNameAlreadyExists": {
+                "title": "Unsuccessful chart creation",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "There is already a different chart with the name {{CHART_NAME}}."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartCreateCommandSuccessful": {
+                "title": "Success - {{CHART_NAME}} is ready for use!",
+                "color": "{{COM:colors.success}}"
+            },
+            "chartDeleteCommandSuccessful": {
+                "title": "Success - {{CHART_NAME}} has been deleted!",
+                "color": "{{COM:colors.success}}"
+            },
+            "chartDeleteNameDoesNotExist": {
+                "title": ":x: Failed to delete chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The command {{CHART_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartDeleteUserNotOwner": {
+                "title": ":x: Failed to delete chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "{{USER_NAME}} does not own {{CHART_NAME}} and therefore cannot delete it"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartDeleteUnknownError":  {
+                "title": ":x: Failed to delete chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "UNKNOWN ERROR - An error was caught but was unexpected.  Please use the /help command to contact support."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartDeleteUnknownReason": {
+                "title": ":x: Failed to delete chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "UNKNOWN FAILURE REASON - Something catastrophic happened -  Please use the /help command to contact support."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
             },
             "jumpStandardCommand": {
                 "title": "Jump roll for {{USER}}",
@@ -381,7 +461,7 @@
             "translators": "[TranslatorName#1234](https://github.com/)"
         },
         "bot": {
-            "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
+            "description": "{{REF:links.templateEmbed}} is a support bot for fake baseball servers, originally designed for the Online Pennant Series."
         },
         "chatCommands": {
             "dev": "dev",
@@ -395,7 +475,10 @@
             "cc-create": "cc-create",
             "cc-delete": "cc-delete",
             "cc-mine": "cc-mine",
-            "fielding": "fielding"
+            "fielding": "fielding",
+            "chart-fetch": "chart",
+            "chart-create": "chart-create",
+            "chart-delete": "chart-delete"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -411,7 +494,13 @@
             "cc-name-option": "name",
             "ccDeleteNameOption": "name",
             "ccFetchNameOption": "name",
-            "fieldingPositionOption": "position"
+            "fieldingPositionOption": "position",
+            "chartCreateNameOption": "name",
+            "chartCreateTitleOption": "title",
+            "chartCreateDescriptionOption": "description",
+            "chartCreateImageLinkOption": "image-link",
+            "chartDeleteNameOption": "name",
+            "chartFetchNameOption": "name"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -424,7 +513,10 @@
             "ccDelete": "Delete a custom command",
             "ccFetch": "Run a custom command",
             "jump": "Roll for baserunner's jump before stealing",
-            "fielding": "Roll for a fielder's response to a ball in play"
+            "fielding": "Roll for a fielder's response to a ball in play",
+            "chartCreate": "Create a chart",
+            "chartDelete": "Delete a chart",
+            "chartFetch": "Fetch a chart"
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -437,7 +529,13 @@
             "ccDeleteNameOption": "Option.",
             "ccFetchNameOption": "Option.",
             "jumpOption": "Option.",
-            "fieldingPositionOption": "Option."
+            "fieldingPositionOption": "Option.",
+            "chartCreateNameOption": "Chart Name - How it will be referenced in the slash command",
+            "chartCreateTitleOption": "Chart Title - Displayed at the top in bold",
+            "chartCreateDescriptionOption": "Chart Description - Long form explanation of the chart",
+            "chartCreateImageLinkOption": "Chart Image Link/URL - How this chart can be found on the internet",
+            "chartDeleteNameOption": "Name of the chart to delete",
+            "chartFetchNameOption": "Name of the chart to fetch"
         },
         "fields": {
             "commands": "Commands",
@@ -552,7 +650,7 @@
             "inviteEmbed": "[Invite {{COM:bot.name}} to a Server!]({{COM:links.invite}})",
             "sourceEmbed": "[View Source Code]({{COM:links.source}})",
             "supportEmbed": "[Join Support Server]({{COM:links.support}})",
-            "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
+            "templateEmbed": "[Redwood]({{COM:links.template}})",
             "termsEmbed": "[View Terms of Service]({{COM:links.terms}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
         }
