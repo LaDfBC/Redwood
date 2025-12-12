@@ -18,6 +18,7 @@ import {
   ChartCreateCommand,
   ChartDeleteCommand,
   ChartFetchCommand,
+  AbHistoryCommand, ButtStuffCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -74,13 +75,14 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        new DevCommand(),
+        // new DevCommand(),
         new HelpCommand(),
         new InfoCommand(),
-        new TestCommand(),
+        // new TestCommand(),
         new D20Command(),
         new JumpCommand(),
         new AtBatCommand(databaseService),
+        new AbHistoryCommand(databaseService),
         new CcCreateCommand(databaseService),
         // new CcMineCommand(databaseService),
         new CcDeleteCommand(databaseService),
@@ -89,6 +91,7 @@ async function start(): Promise<void> {
         new ChartCreateCommand(databaseService),
         new ChartDeleteCommand(databaseService),
         new ChartFetchCommand(databaseService),
+        new ButtStuffCommand(),
 
         // Message Context Commands
         new ViewDateSent(),

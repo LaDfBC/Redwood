@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "4a8bade0abacdf9c7743d172da9df742f8014eae8347bb4800b3db93444e73eb": {
+      "displayName": "redwood-bot-stack-cdk Template",
+      "source": {
+        "path": "redwood-bot-stack-cdk.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "023487918592-us-east-1-55a3f62a": {
+          "bucketName": "cdk-hnb659fds-assets-023487918592-us-east-1",
+          "objectKey": "4a8bade0abacdf9c7743d172da9df742f8014eae8347bb4800b3db93444e73eb.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::023487918592:role/cdk-hnb659fds-file-publishing-role-023487918592-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

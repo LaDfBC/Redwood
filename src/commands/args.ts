@@ -5,6 +5,7 @@ import {
   HelpOption,
   InfoOption,
   PositionOption,
+  RollType,
 } from "../enums/index.js";
 import { Language } from '../models/enum-helpers/index.js';
 import {DatabaseService, Lang } from '../services/index.js';
@@ -185,6 +186,55 @@ export class Args {
             },
 
         ],
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly AB_HISTORY_COUNT_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.abHistoryCountOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.abHistoryCountOption'),
+        description: Lang.getRef('argDescs.abHistoryCountOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.abHistoryCountOption'),
+        type: ApplicationCommandOptionType.Number,
+    };
+    public static readonly AB_HISTORY_ROLL_TYPE_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.abHistoryRollTypeOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.abHistoryRollTypeOption'),
+        description: Lang.getRef('argDescs.abHistoryRollTypeOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.abHistoryRollTypeOption'),
+        type: ApplicationCommandOptionType.String,
+        choices: [
+            {
+                name: Lang.getRef('rollTypeOptions.d20', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('rollTypeOptions.d20'),
+                value: RollType.D20,
+            },
+            {
+                name: Lang.getRef('rollTypeOptions.twoD6', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('rollTypeOptions.twoD6'),
+                value: RollType.TWOD6,
+            },
+            {
+                name: Lang.getRef('rollTypeOptions.d6', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('rollTypeOptions.d6'),
+                value: RollType.D6,
+            },
+            {
+                name: Lang.getRef('rollTypeOptions.all', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('rollTypeOptions.all'),
+                value: RollType.ALL,
+            },
+            {
+                name: Lang.getRef('rollTypeOptions.chaos', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('rollTypeOptions.chaos'),
+                value: RollType.CHAOS,
+            },
+        ],
+    };
+    public static readonly PLAYER_FETCH_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.playerFetchNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.playerFetchNameOption'),
+        description: Lang.getRef('argDescs.playerFetchNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.playerFetchNameOption'),
+        autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };
 }

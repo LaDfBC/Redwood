@@ -1,0 +1,37 @@
+digraph G {
+  # Arrows represent an "unlocks" relationship (opposite of dependency). So chosen
+  # because the layout looks more natural that way.
+  # To represent subgraph dependencies, subgraphs are represented by BEGIN/END nodes.
+  # To render: `dot -Tsvg redwoodbotstackcdkPipelineAB3FD784.dot > graph.svg`, open in a browser.
+  node [shape="box"];
+"BEGIN Build" [shape="cds", style="filled", fillcolor="#b7deff"];
+"END Build" [shape="cds", style="filled", fillcolor="#b7deff"];
+"Build.Synth";
+"Source.LaDfBC/Redwood" -> "Build.Synth";
+"BEGIN Build" -> "Build.Synth";
+"Build.Synth" -> "END Build";
+"BEGIN UpdatePipeline" [shape="cds", style="filled", fillcolor="#b7deff"];
+"END UpdatePipeline" [shape="cds", style="filled", fillcolor="#b7deff"];
+"UpdatePipeline.SelfMutate";
+"Build.Synth" -> "UpdatePipeline.SelfMutate";
+"BEGIN UpdatePipeline" -> "UpdatePipeline.SelfMutate";
+"UpdatePipeline.SelfMutate" -> "END UpdatePipeline";
+"BEGIN redwood-bot" [shape="cds", style="filled", fillcolor="#b7deff"];
+"END redwood-bot" [shape="cds", style="filled", fillcolor="#b7deff"];
+"UpdatePipeline.SelfMutate" -> "BEGIN redwood-bot";
+"BEGIN redwood-bot.discord-bot-stack" [shape="cds", style="filled", fillcolor="#b7deff"];
+"END redwood-bot.discord-bot-stack" [shape="cds", style="filled", fillcolor="#b7deff"];
+"redwood-bot.discord-bot-stack.Deploy";
+"redwood-bot.discord-bot-stack.Prepare" -> "redwood-bot.discord-bot-stack.Deploy";
+"redwood-bot.discord-bot-stack.Prepare";
+"Build.Synth" -> "redwood-bot.discord-bot-stack.Prepare";
+"BEGIN redwood-bot.discord-bot-stack" -> "redwood-bot.discord-bot-stack.Prepare";
+"redwood-bot.discord-bot-stack.Deploy" -> "END redwood-bot.discord-bot-stack";
+"BEGIN redwood-bot" -> "BEGIN redwood-bot.discord-bot-stack";
+"END redwood-bot.discord-bot-stack" -> "END redwood-bot";
+"BEGIN Source" [shape="cds", style="filled", fillcolor="#b7deff"];
+"END Source" [shape="cds", style="filled", fillcolor="#b7deff"];
+"Source.LaDfBC/Redwood";
+"BEGIN Source" -> "Source.LaDfBC/Redwood";
+"Source.LaDfBC/Redwood" -> "END Source";
+}

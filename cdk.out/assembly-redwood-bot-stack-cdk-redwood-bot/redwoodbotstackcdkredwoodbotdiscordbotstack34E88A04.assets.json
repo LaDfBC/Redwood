@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "05a76013e05887f9956325557ca7dda7c6f6a0cd404669d53ae816e3c03fefa1": {
+      "displayName": "redwood-bot-discord-bot-stack Template",
+      "source": {
+        "path": "redwoodbotstackcdkredwoodbotdiscordbotstack34E88A04.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "023487918592-us-east-1-3388d56d": {
+          "bucketName": "cdk-hnb659fds-assets-023487918592-us-east-1",
+          "objectKey": "05a76013e05887f9956325557ca7dda7c6f6a0cd404669d53ae816e3c03fefa1.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::023487918592:role/cdk-hnb659fds-file-publishing-role-023487918592-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

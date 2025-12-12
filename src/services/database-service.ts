@@ -1,13 +1,10 @@
 import {Knex} from "knex";
 import {createRequire} from "node:module";
-import {
-  DeleteChartFailureReason,
-  DeleteCommandFailureReason, RollType,
-} from "../enums/index.js";
+import {DeleteChartFailureReason, DeleteCommandFailureReason, RollType,} from "../enums/index.js";
 import {Logger} from "./index.js";
 import {
-    AbHistoryRow,
     AbHistoryIndividualRollRow,
+    AbHistoryRow,
     ChartRow,
     CustomCommandRow,
     DeleteChartResult,
@@ -16,7 +13,8 @@ import {
     FieldingRangeRow,
     RollMapping,
 } from "../models/database";
-import { randomUUID } from 'crypto'
+import {randomUUID} from 'crypto'
+import {PlayerRow} from "../models/database/player-row";
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -235,5 +233,32 @@ export class DatabaseService {
                     roll_value: rolls.twod6[1]
                 }
             ])
+    }
+
+    public async fetchAbHistory(username: string, guildId: string, rollType: RollType, count: number): Promise<AbHistoryRow[]> {
+        const typeToFetch = rollType === RollType.ALL ? [RollType.D20, RollType.D6, RollType.TWOD6] : [rollType]
+        const limit = rollType === RollType.ALL ? count * 3 : count
+
+        return knex<AbHistoryRow>('ab_history')
+            .select('*')
+            .whereIn('roll_type', typeToFetch)
+            .where('username', username)
+            .andWhere('guild_id', guildId)
+            .orderBy('roll_date', 'desc')
+            .limit(limit)
+
+    }
+
+    public async fetchPlayer(playerName: string): Promise<PlayerRow[] | undefined> {
+        return knex<PlayerRow>('player')
+            .where('player_name', playerName)
+            .join('player_position', 'player.uuid', 'player_position.uuid')
+            .select('player.*', 'player_position.position')
+    }
+
+    public async fetchAllPlayersMatchingString(playerName: string): Promise<string[]> {
+        return await knex<PlayerRow>('player')
+            .whereILike('player_name', `%${playerName}%`)
+            .select('player_name')
     }
 }

@@ -3,4 +3,5 @@ export enum RollType {
     TWOD6 = '2d6',
     D6 = 'D6',
     CHAOS = 'CHAOS',
+    ALL = 'ALL'
 }

@@ -274,6 +274,23 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
+            "abHistoryUnknownRollType": {
+                "title": ":x: Failed to fetch historical at-bat rolls",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "Invalid Input: {{BAD_ROLL_TYPE}} is an unknown roll type."
+                    }
+                ],
+                "color": "{{COM:colors.error}}",
+                "footer": {
+                    "text": "If this continues to happen, please use the /help command and join the support server."
+                }
+            },
+            "abHistorySuccess": {
+                "title": "Historical roll statistics for {{USER}}",
+                "color": "{{COM:colors.success}}"
+            },
             "jumpStandardCommand": {
                 "title": "Jump roll for {{USER}}",
                 "fields": [
@@ -281,7 +298,8 @@
                         "name": "Result",
                         "value": ["# {{ROLL_RESULT}}", "{{Details:[2d6 ({ROLL_ONE} {ROLL_TWO})]"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.success}}"
             },
             "jumpPickoffCommand": {
                 "title": "Jump roll for {{USER}}",
@@ -294,7 +312,8 @@
                         "name": "Pickoff Roll",
                         "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.success}}"
             },
             "jumpBalkCommand": {
                 "title": "Jump roll for {{USER}}",
@@ -307,7 +326,8 @@
                         "name": "Result",
                         "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.success}}"
             },
             "fielding": {
                 "title": "Fielding roll for {{USER}}",
@@ -324,7 +344,29 @@
                         "name": "Error Numbers",
                         "value": ["```js\n{{ERROR_TEXT}}```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.success}}"
+            },
+            "playerFetchSuccess": {
+                "title": "{{PLAYER_NAME}}",
+                "fields": [
+                    {
+                        "name": "{{POSITION_NAME}}",
+                        "value": "{{POSITION_VALUE}}"
+                    }
+                ],
+                "image": "{{IMAGE_LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
+            "playerNameDoesNotExist": {
+                "title": ":x: Failed to find player",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The player {{PLAYER_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
             },
             "test": {
                 "description": "Test command works!"
@@ -470,6 +512,7 @@
             "test": "test",
             "d20": "d20",
             "ab": "ab",
+            "ab-history": "ab-history",
             "jump": "jump",
             "cc-fetch": "cc",
             "cc-create": "cc-create",
@@ -478,7 +521,9 @@
             "fielding": "fielding",
             "chart-fetch": "chart",
             "chart-create": "chart-create",
-            "chart-delete": "chart-delete"
+            "chart-delete": "chart-delete",
+            "player-fetch": "player",
+            "butt-stuff": "butt-stuff"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -500,7 +545,10 @@
             "chartCreateDescriptionOption": "description",
             "chartCreateImageLinkOption": "image-link",
             "chartDeleteNameOption": "name",
-            "chartFetchNameOption": "name"
+            "chartFetchNameOption": "name",
+            "abHistoryCountOption": "count",
+            "abHistoryRollTypeOption": "roll-type",
+            "playerFetchNameOption": "player-name"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -509,6 +557,7 @@
             "test": "Run the test command.",
             "d20": "Roll a single d20.",
             "ab": "Roll for a plate appearance",
+            "abHistory": "Fetch statistics on your own previous ab rolls",
             "ccCreate": "Create a custom command",
             "ccDelete": "Delete a custom command",
             "ccFetch": "Run a custom command",
@@ -516,26 +565,30 @@
             "fielding": "Roll for a fielder's response to a ball in play",
             "chartCreate": "Create a chart",
             "chartDelete": "Delete a chart",
-            "chartFetch": "Fetch a chart"
+            "chartFetch": "Fetch a chart",
+            "playerFetch": "Fetch a player",
+            "buttStuff": "My anaconda don't want none unless you got buns, hun"
         },
         "argDescs": {
             "devCommand": "Command.",
             "helpOption": "Option.",
             "infoOption": "Option.",
             "d20Option": "Option.",
-            "abOption": "Option.",
-            "ccCreateNameOption": "Option.",
-            "ccCreateActionOption": "Option.",
-            "ccDeleteNameOption": "Option.",
-            "ccFetchNameOption": "Option.",
-            "jumpOption": "Option.",
-            "fieldingPositionOption": "Option.",
+            "ccCreateNameOption": "Command Name",
+            "ccCreateActionOption": "Command Action or Link",
+            "ccDeleteNameOption": "Command Name",
+            "ccFetchNameOption": "Command Name",
+            "jumpOption": "Jump on a steal",
+            "fieldingPositionOption": "Fielding Position",
             "chartCreateNameOption": "Chart Name - How it will be referenced in the slash command",
             "chartCreateTitleOption": "Chart Title - Displayed at the top in bold",
             "chartCreateDescriptionOption": "Chart Description - Long form explanation of the chart",
             "chartCreateImageLinkOption": "Chart Image Link/URL - How this chart can be found on the internet",
             "chartDeleteNameOption": "Name of the chart to delete",
-            "chartFetchNameOption": "Name of the chart to fetch"
+            "chartFetchNameOption": "Name of the chart to fetch",
+            "abHistoryCountOption": "How many results will be analyzed",
+            "abHistoryRollTypeOption": "Type of roll whose results will be fetched - All does not include Chaos rolls",
+            "playerFetchNameOption": "Name of the player to fetch"
         },
         "fields": {
             "commands": "Commands",
@@ -631,6 +684,13 @@
             "rightField": "RF",
             "centerField": "CF",
             "leftField": "LF"
+        },
+        "rollTypeOptions": {
+            "d20": "d20",
+            "twoD6": "2d6",
+            "d6": "d6",
+            "all": "ALL",
+            "chaos": "CHAOS"
         },
         "yesNo": {
             "yes": "Yes",

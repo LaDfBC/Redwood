@@ -70,7 +70,6 @@
             </column>
             <column name="batter_card_path" type="VARCHAR(255)"/>
             <column name="pitcher_card_path" type="VARCHAR(255)"/>
-            <column name="position" type="VARCHAR(255)"/>
             <column name="year" type="VARCHAR(255)" />
             <column name="active" type="boolean" defaultValue="true"/>
         </createTable>
@@ -183,5 +182,25 @@
                 constraintName="ab_history_uuid_fk"
         />
     </changeSet>
-
+    <changeSet author="Jaera" id="10">
+        <renameTable oldTableName="player_lookup" newTableName="player" />
+        <createTable tableName="player_position">
+            <column name="uuid" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="position" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="uuid"
+                baseTableName="player_position"
+                referencedColumnNames="uuid"
+                referencedTableName="player"
+                constraintName="player_position_uuid_fk"
+        />
+    </changeSet>
+    <changeSet author="Jaera" id="11">
+        <dropColumn tableName="player" columnName="position" />
+    </changeSet>
 </databaseChangeLog>

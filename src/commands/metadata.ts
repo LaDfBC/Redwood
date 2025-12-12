@@ -217,6 +217,49 @@ export const ChatCommandMetadata: {
             }
         ]
     },
+    AB_HISTORY: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.ab-history', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.ab-history'),
+        description: Lang.getRef('commandDescs.abHistory', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.abHistory'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.AB_HISTORY_COUNT_OPTION,
+                required: true
+            },
+            {
+                ...Args.AB_HISTORY_ROLL_TYPE_OPTION,
+                required: true
+            }
+        ]
+    },
+    PLAYER_FETCH: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.player-fetch', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.player-fetch'),
+        description: Lang.getRef('commandDescs.playerFetch', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.playerFetch'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.PLAYER_FETCH_NAME_OPTION,
+                required: true
+            }
+        ]
+    },
+    BUTT_STUFF: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.butt-stuff', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.butt-stuff'),
+        description: Lang.getRef('commandDescs.buttStuff', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.buttStuff'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
 };
 
 export const MessageCommandMetadata: {

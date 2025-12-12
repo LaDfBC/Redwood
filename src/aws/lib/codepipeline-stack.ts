@@ -5,20 +5,20 @@ import {
 } from 'aws-cdk-lib'
 
 const { CodePipeline, CodePipelineSource, ShellStep } = pipelines
-import {ApiBillingStage} from './app-stage'
 import {Construct} from "constructs";
 import * as cdk from "aws-cdk-lib";
+import { RedwoodBotStage } from "./app-stage.js"
 
 export class CodepipelineStack extends Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props)
 
         const params = {
-            repo: 'LaDfBC/Strat-o-matic-bot',
+            repo: 'LaDfBC/Redwood',
             branch: 'master',
         };
 
-        const connectionArn = 'arn:aws:codeconnections:us-east-1:023487918592:connection/b897c10d-6491-4f1e-9280-964289c4940f'
+        const connectionArn = 'arn:aws:codeconnections:us-east-2:023487918592:connection/b784305d-f57e-446b-b92e-86b8903fddb6'
 
         const { repo, branch } = params
 
@@ -41,7 +41,7 @@ export class CodepipelineStack extends Stack {
         })
 
         // The first stage is added after we started using nested stacks so it includes the one that needs to be first
-        // pipeline.addStage(new ApiBillingStage(this, 'api-billing', props))
-        // pipeline.buildPipeline()
+        pipeline.addStage(new RedwoodBotStage(this, 'redwood-bot', props))
+        pipeline.buildPipeline()
     }
 }
