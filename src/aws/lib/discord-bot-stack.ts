@@ -25,12 +25,6 @@ export class DiscordBotStack extends Stack {
             bucketName: 'online-pennant-player-bucket'
         });
 
-        const parameterGroup = new rds.ParameterGroup(this, 'onlinePennantDatabaseParameterGroup', {
-            engine: rds.DatabaseClusterEngine.AURORA_POSTGRESQL,
-            parameters: {
-                "rds.force_ssl": "0"
-            }
-        })
 
         const coreDatabase = new rds.DatabaseCluster(this, "onlinePennantDatabase", {
             clusterIdentifier: 'online-pennant',
@@ -39,7 +33,6 @@ export class DiscordBotStack extends Stack {
             readers:    [
                 rds.ClusterInstance.serverlessV2("onlinePennantReader")
             ],
-            parameterGroup: parameterGroup,
             credentials: rds.Credentials.fromGeneratedSecret('onlinePennantDatabaseSecret'),
             storageType: rds.DBClusterStorageType.AURORA,
             storageEncrypted: true,
