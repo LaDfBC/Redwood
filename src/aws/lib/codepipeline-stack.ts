@@ -15,7 +15,7 @@ export class CodepipelineStack extends Stack {
 
         const params = {
             repo: 'LaDfBC/Redwood',
-            branch: 'master',
+            branch: 'main',
         };
 
         const connectionArn = 'arn:aws:codeconnections:us-east-2:023487918592:connection/b784305d-f57e-446b-b92e-86b8903fddb6'
