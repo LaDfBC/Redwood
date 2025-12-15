@@ -22,7 +22,7 @@ export class AbHistoryCommand implements Command {
     ) {}
 
     public names = [Lang.getRef('chatCommands.ab-history', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { count: number, roll_type: string } = {

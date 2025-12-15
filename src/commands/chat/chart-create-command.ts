@@ -13,7 +13,7 @@ export class ChartCreateCommand implements Command {
     ) {}
 
     public names = [Lang.getRef('chatCommands.chart-create', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { name: string, title: string, description: string, imageLink: string } = {

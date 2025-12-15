@@ -16,7 +16,7 @@ let TsConfig = require('../../../tsconfig.json');
 
 export class DevCommand implements Command {
     public names = [Lang.getRef('chatCommands.dev', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         if (!Config.developers.includes(intr.user.id)) {

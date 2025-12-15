@@ -22,7 +22,7 @@ export class CcDeleteCommand implements Command {
     ) {}
 
     public names = [Lang.getRef('chatCommands.cc-delete', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { name: string } = {

@@ -8,7 +8,7 @@ import { Command, CommandDeferType } from '../index.js';
 
 export class D20Command implements Command {
     public names = [Lang.getRef('chatCommands.d20', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.d20Commands', data.lang, {

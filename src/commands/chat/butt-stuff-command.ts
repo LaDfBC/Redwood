@@ -8,7 +8,7 @@ import { Command, CommandDeferType } from '../index.js';
 
 export class ButtStuffCommand implements Command {
     public names = [Lang.getRef('chatCommands.butt-stuff', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const gifLink = await this.fetchRandomGif()

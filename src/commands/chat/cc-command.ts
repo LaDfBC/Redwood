@@ -21,7 +21,7 @@ export class CcFetchCommand implements Command {
     ) {}
 
     public names = [Lang.getRef('chatCommands.cc-fetch', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { name: string } = {

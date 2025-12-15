@@ -12,7 +12,7 @@ export class AtBatCommand implements Command {
     ) {}
 
     public names = [Lang.getRef('chatCommands.ab', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const chaosRoll: number = getRandomInt(1, 20)
