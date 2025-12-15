@@ -231,7 +231,7 @@
                 "color": "{{COM:colors.error}}"
             },
             "chartFetchSuccess": {
-                "title": "{{CHART_NAME}}",
+                "title": "{{TITLE}}",
                 "fields": [
                     {
                         "name": "Description",
