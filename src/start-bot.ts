@@ -18,7 +18,7 @@ import {
   ChartCreateCommand,
   ChartDeleteCommand,
   ChartFetchCommand,
-  AbHistoryCommand, ButtStuffCommand,
+  AbHistoryCommand, ButtStuffCommand, PlayerCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -92,6 +92,7 @@ async function start(): Promise<void> {
         new ChartDeleteCommand(databaseService),
         new ChartFetchCommand(databaseService),
         new ButtStuffCommand(),
+        new PlayerCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

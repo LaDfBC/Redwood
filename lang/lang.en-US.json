@@ -36,7 +36,19 @@
                             "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
                             "",
                             "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
-                            "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}"
+                            "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}",
+                            "{{CMD_LINK_AB}} - {{REF:commandDescs.ab}}",
+                            "{{CMD_LINK_AB_HISTORY}} - {{REF:commandDescs.abHistory}}",
+                            "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
+                            "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
+                            "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}",
+                            "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
+                            "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
+                            "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}",
+                            "{{CMD_LINK_D20}} - {{REF:commandDescs.d20}}",
+                            "{{CMD_LINK_FIELDING}} - {{REF:commandDescs.fielding}}",
+                            "{{CMD_LINK_JUMP}} - {{REF:commandDescs.jump}}",
+                            "{{CMD_LINK_PLAYER}} - {{REF:commandDescs.playerFetch}}"
                         ]
                     },
                     {
@@ -296,38 +308,47 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["# {{ROLL_RESULT}}", "{{Details:[2d6 ({ROLL_ONE} {ROLL_TWO})]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}", "Details: [2d6 ({{ROLL_ONE}} {{ROLL_TWO}})]```"]
                     }
                 ],
-                "color": "{{COM:colors.success}}"
+                "color": "{{COM:colors.success}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                }
             },
             "jumpPickoffCommand": {
                 "title": "Jump roll for {{USER}}",
                 "fields": [
                     {
                         "name": "Pickoff Attempt!",
-                        "value": ["Checking for pickoff..."]
+                        "value": ["Check for pickoff"]
                     },
                     {
                         "name": "Pickoff Roll",
-                        "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
                 ],
-                "color": "{{COM:colors.success}}"
+                "color": "{{COM:colors.success}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                }
             },
             "jumpBalkCommand": {
                 "title": "Jump roll for {{USER}}",
                 "fields": [
                     {
                         "name": "Possible Balk!",
-                        "value": ["Checking for balk..."]
+                        "value": ["Check for balk"]
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\n{{Details:[1d20 ({{ROLL_RESULT}}]```"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
                 ],
-                "color": "{{COM:colors.success}}"
+                "color": "{{COM:colors.success}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                }
             },
             "fielding": {
                 "title": "Fielding roll for {{USER}}",
@@ -393,10 +414,6 @@
                             "{{REF:links.supportEmbed}}",
                             "{{REF:links.inviteEmbed}}"
                         ]
-                    },
-                    {
-                        "name": "Created With",
-                        "value": ["{{REF:links.templateEmbed}}"]
                     }
                 ]
             },

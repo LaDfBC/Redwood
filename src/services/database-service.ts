@@ -1,17 +1,23 @@
 import {Knex} from "knex";
 import {createRequire} from "node:module";
-import {DeleteChartFailureReason, DeleteCommandFailureReason, RollType,} from "../enums/index.js";
+import {
+  DeleteChartFailureReason,
+  DeleteCommandFailureReason,
+  PlayerType,
+  RollType,
+} from "../enums/index.js";
 import {Logger} from "./index.js";
 import {
-    AbHistoryIndividualRollRow,
-    AbHistoryRow,
-    ChartRow,
-    CustomCommandRow,
-    DeleteChartResult,
-    DeleteCommandResult,
-    FieldingErrorRow,
-    FieldingRangeRow,
-    RollMapping,
+  AbHistoryIndividualRollRow,
+  AbHistoryRow,
+  ChartRow,
+  CustomCommandRow,
+  DeleteChartResult,
+  DeleteCommandResult,
+  FieldingErrorRow,
+  FieldingRangeRow,
+  PlayerPositionRow,
+  RollMapping,
 } from "../models/database";
 import {randomUUID} from 'crypto'
 import {PlayerRow} from "../models/database/player-row";
@@ -22,11 +28,11 @@ let Config = require('../../config/config.json');
 const knex: Knex = require('knex')({
     client: 'pg',
     connection: {
-        host: Config.database.host,
-        port: Config.database.port,
-        user: Config.database.username,
-        database: Config.database.database,
-        password: Config.database.password,
+        host: Config.database.prod.host,
+        port: Config.database.prod.port,
+        user: Config.database.prod.username,
+        database: Config.database.prod.database,
+        password: Config.database.prod.password,
     },
     pool: {
         min: 1, // Minimum number of connections in the pool
@@ -256,9 +262,24 @@ export class DatabaseService {
             .select('player.*', 'player_position.position')
     }
 
-    public async fetchAllPlayersMatchingString(playerName: string): Promise<string[]> {
+    public async fetchAllPlayersMatchingString(playerName: string): Promise<PlayerRow[]> {
         return await knex<PlayerRow>('player')
             .whereILike('player_name', `%${playerName}%`)
             .select('player_name')
+    }
+
+    async insertPlayer(playerName: string, positions: string[], cardUrl: string, playerType: PlayerType, season: string) {
+        const playerUuid = randomUUID()
+        await knex<PlayerRow>("player").insert({
+            uuid: playerUuid,
+            player_name: playerName,
+            card_url: cardUrl,
+            player_type: playerType,
+            year: parseInt(season, 10),
+            active: true
+        });
+
+        await knex<PlayerPositionRow>('ab_history')
+            .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
     }
 }

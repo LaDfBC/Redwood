@@ -38,6 +38,78 @@ export class HelpCommand implements Command {
                             Lang.getRef('chatCommands.info', Language.Default)
                         )
                     ),
+                    CMD_LINK_AB: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.ab', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_AB_HISTORY: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.ab-history', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CC: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.cc-fetch', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CC_CREATE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.cc-create', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CC_DELETE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.cc-delete', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CHART: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.chart-fetch', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CHART_CREATE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.chart-create', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CHART_DELETE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.chart-delete', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_D20: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.d20', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_FIELDING: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.fielding', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_JUMP: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.jump', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_PLAYER: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.player-fetch', Language.Default)
+                        )
+                    ),
                 });
                 break;
             }

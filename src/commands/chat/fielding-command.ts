@@ -59,7 +59,7 @@ export class FieldingCommand implements Command {
         errorText = errorText + (errorBaseCountMap.E2.length > 0 ? `\n2-base: ${errorBaseCountMap.E2.join(' | ')}` : '')
         errorText = errorText + (errorBaseCountMap.E3.length > 0 ? `\n3-base: ${errorBaseCountMap.E3.join(' | ')}` : '')
 
-        await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.fielding', data.lang, {
+            await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.fielding', data.lang, {
             RANGE_ROLL: rangeRoll.toString(),
             ERROR_ROLL_1: errorRoll1.toString(),
             ERROR_ROLL_2: errorRoll2.toString(),

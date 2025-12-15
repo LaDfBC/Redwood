@@ -44,11 +44,11 @@ export class LoadFieldingRanges {
         return require("knex")({
             client: "pg",
             connection: {
-                host: Config.database.host,
-                port: Config.database.port,
-                user: Config.database.username,
-                database: Config.database.database,
-                password: Config.database.password,
+                host: Config.database.prod.host,
+                port: Config.database.prod.port,
+                user: Config.database.prod.username,
+                database: Config.database.prod.database,
+                password: Config.database.prod.password,
             },
         });
     }

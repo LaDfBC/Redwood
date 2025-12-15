@@ -182,10 +182,6 @@
                             "{{REF:links.supportEmbed}}",
                             "{{REF:links.inviteEmbed}}"
                         ]
-                    },
-                    {
-                        "name": "Created With",
-                        "value": ["{{REF:links.templateEmbed}}"]
                     }
                 ]
             },

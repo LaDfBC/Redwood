@@ -25,9 +25,9 @@
     "links": {
         "author": "https://github.com/LaDfBC",
         "docs": "https://top.gg/",
-        "donate": "paypal.me/Jaerapps",
-        "invite": "https://discord.com/",
-        "source": "https://github.com/LaDfBC",
+        "donate": "https://paypal.me/Jaerapps",
+        "invite": "https://discord.com/oauth2/authorize?client_id=1443445723336020020",
+        "source": "https://github.com/LaDfBC/Redwood",
         "stream": "",
         "support": "https://discord.gg/trAAaKgzAD",
         "template": "https://github.com/LaDfBC/Redwood",

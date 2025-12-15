@@ -4,9 +4,9 @@ import { Liquibase, POSTGRESQL_DEFAULT_CONFIG } from 'node-liquibase';
 const myConfig = {
     ...POSTGRESQL_DEFAULT_CONFIG,
     changeLogFile: '.schema/changelog.xml',
-    url: 'jdbc:postgresql://localhost:5432/online_pennant',
+    url: 'jdbc:postgresql://db.voxpuvpiyzfvfqpphkbi.supabase.co:5432/online_pennant',
     username: 'pennant_user',
-    password: 'pennanttest14#'
+    password: 'pennantBotStorageSolution30!'
 }
 const instTs = new Liquibase(myConfig);
 // console.warn(inst.status())

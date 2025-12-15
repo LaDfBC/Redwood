@@ -4,4 +4,5 @@ export { InfoOption } from './info-option.js';
 export { DeleteCommandFailureReason } from './delete-command-failure-reason.js';
 export { PositionOption } from './position-option.js'
 export { DeleteChartFailureReason } from './delete-chart-failure-reason.js';
-export { RollType } from './roll_type.js'
+export { RollType } from './roll-type.js'
+export { PlayerType } from './player-type.js';

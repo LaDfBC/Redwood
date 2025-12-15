@@ -16,11 +16,13 @@ export class JumpCommand implements Command {
             await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.jumpPickoffCommand', data.lang, {
                 ROLL_RESULT: getRandomInt(1, 20).toString(),
                 USER: intr.user.displayName,
+                CHAOS_ROLL: chaosRoll.toString(),
             }));
         } else if (chaosRoll === 2) {
             await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.jumpBalkCommand', data.lang, {
                 ROLL_RESULT: getRandomInt(1, 20).toString(),
                 USER: intr.user.displayName,
+                CHAOS_ROLL: chaosRoll.toString(),
             }));
         } else {
             const rollOne: number = getRandomInt(1, 6);
@@ -30,6 +32,7 @@ export class JumpCommand implements Command {
                 ROLL_ONE: rollOne.toString(),
                 ROLL_TWO: rollTwo.toString(),
                 USER: intr.user.displayName,
+                CHAOS_ROLL: chaosRoll.toString(),
             });
 
             await InteractionUtils.send(intr, embed);

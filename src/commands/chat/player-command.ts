@@ -20,13 +20,13 @@ export class PlayerCommand implements Command {
         private databaseService: DatabaseService,
     ) {}
 
-    public names = [Lang.getRef('chatCommands.player', Language.Default)];
+    public names = [Lang.getRef('chatCommands.player-fetch', Language.Default)];
     public deferType = CommandDeferType.HIDDEN;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args: { name: string } = {
             name: intr.options.getString(
-                Lang.getRef('arguments.playerNameOption', Language.Default)
+                Lang.getRef('arguments.playerFetchNameOption', Language.Default)
             )
         };
 
@@ -40,12 +40,13 @@ export class PlayerCommand implements Command {
 
             await InteractionUtils.send(intr, embed);
         } else {
-            const positions = result.map((row) => row.position).join(', ')
+            const positions = result.map((row: PlayerRow) => row.position).join(', ')
             // SUCCESS - Simply return the requested command
             embed = Lang.getEmbed('displayEmbeds.playerFetchSuccess', data.lang, {
                 PLAYER_NAME: args.name,
                 POSITION_NAME: result.length > 1 ? "Positions" : "Position",
-                POSITION_VALUE: positions
+                POSITION_VALUE: positions,
+                IMAGE_LINK: result[0].card_url
             })
 
             await InteractionUtils.send(intr, embed)
@@ -54,14 +55,14 @@ export class PlayerCommand implements Command {
 
     public async autocomplete(intr: AutocompleteInteraction, option: AutocompleteFocusedOption): Promise<ApplicationCommandOptionChoiceData<string | number>[]> {
         const searchString = option.value
-        const players: string[] = await this.databaseService.fetchAllPlayersMatchingString(searchString);
-        return players.map((player: string) => {
+        const players: PlayerRow[] = await this.databaseService.fetchAllPlayersMatchingString(searchString);
+        return players.map((player: PlayerRow) => {
             return {
-                name: player,
+                name: player.player_name,
                 name_localizations: {
-                    "en-US": player,
+                    "en-US": player.player_name,
                 },
-                value: player,
+                value: player.player_name,
             };
         })
     }

@@ -201,6 +201,7 @@
         />
     </changeSet>
     <changeSet author="Jaera" id="11">
-        <dropColumn tableName="player" columnName="position" />
+        <renameColumn tableName="player" oldColumnName="batter_card_path" newColumnName="card_url" />
+        <renameColumn tableName="player" oldColumnName="pitcher_card_path" newColumnName="player_type" />
     </changeSet>
 </databaseChangeLog>
