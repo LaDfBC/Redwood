@@ -15,8 +15,7 @@ export class AtBatCommand implements Command {
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        // const chaosRoll: number = getRandomInt(1, 20)
-        const chaosRoll: number = 2
+        const chaosRoll: number = getRandomInt(1, 20)
         await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, chaosRoll);
 
         if (chaosRoll === 1) { // Wild Pitch
