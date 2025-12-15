@@ -78,7 +78,7 @@ async function start(): Promise<void> {
         // new DevCommand(),
         new HelpCommand(),
         new InfoCommand(),
-        // new TestCommand(),
+        new TestCommand(),
         new D20Command(),
         new JumpCommand(),
         new AtBatCommand(databaseService),

@@ -70,7 +70,8 @@
                         "name": "Result",
                         "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.success}}"
             },
             "abStandardCommand": {
                 "title": "At bat roll for {{USER}}",
@@ -80,6 +81,7 @@
                         "value": ["```js\n# {{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}\nDetails: [1d6, 2d6, 1d20 ({{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}})]```"]
                     }
                 ],
+                "color": "{{COM:colors.success}}",
                 "footer": {
                     "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
                 }
@@ -93,35 +95,47 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}```", "Details: [1d20 ({{ROLL_RESULT}})]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.chaos}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
+                }
             },
             "abPassedBallCommand": {
                 "title": "Passed Ball roll for {{USER}}",
                 "fields": [
                     {
                         "name": "Passed Ball Possible",
-                        "value": ["Checking for passed ball..."]
+                        "value": ["Check for passed ball"]
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}```", "{{Details: [1d20 ({{ROLL_RESULT}})]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.chaos}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)"
+                }
             },
             "abBalkCommand": {
                 "title": "Balk roll for {{USER}}",
                 "fields": [
                     {
                         "name": "Possible Balk!",
-                        "value": ["Checking for balk..."]
+                        "value": ["Check for balk"]
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}```", "{{Details: [1d20 ({{ROLL_RESULT}}]"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}}]```"]
                     }
-                ]
+                ],
+                "color": "{{COM:colors.chaos}}",
+                "footer": {
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)"
+                }
             },
             "ccNameDoesNotExist": {
                 "title": "Unsuccessful custom command lookup",
@@ -217,10 +231,10 @@
                 "color": "{{COM:colors.error}}"
             },
             "chartFetchSuccess": {
-                "title": "Found chart {{CHART_NAME}}",
+                "title": "{{CHART_NAME}}",
                 "fields": [
                     {
-                        "name": "{{TITLE}}",
+                        "name": "Description",
                         "value": "{{DESCRIPTION}}"
 
                     }

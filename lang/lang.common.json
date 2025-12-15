@@ -20,7 +20,8 @@
         "default": "#0099ff",
         "success": "#00ff83",
         "warning": "#ffcc66",
-        "error": "#ff4a4a"
+        "error": "#ff4a4a",
+        "chaos": "cc8899"
     },
     "links": {
         "author": "https://github.com/LaDfBC",

@@ -15,13 +15,15 @@ export class AtBatCommand implements Command {
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        const chaosRoll: number = getRandomInt(1, 20)
+        // const chaosRoll: number = getRandomInt(1, 20)
+        const chaosRoll: number = 2
         await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, chaosRoll);
 
         if (chaosRoll === 1) { // Wild Pitch
             await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abWildPitchCommand', data.lang, {
                 ROLL_RESULT: getRandomInt(1, 20).toString(),
                 USER: intr.user.displayName,
+                CHAOS_ROLL: chaosRoll.toString(),
             }));
         } else if (chaosRoll === 2) { // Balk or Passed Ball
             const chaosDecisionRoll: number = getRandomInt(1, 6)
@@ -29,11 +31,15 @@ export class AtBatCommand implements Command {
                 await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abBalkCommand', data.lang, {
                     ROLL_RESULT: getRandomInt(1, 20).toString(),
                     USER: intr.user.displayName,
+                    CHAOS_ROLL: chaosRoll.toString(),
+                    SECONDARY_CHAOS_ROLL: chaosDecisionRoll.toString(),
                 }));
             } else { // Passed Ball
                 await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abPassedBallCommand', data.lang, {
                     ROLL_RESULT: getRandomInt(1, 20).toString(),
                     USER: intr.user.displayName,
+                    CHAOS_ROLL: chaosRoll.toString(),
+                    SECONDARY_CHAOS_ROLL: chaosDecisionRoll.toString(),
                 }));
             }
         } else {

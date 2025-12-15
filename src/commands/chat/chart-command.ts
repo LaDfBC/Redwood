@@ -43,7 +43,6 @@ export class ChartFetchCommand implements Command {
             let embed: EmbedBuilder;
             embed = Lang.getEmbed('displayEmbeds.chartFetchSuccess', data.lang, {
                 CHART_NAME: args.name,
-                TITLE: result.title,
                 DESCRIPTION: result.description,
                 IMAGE_LINK: result.image_link
             });
