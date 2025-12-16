@@ -42,8 +42,7 @@ export class AtBatCommand implements Command {
                 }));
             }
         } else {
-            // const rollSingle: number = getRandomInt(1, 6);
-            const rollSingle = 6
+            const rollSingle: number = getRandomInt(1, 6);
             const rollOne: number = getRandomInt(1, 6);
             const rollTwo: number = getRandomInt(1, 6);
             const finald20Roll: number = getRandomInt(1, 20);
