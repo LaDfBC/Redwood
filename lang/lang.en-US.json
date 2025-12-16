@@ -269,7 +269,8 @@
                         "name": "Error: {{REASON}}: {{IMAGE_LINK}}",
                         "value": "Please verify that this is a valid image and try again"
                     }
-                ]
+                ],
+                "color": "{{COM:colors.error}}"
             },
             "chartCreateCommandSuccessful": {
                 "title": "Success - {{CHART_NAME}} is ready for use!",
