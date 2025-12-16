@@ -40,15 +40,31 @@ export class ChartFetchCommand implements Command {
 
             await InteractionUtils.send(intr, embed);
         } else { //Success!
-            let embed: EmbedBuilder;
-            embed = Lang.getEmbed('displayEmbeds.chartFetchSuccess', data.lang, {
-                CHART_NAME: args.name,
-                TITLE: result.title,
-                DESCRIPTION: result.description,
-                IMAGE_LINK: result.image_link
-            });
+            try {
+                const response = await (await fetch(result.image_link)).blob()
+                if (response.type.startsWith('image')) {
+                    embed = Lang.getEmbed('displayEmbeds.chartFetchSuccess', data.lang, {
+                        CHART_NAME: args.name,
+                        TITLE: result.title,
+                        DESCRIPTION: result.description,
+                        IMAGE_LINK: result.image_link
+                    });
 
-            await InteractionUtils.send(intr, embed);
+                    await InteractionUtils.send(intr, embed);
+                } else {
+                    embed = Lang.getEmbed('displayEmbeds.chartFetchBadUrl', data.lang, {
+                        CHART_NAME: args.name,
+                        IMAGE_LINK: result.image_link
+                    })
+                    await InteractionUtils.send(intr, embed);
+                }
+            } catch (e) {
+                embed = Lang.getEmbed('displayEmbeds.chartFetchBadUrl', data.lang, {
+                    CHART_NAME: args.name,
+                    IMAGE_LINK: result.image_link
+                })
+                await InteractionUtils.send(intr, embed);
+            }
         }
     }
 

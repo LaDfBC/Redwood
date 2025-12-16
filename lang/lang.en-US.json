@@ -242,6 +242,16 @@
                 "image": "{{IMAGE_LINK}}",
                 "color": "{{COM:colors.success}}"
             },
+            "chartFetchBadUrl": {
+                "title": "Failed to fetch {{CHART_NAME}}",
+                "fields": [
+                    {
+                        "name": "Malformed or missing URL: {{IMAGE_LINK}}",
+                        "value": "*Please verify and correct this url, then delete this chart and recreate it*"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
             "chartCreateCommandNameAlreadyExists": {
                 "title": "Unsuccessful chart creation",
                 "fields": [
@@ -251,6 +261,15 @@
                     }
                 ],
                 "color": "{{COM:colors.error}}"
+            },
+            "chartCreateCommandFailedBadUrl": {
+                "title": "Unsuccessful chart creation",
+                "fields": [
+                    {
+                        "name": "Error: {{REASON}}: {{IMAGE_LINK}}",
+                        "value": "Please verify that this is a valid image and try again"
+                    }
+                ]
             },
             "chartCreateCommandSuccessful": {
                 "title": "Success - {{CHART_NAME}} is ready for use!",
@@ -314,8 +333,26 @@
                 }
             },
             "abHistorySuccess": {
-                "title": "Historical roll statistics for {{USER}}",
+                "title": "Historical {{ROLL}} statistics for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Statistics",
+                        "value": "*Average:* {{AVERAGE}}\n*Count:* {{COUNT}}"
+                    }
+                ],
+                "image": "{{IMAGE_LINK}}",
                 "color": "{{COM:colors.success}}"
+            },
+            "abHistoryChaos": {
+                "title": "Historical {{ROLL}} statistics for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Statistics",
+                        "value": "*Average:* {{AVERAGE}}\n*Count:* {{COUNT}}"
+                    }
+                ],
+                "image": "{{IMAGE_LINK}}",
+                "color": "{{COM:colors.chaos}}"
             },
             "jumpStandardCommand": {
                 "title": "Jump roll for {{USER}}",

@@ -143,4 +143,5 @@ vite.config.ts.timestamp-*
 
 # Config files
 config/config.json
+config/config.prod.json
 config/debug.json

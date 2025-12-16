@@ -38,10 +38,27 @@ export class ChartCreateCommand implements Command {
                 CHART_NAME: args.name
             });
         } else {
-            await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, args.imageLink);
-            embed = Lang.getEmbed('displayEmbeds.chartCreateCommandSuccessful', data.lang, {
-                CHART_NAME: args.name
-            })
+            try {
+                const response = await (await fetch(args.imageLink)).blob()
+                if (response.type.startsWith('image')) {
+                    await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, args.imageLink);
+                    embed = Lang.getEmbed('displayEmbeds.chartCreateCommandSuccessful', data.lang, {
+                        CHART_NAME: args.name
+                    })
+                } else {
+                    embed = Lang.getEmbed('displayEmbeds.chartCreateCommandFailedBadUrl', data.lang, {
+                        CHART_NAME: args.name,
+                        IMAGE_LINK: args.imageLink,
+                        REASON: "URL is valid but does not point to an image"
+                    })
+                }
+            } catch (e) {
+                embed = Lang.getEmbed('displayEmbeds.chartCreateCommandFailedBadUrl', data.lang, {
+                    CHART_NAME: args.name,
+                    IMAGE_LINK: args.imageLink,
+                    REASON: "Invalid or Malformed URL"
+                })
+            }
         }
 
         await InteractionUtils.send(intr, embed);

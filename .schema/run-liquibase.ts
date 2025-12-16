@@ -1,13 +1,18 @@
 import { Liquibase, POSTGRESQL_DEFAULT_CONFIG } from 'node-liquibase';
+import {createRequire} from "node:module";
 
+const require = createRequire(import.meta.url);
+let Config = require('../config/config.json');
 
-const myConfig = {
+const devConfig = {
     ...POSTGRESQL_DEFAULT_CONFIG,
     changeLogFile: '.schema/changelog.xml',
-    url: 'jdbc:postgresql://db.voxpuvpiyzfvfqpphkbi.supabase.co:5432/online_pennant',
-    username: 'pennant_user',
-    password: 'pennantBotStorageSolution30!'
+    url: `jdbc:postgresql://${Config.database.host}:5432/${Config.database.database}`,
+    username: Config.database.username,
+    password: Config.database.password,
 }
-const instTs = new Liquibase(myConfig);
+
+
+const instTs = new Liquibase(devConfig);
 // console.warn(inst.status())
 instTs.update({});

@@ -1,3 +1,5 @@
+import {RollType} from "../../enums";
+
 export interface ChartRow {
     chart_name: string;
     owner_username: string;
@@ -6,4 +8,5 @@ export interface ChartRow {
     description: string;
     image_link: string;
     created: Date;
+    roll: RollType | null;
 }

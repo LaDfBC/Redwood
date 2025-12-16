@@ -42,10 +42,12 @@ export class AtBatCommand implements Command {
                 }));
             }
         } else {
-            const rollSingle: number = getRandomInt(1, 6);
+            // const rollSingle: number = getRandomInt(1, 6);
+            const rollSingle = 6
             const rollOne: number = getRandomInt(1, 6);
             const rollTwo: number = getRandomInt(1, 6);
             const finald20Roll: number = getRandomInt(1, 20);
+            const twoD6Total = rollOne + rollTwo;
 
             await this.databaseService.logAtBatRolls(intr.user.username, intr.guildId, {d6: rollSingle, twod6: [rollOne, rollTwo], d20: finald20Roll})
 
@@ -58,6 +60,14 @@ export class AtBatCommand implements Command {
                 USER: intr.user.displayName,
                 CHAOS_ROLL: chaosRoll.toString(),
             });
+
+
+            if (rollSingle === 6 && twoD6Total > 6) {
+                embed.addFields([{
+                    name: `Check Injury for pitcher rating ${13 - twoD6Total}`,
+                    value: twoD6Total === 9 ? 'Nice, btw' : (twoD6Total === 7 ? "six seven.  You can be cool like the youths now" : "Don't die or anything")
+                }])
+            }
 
             await InteractionUtils.send(intr, embed);
         }
