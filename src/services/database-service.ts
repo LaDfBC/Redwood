@@ -67,13 +67,13 @@ export class DatabaseService {
     */
     public async fetchCommand(commandName: string, guildId: string): Promise<CustomCommandRow | undefined> {
     return knex<CustomCommandRow>('custom_command')
-        .where('command_name', commandName)
+        .whereILike('command_name', commandName.toLowerCase())
         .andWhere("guild_id", guildId)
         .first();
     }
 
     public async fetchAllCommands(): Promise<CustomCommandRow[]> {
-      return knex<CustomCommandRow>('custom_command')
+      return knex<CustomCommandRow>('custom_command').orderBy('command_name')
     }
 
 
@@ -81,6 +81,7 @@ export class DatabaseService {
       return await knex<CustomCommandRow>('custom_command')
           .whereILike('command_name', `%${commandName}%`)
           .andWhere('guild_id', guildId)
+          .orderBy('command_name')
           .select('command_name')
     }
 
@@ -102,14 +103,14 @@ export class DatabaseService {
 
     public async fetchFieldingRange(position: string, roll: number): Promise<FieldingRangeRow> {
       return await knex<FieldingRangeRow>('fielding_range')
-          .where('position', position)
+          .whereILike('position', position.toLowerCase())
           .andWhere('roll', roll)
           .first()
     }
 
     public async fetchFieldingErrorData(position: string, roll: number): Promise<FieldingErrorRow[]> {
       return await knex<FieldingErrorRow>(   'fielding_error')
-          .where('position', position)
+          .whereILike('position', position.toLowerCase())
           .andWhere('roll', roll)
           .select('*')
     }
@@ -146,11 +147,12 @@ export class DatabaseService {
     public async fetchAllCharts(guildId: string): Promise<ChartRow[]> {
         return knex<ChartRow>('chart')
             .where('guild_id', guildId)
+            .orderBy('chart_name')
     }
 
     public async fetchChart(chartName: string, guildId: string): Promise<ChartRow | undefined> {
         return knex<ChartRow>('chart')
-            .where('chart_name', chartName)
+            .whereILike('chart_name', chartName.toLowerCase())
             .andWhere("guild_id", guildId)
             .first();
     }
@@ -159,6 +161,7 @@ export class DatabaseService {
         return await knex<ChartRow>('chart')
             .whereILike('chart_name', `%${chartName}%`)
             .andWhere('guild_id', guildId)
+            .orderBy('chart_name')
             .select('chart_name')
     }
 
@@ -252,19 +255,20 @@ export class DatabaseService {
             .andWhere('guild_id', guildId)
             .orderBy('roll_date', 'desc')
             .limit(limit)
-
     }
 
     public async fetchPlayer(playerName: string): Promise<PlayerRow[] | undefined> {
         return knex<PlayerRow>('player')
-            .where('player_name', playerName)
+            .whereILike('player_name', playerName.toLowerCase())
             .join('player_position', 'player.uuid', 'player_position.uuid')
+            .orderBy('player_name')
             .select('player.*', 'player_position.position')
     }
 
     public async fetchAllPlayersMatchingString(playerName: string): Promise<PlayerRow[]> {
         return await knex<PlayerRow>('player')
             .whereILike('player_name', `%${playerName}%`)
+            .orderBy('player_name')
             .select('player_name')
     }
 

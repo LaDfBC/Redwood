@@ -210,4 +210,10 @@
             <column name="roll" type="VARCHAR(30)" />
         </addColumn>
     </changeSet>
+    <changeSet author="Jaera" id="13">
+        <modifyDataType tableName="chart" columnName="chart_name" newDataType="text"/>
+        <modifyDataType tableName="chart_usage" columnName="chart_name" newDataType="text"/>
+        <modifyDataType tableName="custom_command" columnName="command_name" newDataType="text"/>
+        <modifyDataType tableName="custom_command_usage" columnName="command_name" newDataType="text"/>
+    </changeSet>
 </databaseChangeLog>

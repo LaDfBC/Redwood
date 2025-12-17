@@ -119,16 +119,24 @@ export class AbHistoryCommand implements Command {
       chart.setConfig({
           type: "bar",
           data: {
+              legend: 'options',
               labels,
               datasets: [
                   {
-                      label: "Rolls",
                       data: labels.map((label) => {
                           return summary[rollType][label];
                       }),
                   },
               ],
           },
+          options: {
+              legend: {
+                  display: false,
+                  labels: {
+                      display: false
+                  }
+              }
+          }
       });
       return await chart.getShortUrl(); // Or chart.getUrl()
   }

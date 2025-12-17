@@ -91,7 +91,7 @@
                 "fields": [
                     {
                         "name": "Wild Pitch Possible",
-                        "value": ["Checking for wild pitch..."]
+                        "value": ["Check for wild pitch"]
                     },
                     {
                         "name": "Result",
@@ -338,7 +338,7 @@
                 "fields": [
                     {
                         "name": "Statistics",
-                        "value": "*Average:* {{AVERAGE}}\n*Count:* {{COUNT}}"
+                        "value": "*Count:* {{COUNT}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
@@ -349,7 +349,7 @@
                 "fields": [
                     {
                         "name": "Statistics",
-                        "value": "*Average:* {{AVERAGE}}\n*Count:* {{COUNT}}"
+                        "value": "*Count:* {{COUNT}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",

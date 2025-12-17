@@ -43,7 +43,7 @@ export class PlayerCommand implements Command {
             const positions = result.map((row: PlayerRow) => row.position).join(', ')
             // SUCCESS - Simply return the requested command
             embed = Lang.getEmbed('displayEmbeds.playerFetchSuccess', data.lang, {
-                PLAYER_NAME: args.name,
+                PLAYER_NAME: result[0].player_name,
                 POSITION_NAME: result.length > 1 ? "Positions" : "Position",
                 POSITION_VALUE: positions,
                 IMAGE_LINK: result[0].card_url
