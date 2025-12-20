@@ -39,7 +39,7 @@ export class CcCreateCommand implements Command {
         },
       );
     } else {
-      if (args.action.startsWith('https://media.discordapp.net/attachments/')) {
+      if (args.action.includes("https://media.discordapp.net/attachments/") || args.action.includes("https://cdn.discordapp.com/attachments/")) {
         const s3ImageLink = await this.uploadToS3(args.name, intr.guildId, args.action);
 
         await this.databaseService.insertCommand(args.name, intr.user.username, intr.guildId, s3ImageLink);
@@ -54,7 +54,7 @@ export class CcCreateCommand implements Command {
     await InteractionUtils.send(intr, embed);
   }
 
-  private async uploadToS3(name: string, guildId: string, imageLink: string,): Promise<string> {
+  private async uploadToS3(name: string, guildId: string, imageLink: string): Promise<string> {
     const { writeStream, promise } = this.uploadStreamToS3({
       Bucket: Config.s3.commandBucket,
       Key: `${guildId}/${name}.png`,
