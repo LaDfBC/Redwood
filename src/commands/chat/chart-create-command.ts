@@ -6,11 +6,16 @@ import { Lang } from '../../services/index.js';
 import { InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import { DatabaseService } from "../../services/database-service";
+import AWS from "aws-sdk";
+import stream from "node:stream";
+import {createRequire} from "node:module";
+import fs from "fs";
+
+const require = createRequire(import.meta.url);
+let Config = require("../config/config.json");
 
 export class ChartCreateCommand implements Command {
-    constructor(
-        private databaseService: DatabaseService,
-    ) {}
+  constructor(private databaseService: DatabaseService) {}
 
     public names = [Lang.getRef('chatCommands.chart-create', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
@@ -61,6 +66,36 @@ export class ChartCreateCommand implements Command {
             }
         }
 
-        await InteractionUtils.send(intr, embed);
+    await InteractionUtils.send(intr, embed);
+  }
+
+  // TODO: Handle links that aren't images gracefully
+  private async uploadToS3(name: string, guildId: string, imageLink: string,): Promise<string> {
+    const { writeStream, promise } = this.uploadStreamToS3({
+      Bucket: "online-pennant-player-bucket",
+      Key: `${guildId}/${name}.png`,
+    });
+
+    const image = await fetch(imageLink);
+    const bodyStream: ReadableStream = image.body;
+    const readStream = fs.ReadStream.fromWeb(bodyStream);
+
+    readStream.pipe(writeStream);
+    try {
+      const result = await promise;
+      return decodeURIComponent(result.Location).replaceAll(" ", "+");
+    } catch (e) {
+      console.log("upload failed.", e.message);
+      throw e;
     }
+  }
+
+  private uploadStreamToS3 = ({ Bucket, Key }) => {
+    const s3 = new AWS.S3();
+    const pass = new stream.PassThrough();
+    return {
+      writeStream: pass,
+      promise: s3.upload({ Bucket, Key, Body: pass }).promise(),
+    };
+  };
 }

@@ -21,5 +21,9 @@ export class DiscordBotStack extends Stack {
         const playerBucket = new s3.Bucket(this, 'playerBucket', {
             bucketName: 'online-pennant-player-bucket'
         });
+
+        const chartBucket = new s3.Bucket(this, "chartBucket", {
+          bucketName: "online-pennant-chart-bucket",
+        });
     }
 }
