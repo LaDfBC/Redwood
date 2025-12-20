@@ -12,7 +12,7 @@ import {createRequire} from "node:module";
 import fs from "fs";
 
 const require = createRequire(import.meta.url);
-let Config = require("../config/config.json");
+let Config = require("../../../config/config.json");
 
 export class ChartCreateCommand implements Command {
   constructor(private databaseService: DatabaseService) {}
@@ -45,18 +45,20 @@ export class ChartCreateCommand implements Command {
         } else {
             try {
                 const response = await (await fetch(args.imageLink)).blob()
-                // if (response.type.startsWith('image')) {
-                    await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, args.imageLink);
+                if (response.type.startsWith('image')) {
+                    const s3ImageLink = await this.uploadToS3(args.name, intr.guildId, args.imageLink);
+
+                    await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, s3ImageLink);
                     embed = Lang.getEmbed('displayEmbeds.chartCreateCommandSuccessful', data.lang, {
                         CHART_NAME: args.name
                     })
-                // } else {
-                //     embed = Lang.getEmbed('displayEmbeds.chartCreateCommandFailedBadUrl', data.lang, {
-                //         CHART_NAME: args.name,
-                //         IMAGE_LINK: args.imageLink,
-                //         REASON: "URL is valid but does not point to an image"
-                //     })
-                // }
+                } else {
+                    embed = Lang.getEmbed('displayEmbeds.chartCreateCommandFailedBadUrl', data.lang, {
+                        CHART_NAME: args.name,
+                        IMAGE_LINK: args.imageLink,
+                        REASON: "URL is valid but does not point to an image"
+                    })
+                }
             } catch (e) {
                 embed = Lang.getEmbed('displayEmbeds.chartCreateCommandFailedBadUrl', data.lang, {
                     CHART_NAME: args.name,
@@ -72,7 +74,7 @@ export class ChartCreateCommand implements Command {
   // TODO: Handle links that aren't images gracefully
   private async uploadToS3(name: string, guildId: string, imageLink: string,): Promise<string> {
     const { writeStream, promise } = this.uploadStreamToS3({
-      Bucket: "online-pennant-player-bucket",
+      Bucket: Config.s3.chartBucket,
       Key: `${guildId}/${name}.png`,
     });
 
