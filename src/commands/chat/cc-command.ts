@@ -33,6 +33,7 @@ export class CcFetchCommand implements Command {
         let embed: EmbedBuilder;
 
         const result: CustomCommandRow | undefined = await this.databaseService.fetchCommand(args.name, intr.guildId)
+        await this.databaseService.insertCommandUsage(result.command_name, intr.user.id, intr.guildId);
         if (result === undefined) {
             embed = Lang.getEmbed('displayEmbeds.ccNameDoesNotExist', data.lang, {
                 COMMAND_NAME: args.name

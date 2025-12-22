@@ -16,7 +16,7 @@ export class AtBatCommand implements Command {
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const chaosRoll: number = getRandomInt(1, 20)
-        await this.databaseService.logChaosRoll(intr.user.username, intr.guildId, chaosRoll);
+        await this.databaseService.logChaosRoll(intr.user.id, intr.guildId, chaosRoll);
 
         if (chaosRoll === 1) { // Wild Pitch
             await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.abWildPitchCommand', data.lang, {
@@ -48,7 +48,7 @@ export class AtBatCommand implements Command {
             const finald20Roll: number = getRandomInt(1, 20);
             const twoD6Total = rollOne + rollTwo;
 
-            await this.databaseService.logAtBatRolls(intr.user.username, intr.guildId, {d6: rollSingle, twod6: [rollOne, rollTwo], d20: finald20Roll})
+            await this.databaseService.logAtBatRolls(intr.user.id, intr.guildId, {d6: rollSingle, twod6: [rollOne, rollTwo], d20: finald20Roll})
 
             let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.abStandardCommand', data.lang, {
                 ROLL_SINGLE: rollSingle.toString(),

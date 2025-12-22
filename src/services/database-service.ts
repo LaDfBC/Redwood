@@ -286,4 +286,8 @@ export class DatabaseService {
         await knex<PlayerPositionRow>('ab_history')
             .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
     }
+
+    async insertCommandUsage(command_name: string, userId: string, guildId: string) {
+
+    }
 }

@@ -19,9 +19,9 @@ export class CcMineCommand implements Command {
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let embed: EmbedBuilder;
         const result: CustomCommandRow[] = await this.databaseService.fetchAllCommands()
-        const myCommands: CustomCommandRow[] = result.filter(row => row.owner_username === intr.user.username)
+        const myCommands: CustomCommandRow[] = result.filter(row => row.owner_username === intr.user.id)
         embed = Lang.getEmbed('displayEmbeds.ccMineSuccessfulResponse', data.lang, {
-            USER: intr.user.username,
+            USER: intr.user.id,
 
         })
 

@@ -42,9 +42,9 @@ export class CcCreateCommand implements Command {
       if (args.action.includes("https://media.discordapp.net/attachments/") || args.action.includes("https://cdn.discordapp.com/attachments/")) {
         const s3ImageLink = await this.uploadToS3(args.name, intr.guildId, args.action);
 
-        await this.databaseService.insertCommand(args.name, intr.user.username, intr.guildId, s3ImageLink);
+        await this.databaseService.insertCommand(args.name, intr.user.id, intr.guildId, s3ImageLink);
       } else {
-        await this.databaseService.insertCommand(args.name, intr.user.username, intr.guildId, args.action);
+        await this.databaseService.insertCommand(args.name, intr.user.id, intr.guildId, args.action);
       }
       embed = Lang.getEmbed('displayEmbeds.ccCreateCommandSuccessful', data.lang, {
         COMMAND_NAME: args.name

@@ -32,7 +32,7 @@ export class CcDeleteCommand implements Command {
         };
 
         let embed: EmbedBuilder;
-        const result: DeleteCommandResult = await this.databaseService.deleteCommand(args.name, intr.user.username, intr.guildId)
+        const result: DeleteCommandResult = await this.databaseService.deleteCommand(args.name, intr.user.id, intr.guildId)
         if (result.success) {
             embed = Lang.getEmbed('displayEmbeds.ccDeleteCommandSuccessful', data.lang, {
                 COMMAND_NAME: args.name

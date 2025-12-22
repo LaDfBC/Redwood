@@ -48,7 +48,7 @@ export class ChartCreateCommand implements Command {
                 if (response.type.startsWith('image')) {
                     const s3ImageLink = await this.uploadToS3(args.name, intr.guildId, args.imageLink);
 
-                    await this.databaseService.insertChart(args.name, intr.user.username, intr.guildId, args.description, args.title, s3ImageLink);
+                    await this.databaseService.insertChart(args.name, intr.user.id, intr.guildId, args.description, args.title, s3ImageLink);
                     embed = Lang.getEmbed('displayEmbeds.chartCreateCommandSuccessful', data.lang, {
                         CHART_NAME: args.name
                     })
@@ -65,6 +65,7 @@ export class ChartCreateCommand implements Command {
                     IMAGE_LINK: args.imageLink,
                     REASON: "Invalid or Malformed URL"
                 })
+
             }
         }
 

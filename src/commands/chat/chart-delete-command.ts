@@ -40,7 +40,7 @@ export class ChartDeleteCommand implements Command {
         };
 
         let embed: EmbedBuilder;
-        const result: DeleteChartResult = await this.databaseService.deleteChart(args.name, intr.user.username, intr.guildId)
+        const result: DeleteChartResult = await this.databaseService.deleteChart(args.name, intr.user.id, intr.guildId)
         if (result.success) {
             embed = Lang.getEmbed('displayEmbeds.chartDeleteCommandSuccessful', data.lang, {
                 CHART_NAME: args.name

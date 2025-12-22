@@ -52,7 +52,7 @@ export class AbHistoryCommand implements Command {
         }
         
         if (rollTypeEnum) {
-            const historyRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(intr.user.username, intr.guildId, RollType[args.roll_type], args.count)
+            const historyRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(intr.user.id, intr.guildId, RollType[args.roll_type], args.count)
             let summary = structuredClone(summaryBaseline)
             historyRows.forEach((hist: AbHistoryRow) => {
                 summary[hist.roll_type][hist.roll_value] = summary[hist.roll_type][hist.roll_value] + 1
