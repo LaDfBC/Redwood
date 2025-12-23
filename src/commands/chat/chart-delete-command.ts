@@ -74,6 +74,7 @@ export class ChartDeleteCommand implements Command {
         await InteractionUtils.send(intr, embed);
     }
 
+
     public async autocomplete(intr: AutocompleteInteraction, option: AutocompleteFocusedOption): Promise<ApplicationCommandOptionChoiceData<string | number>[]> {
         const searchString = option.value
         const charts: ChartRow[] = await this.databaseService.fetchAllChartsMatchingString(searchString, intr.guildId);

@@ -1,4 +1,4 @@
-import {ChatInputCommandInteraction, EmbedBuilder, PermissionsString} from 'discord.js';
+import {ButtonBuilder, ChatInputCommandInteraction, EmbedBuilder, PermissionsString} from 'discord.js';
 
 import {Language} from '../../models/enum-helpers/index.js';
 import {EventData} from '../../models/internal-models.js';
@@ -26,7 +26,10 @@ export class CcMineCommand implements Command {
         })
 
         if (myCommands.length <= 5) {
-            await InteractionUtils.send(intr, embed);
+            await InteractionUtils.send(intr, {
+                embeds: [embed],
+                components: [new ButtonBuilder().setCustomId("fakeId").toJSON()]
+            });
         }
     }
 }

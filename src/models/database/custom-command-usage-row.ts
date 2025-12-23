@@ -1,5 +1,6 @@
 export interface CustomCommandUsageRow {
     command_name: string;
-    calling_username: string;
+    guild_id: string;
+    calling_userid: string;
     usage_date: Date;
 }

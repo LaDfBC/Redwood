@@ -2,7 +2,7 @@ import { Liquibase, POSTGRESQL_DEFAULT_CONFIG } from 'node-liquibase';
 import {createRequire} from "node:module";
 
 const require = createRequire(import.meta.url);
-let Config = require('../config/config.prod.json');
+let Config = require('../config/config.json');
 
 const devConfig = {
     ...POSTGRESQL_DEFAULT_CONFIG,

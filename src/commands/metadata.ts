@@ -145,6 +145,15 @@ export const ChatCommandMetadata: {
             }
         ]
     },
+    CC_MINE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.cc-mine', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.cc-mine'),
+        description: Lang.getRef('commandDescs.ccMine', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.ccMine'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
     FIELDING: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.fielding', Language.Default),

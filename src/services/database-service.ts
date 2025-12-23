@@ -12,6 +12,7 @@ import {
   AbHistoryRow,
   ChartRow,
   CustomCommandRow,
+  CustomCommandUsageRow,
   DeleteChartResult,
   DeleteCommandResult,
   FieldingErrorRow,
@@ -21,6 +22,9 @@ import {
 } from "../models/database";
 import {randomUUID} from 'crypto'
 import {PlayerRow} from "../models/database/player-row";
+import AWS, {AWSError} from "aws-sdk";
+import {PromiseResult} from "aws-sdk/lib/request";
+import {DeleteObjectOutput} from "aws-sdk/clients/s3";
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -172,12 +176,32 @@ export class DatabaseService {
             } else if ((await this.fetchChart(chartName, guildId)).owner_username !== requestingUser) {
                 return { success: false, reason: DeleteChartFailureReason.USER_NOT_OWNER}
             } else {
-                await knex<ChartRow>('chart').where('chart_name', chartName).del();
-                return { success: true, reason: undefined };
+                if (await this.deleteChartFromS3(guildId, chartName)) {
+                    await knex<ChartRow>('chart').where('chart_name', chartName).del();
+                    return { success: true, reason: undefined };
+                } else {
+                    //TODO: Improve this error handling
+                    await Logger.error("Encountered an error with S3");
+                    return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
+                }
             }
         } catch (error) {
             await Logger.error("Encountered an unexpected database error: "  + error);
             return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
+        }
+    }
+
+    private async deleteChartFromS3(guildId: string, chartName: string): Promise<boolean> {
+        const s3 = new AWS.S3();
+        const result: PromiseResult<DeleteObjectOutput, AWSError> = await s3.deleteObject({
+          Bucket: Config.s3.chartBucket,
+          Key: `${guildId}/${chartName}.png`,
+        }).promise();
+
+        if (result.$response.httpResponse.statusCode === 204) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -288,6 +312,11 @@ export class DatabaseService {
     }
 
     async insertCommandUsage(command_name: string, userId: string, guildId: string) {
-
+        await knex<CustomCommandUsageRow>('custom_command_usage').insert({
+            command_name: command_name,
+            guild_id: guildId,
+            calling_userid: userId,
+            usage_date: new Date(),
+        })
     }
 }

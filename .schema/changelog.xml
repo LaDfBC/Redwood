@@ -216,4 +216,8 @@
         <modifyDataType tableName="custom_command" columnName="command_name" newDataType="text"/>
         <modifyDataType tableName="custom_command_usage" columnName="command_name" newDataType="text"/>
     </changeSet>
+    <changeSet author="Jaera" id="14">
+        <renameColumn tableName="custom_command_usage" oldColumnName="server_id" newColumnName="guild_id" />
+        <renameColumn tableName="custom_command_usage" oldColumnName="calling_username" newColumnName="calling_userid" />
+    </changeSet>
 </databaseChangeLog>

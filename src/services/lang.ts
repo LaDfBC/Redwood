@@ -1,4 +1,10 @@
-import { EmbedBuilder, Locale, LocalizationMap, resolveColor } from 'discord.js';
+import {
+  ActionRowBuilder, ButtonBuilder,
+  EmbedBuilder,
+  Locale,
+  LocalizationMap,
+  resolveColor,
+} from "discord.js";
 import { Linguini, TypeMapper, TypeMappers, Utils } from 'linguini';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';

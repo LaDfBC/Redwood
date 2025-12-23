@@ -31,24 +31,43 @@
                 "title": "Help - {{REF:helpOptions.commands}}",
                 "fields": [
                     {
-                        "name": "Commands",
+                        "name": "Metadata",
                         "value": [
-                            "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
-                            "",
-                            "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
-                            "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}",
-                            "{{CMD_LINK_AB}} - {{REF:commandDescs.ab}}",
-                            "{{CMD_LINK_AB_HISTORY}} - {{REF:commandDescs.abHistory}}",
-                            "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
-                            "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
-                            "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}",
-                            "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
-                            "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
-                            "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}",
-                            "{{CMD_LINK_D20}} - {{REF:commandDescs.d20}}",
-                            "{{CMD_LINK_FIELDING}} - {{REF:commandDescs.fielding}}",
-                            "{{CMD_LINK_JUMP}} - {{REF:commandDescs.jump}}",
-                            "{{CMD_LINK_PLAYER}} - {{REF:commandDescs.playerFetch}}"
+                          "*To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.*",
+                          "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
+                          "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}"
+                        ]
+                    },
+                    {
+                        "name": "Core Commands",
+                        "value": [
+                          "{{CMD_LINK_AB}} - {{REF:commandDescs.ab}}",
+                          "{{CMD_LINK_AB_HISTORY}} - {{REF:commandDescs.abHistory}}",
+                          "{{CMD_LINK_FIELDING}} - {{REF:commandDescs.fielding}}",
+                          "{{CMD_LINK_JUMP}} - {{REF:commandDescs.jump}}",
+                          "{{CMD_LINK_PLAYER}} - {{REF:commandDescs.playerFetch}}"
+                        ]
+                    },
+                    {
+                        "name": "Custom Command Managers",
+                        "value": [
+                          "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
+                          "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
+                          "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}"
+                        ]
+                    },
+                    {
+                        "name": "Chart Managers",
+                        "value": [
+                          "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
+                          "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
+                          "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}"
+                        ]
+                    },
+                    {
+                        "name": "Other",
+                        "value": [
+                          "{{CMD_LINK_D20}} - {{REF:commandDescs.d20}}"
                         ]
                     },
                     {
@@ -225,7 +244,7 @@
                 "fields": [
                     {
                         "name": "Error",
-                        "value": "The command {{CHART_NAME}} does not exist!"
+                        "value": "The chart {{CHART_NAME}} does not exist!"
                     }
                 ],
                 "color": "{{COM:colors.error}}"
@@ -630,6 +649,7 @@
             "ccCreate": "Create a custom command",
             "ccDelete": "Delete a custom command",
             "ccFetch": "Run a custom command",
+            "ccMine": "View all of your custom commands",
             "jump": "Roll for baserunner's jump before stealing",
             "fielding": "Roll for a fielder's response to a ball in play",
             "chartCreate": "Create a chart",
