@@ -67,7 +67,7 @@ export class CcCreateCommand implements Command {
     readStream.pipe(writeStream);
     try {
       const result = await promise;
-      return decodeURIComponent(result.Location).replaceAll(" ", "+");
+      return result.Location.replaceAll(" ", "+");
     } catch (e) {
       console.log("upload failed.", e.message);
       throw e;
