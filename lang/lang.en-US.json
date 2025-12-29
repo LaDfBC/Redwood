@@ -166,6 +166,27 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
+            "ccUsageNameDoesNotExist": {
+                "title": "Unsuccessful custom command usage lookup",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The command {{COMMAND_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "ccUsageSuccess": {
+                "title": "{{COMMAND_NAME}} usage history",
+                "fields": [
+                    {
+                        "name": "Data",
+                        "value": "```js\nCreated:   \t{{CREATED_ON}}\nOwner:     \t{{OWNER}}\nTimes Used:\t{{COUNT}}\nLast Used: \t{{LAST_USED}}```"
+                    }
+                ],
+                "image": "{{IMAGE_LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
             "ccCreateCommandNameAlreadyExists": {
               "title": "Unsuccessful custom command creation",
               "fields": [
@@ -226,10 +247,19 @@
             },
             "ccMineSuccessfulResponse": {
                 "title": "Commands created by {{USER}}",
+                "footer": {
+                    "text": "{{RANGE_LOW}} - {{RANGE_HIGH}} of {{TOTAL_COUNT}} commands displayed"
+                },
+                "color": "{{COM:colors.success}}"
+            },
+            "ccMineNoCommandsResponse": {
+                "title": "No commands created by {{USER}}",
                 "fields": [
-
-                ],
-                "color": "{{COM:colors.error}}"
+                    {
+                        "name": "Make some with using the /cc-create command",
+                        "value": "People love Kermit and Psyduck if you need inspiration"
+                    }
+                ]
             },
             "ccMineSingularCommandHasUsage": {
                 "name": ":arrow_forward",
@@ -356,8 +386,8 @@
                 "title": "Historical {{ROLL}} statistics for {{USER}}",
                 "fields": [
                     {
-                        "name": "Statistics",
-                        "value": "*Count:* {{COUNT}}"
+                        "name": "Count",
+                        "value": "{{COUNT}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
@@ -384,7 +414,7 @@
                 ],
                 "color": "{{COM:colors.success}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
                 }
             },
             "jumpPickoffCommand": {
@@ -401,7 +431,7 @@
                 ],
                 "color": "{{COM:colors.success}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
                 }
             },
             "jumpBalkCommand": {
@@ -418,7 +448,7 @@
                 ],
                 "color": "{{COM:colors.success}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}}"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
                 }
             },
             "fielding": {
@@ -603,6 +633,7 @@
             "ab-history": "ab-history",
             "jump": "jump",
             "cc-fetch": "cc",
+            "cc-usage": "cc-usage",
             "cc-create": "cc-create",
             "cc-delete": "cc-delete",
             "cc-mine": "cc-mine",
@@ -624,9 +655,9 @@
             "option": "option",
             "ccCreateNameOption": "name",
             "ccCreateActionOption": "action",
-            "cc-name-option": "name",
             "ccDeleteNameOption": "name",
             "ccFetchNameOption": "name",
+            "ccUsageNameOption": "name",
             "fieldingPositionOption": "position",
             "chartCreateNameOption": "name",
             "chartCreateTitleOption": "title",
@@ -636,6 +667,7 @@
             "chartFetchNameOption": "name",
             "abHistoryCountOption": "count",
             "abHistoryRollTypeOption": "roll-type",
+            "abHistoryAdditionalUserOption": "additional-user",
             "playerFetchNameOption": "player-name"
         },
         "commandDescs": {
@@ -649,6 +681,7 @@
             "ccCreate": "Create a custom command",
             "ccDelete": "Delete a custom command",
             "ccFetch": "Run a custom command",
+            "ccUsage": "View usage statistics for a custom command",
             "ccMine": "View all of your custom commands",
             "jump": "Roll for baserunner's jump before stealing",
             "fielding": "Roll for a fielder's response to a ball in play",
@@ -667,6 +700,7 @@
             "ccCreateActionOption": "Command Action or Link",
             "ccDeleteNameOption": "Command Name",
             "ccFetchNameOption": "Command Name",
+            "ccUsageNameOption": "Command Name",
             "jumpOption": "Jump on a steal",
             "fieldingPositionOption": "Fielding Position",
             "chartCreateNameOption": "Chart Name - How it will be referenced in the slash command",
@@ -677,6 +711,7 @@
             "chartFetchNameOption": "Name of the chart to fetch",
             "abHistoryCountOption": "How many results will be analyzed",
             "abHistoryRollTypeOption": "Type of roll whose results will be fetched - All does not include Chaos rolls",
+            "abHistoryAdditionalUserOption": "Show another user side-by-side with you in the same chart",
             "playerFetchNameOption": "Name of the player to fetch"
         },
         "fields": {

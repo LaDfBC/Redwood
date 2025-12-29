@@ -9,7 +9,6 @@ import {
 } from "../enums/index.js";
 import { Language } from '../models/enum-helpers/index.js';
 import {DatabaseService, Lang } from '../services/index.js';
-import {CustomCommandRow} from "../models/database/index.js";
 
 export class Args {
     public static readonly DEV_COMMAND: APIApplicationCommandBasicOption = {
@@ -116,6 +115,14 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.ccFetchNameOption'),
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CC_USAGE_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.ccUsageNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.ccUsageNameOption'),
+        description: Lang.getRef('argDescs.ccUsageNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.ccUsageNameOption'),
+        autocomplete: true,
+        type: ApplicationCommandOptionType.String
     };
     public static readonly CHART_DELETE_NAME_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.chartDeleteNameOption', Language.Default),
@@ -228,6 +235,14 @@ export class Args {
                 value: RollType.CHAOS,
             },
         ],
+    };
+    public static readonly AB_HISTORY_ADDITIONAL_USER_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.abHistoryAdditionalUserOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.abHistoryAdditionalUserOption'),
+        description: Lang.getRef('argDescs.abHistoryAdditionalUserOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.abHistoryAdditionalUserOption'),
+        required: false,
+        type: ApplicationCommandOptionType.User
     };
     public static readonly PLAYER_FETCH_NAME_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.playerFetchNameOption', Language.Default),

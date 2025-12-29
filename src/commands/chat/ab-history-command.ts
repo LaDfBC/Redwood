@@ -1,7 +1,8 @@
 import {
-  ChatInputCommandInteraction,
-  EmbedBuilder,
-  PermissionsString,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    PermissionsString,
+    User
 } from "discord.js";
 
 import { Language } from "../../models/enum-helpers/index.js";
@@ -29,18 +30,24 @@ export class AbHistoryCommand implements Command {
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        let args: { count: number, roll_type: string } = {
+        let args: { count: number, roll_type: string, additional_user: User } = {
             count: intr.options.getNumber(
                 Lang.getRef('arguments.abHistoryCountOption', Language.Default)
             ),
             roll_type: intr.options.getString(
                 Lang.getRef('arguments.abHistoryRollTypeOption', Language.Default)
+            ),
+            additional_user: intr.options.getUser(
+                Lang.getRef('arguments.abHistoryAdditionalUserOption', Language.Default)
             )
         };
 
         if (args.roll_type === '2d6') {
             args.roll_type = 'TWOD6'
         }
+
+        const additionalUser: User = args.additional_user
+        const userText = additionalUser ? `${intr.user.displayName} and ${additionalUser.displayName}` : intr.user.displayName;
 
         let embed: EmbedBuilder;
         let rollTypeEnum: RollType = RollType[args.roll_type];
@@ -50,70 +57,94 @@ export class AbHistoryCommand implements Command {
             });
             await InteractionUtils.send(intr, embed);
         }
-        
+
         if (rollTypeEnum) {
-            const historyRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(intr.user.id, intr.guildId, RollType[args.roll_type], args.count)
-            let summary = structuredClone(summaryBaseline)
-            historyRows.forEach((hist: AbHistoryRow) => {
-                summary[hist.roll_type][hist.roll_value] = summary[hist.roll_type][hist.roll_value] + 1
-            })
+            let summary = []
 
-      if (rollTypeEnum === RollType.D20 || rollTypeEnum === RollType.ALL) {
-          const chartUrl = await this.generateChart(RollType.D20, summary);
+            if (additionalUser) {
+                const originalUserRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(intr.user.id, intr.guildId, RollType[args.roll_type], args.count);
+                const additionalUserRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(additionalUser.id, intr.guildId, RollType[args.roll_type], args.count);
+                const users = [intr.user.id, additionalUser.id];
 
-          const stats = this.getStats(RollType.D20, summary),
-          embed = Lang.getEmbed("displayEmbeds.abHistorySuccess", data.lang, {
-              USER: intr.user.username,
-              ROLL: 'd20',
-              IMAGE_LINK: chartUrl,
-              AVERAGE: stats.average,
-              COUNT: stats.count.toString()
-          });
-          await InteractionUtils.send(intr, embed);
-      }
-      if (rollTypeEnum === RollType.TWOD6 || rollTypeEnum === RollType.ALL) {
-          const chartUrl = await this.generateChart(RollType.TWOD6, summary);
+                summary = [structuredClone(summaryBaseline), structuredClone(summaryBaseline)]
+                originalUserRows.forEach((row: AbHistoryRow) => {
+                    summary[users.indexOf(intr.user.id)][row.roll_type][row.roll_value] = summary[users.indexOf(intr.user.id)][row.roll_type][row.roll_value] + 1
+                })
+                additionalUserRows.forEach((row: AbHistoryRow) => {
+                    summary[users.indexOf(additionalUser.id)][row.roll_type][row.roll_value] = summary[users.indexOf(additionalUser.id)][row.roll_type][row.roll_value] + 1
+                })
+            } else {
+              const historyRows: AbHistoryRow[] = await this.databaseService.fetchAbHistory(intr.user.id, intr.guildId, RollType[args.roll_type], args.count);
+              summary = [structuredClone(summaryBaseline)];
+              historyRows.forEach((hist: AbHistoryRow) => {
+                  summary[0][hist.roll_type][hist.roll_value] = summary[0][hist.roll_type][hist.roll_value] + 1;
+              });
+            }
 
-          const stats = this.getStats(RollType.TWOD6, summary),
-          embed = Lang.getEmbed("displayEmbeds.abHistorySuccess", data.lang, {
-              USER: intr.user.username,
-              ROLL: '2d6',
-              IMAGE_LINK: chartUrl,
-              AVERAGE: stats.average,
-              COUNT: stats.count.toString()
-          });
-          await InteractionUtils.send(intr, embed);
-      }
-      if (rollTypeEnum === RollType.D6 || rollTypeEnum === RollType.ALL) {
-          const chartUrl = await this.generateChart(RollType.D6, summary);
+            if (rollTypeEnum === RollType.D20 || rollTypeEnum === RollType.ALL) {
+                const chartUrl = await this.generateChart(RollType.D20, summary, additionalUser ? [intr.user.displayName, additionalUser.displayName] : undefined);
 
-          const stats= this.getStats(RollType.D6, summary),
-          embed = Lang.getEmbed("displayEmbeds.abHistorySuccess", data.lang, {
-              USER: intr.user.username,
-              ROLL: 'd6',
-              IMAGE_LINK: chartUrl,
-              AVERAGE: stats.average,
-              COUNT: stats.count.toString()
-          });
-          await InteractionUtils.send(intr, embed);
-      }
-      if (rollTypeEnum === RollType.CHAOS) {
-          const chartUrl = await this.generateChart(RollType.CHAOS, summary);
+                const stats = this.getStats(RollType.D20, summary);
+                embed = Lang.getEmbed(
+                    "displayEmbeds.abHistorySuccess",
+                    data.lang,
+                    {
+                      USER: userText,
+                      ROLL: "d20",
+                      IMAGE_LINK: chartUrl,
+                      COUNT: additionalUser ? this.getCountText(stats, [intr.user.displayName, additionalUser.displayName]) : this.getCountText(stats, [intr.user.displayName]),
+                    },
+                  );
+                await InteractionUtils.send(intr, embed);
+            }
+            if (rollTypeEnum === RollType.TWOD6 || rollTypeEnum === RollType.ALL) {
+                const chartUrl = await this.generateChart(RollType.TWOD6, summary, additionalUser ? [intr.user.displayName, additionalUser.displayName] : undefined);
 
-          const stats= this.getStats(RollType.CHAOS, summary),
-              embed = Lang.getEmbed("displayEmbeds.abHistoryChaos", data.lang, {
-              USER: intr.user.username,
-              ROLL: ':smiling_imp: chaos',
-              IMAGE_LINK: chartUrl,
-              AVERAGE: stats.average,
-              COUNT: stats.count.toString()
-          });
-          await InteractionUtils.send(intr, embed);
-      }
-    }
+                const stats = this.getStats(RollType.TWOD6, summary)
+                embed = Lang.getEmbed(
+                    "displayEmbeds.abHistorySuccess",
+                    data.lang,
+                    {
+                      USER: userText,
+                      ROLL: "2d6",
+                      IMAGE_LINK: chartUrl,
+                      COUNT: additionalUser ? this.getCountText(stats, [intr.user.displayName, additionalUser.displayName]) : this.getCountText(stats, [intr.user.displayName]),
+                    },
+                  );
+                await InteractionUtils.send(intr, embed);
+            }
+            if (rollTypeEnum === RollType.D6 || rollTypeEnum === RollType.ALL) {
+                const chartUrl = await this.generateChart(RollType.D6, summary, additionalUser ? [intr.user.displayName, additionalUser.displayName] : undefined);
+
+                const stats = this.getStats(RollType.D6, summary)
+                embed = Lang.getEmbed(
+                    "displayEmbeds.abHistorySuccess",
+                    data.lang,
+                    {
+                      USER: userText,
+                      ROLL: "d6",
+                      IMAGE_LINK: chartUrl,
+                      COUNT: additionalUser ? this.getCountText(stats, [intr.user.displayName, additionalUser.displayName]) : this.getCountText(stats, [intr.user.displayName]),
+                    },
+                  );
+                await InteractionUtils.send(intr, embed);
+            }
+            if (rollTypeEnum === RollType.CHAOS) {
+                const chartUrl = await this.generateChart(RollType.CHAOS, summary, additionalUser ? [intr.user.displayName, additionalUser.displayName] : undefined);
+
+                const stats = this.getStats(RollType.CHAOS, summary)
+                embed = Lang.getEmbed("displayEmbeds.abHistoryChaos", data.lang, {
+                    USER: userText,
+                    ROLL: ":smiling_imp: chaos",
+                    IMAGE_LINK: chartUrl,
+                    COUNT: additionalUser ? this.getCountText(stats, [intr.user.displayName, additionalUser.displayName]) : this.getCountText(stats, [intr.user.displayName]),
+                  });
+                await InteractionUtils.send(intr, embed);
+            }
+        }
   }
 
-  private async generateChart (rollType: RollType, summary: object): Promise<string> {
+  private async generateChart (rollType: RollType, summary: object[], usernames?: string[]): Promise<string> {
       const labels = Object.keys(summaryBaseline[rollType]);
       const chart = new QuickChart();
       chart.setConfig({
@@ -121,39 +152,71 @@ export class AbHistoryCommand implements Command {
           data: {
               legend: 'options',
               labels,
-              datasets: [
-                  {
+              datasets: summary.map((currentUserSummary, idx) => {
+                  if (usernames) {
+                    return {
+                      label: usernames[idx],
                       data: labels.map((label) => {
-                          return summary[rollType][label];
+                        return currentUserSummary[rollType][label];
                       }),
-                  },
-              ],
+                    };
+                  } else {
+                      return {
+                          data: labels.map((label) => {
+                            return currentUserSummary[rollType][label];
+                          }),
+                      };
+                  }
+              })
           },
           options: {
               legend: {
-                  display: false,
+                  display: (!!usernames),
                   labels: {
-                      display: false
+                      display: (!!usernames)
                   }
               }
           }
       });
+
       return await chart.getShortUrl(); // Or chart.getUrl()
   }
 
-  private getStats(rollType: RollType, summary: object): HistoryStats {
-    let total = 0;
-    let count = 0;
-    Object.keys(summary[rollType]).forEach((key) => {
-      const val = summary[rollType][key];
-      if (val !== 0) {
-        total += parseInt(key, 10);
-        count += val;
-      }
-    });
-    return {
-        average:(total / count).toFixed(3),
-        count: count
+    private getStats(rollType: RollType, summaries: object[]): HistoryStats[] {
+        return summaries.map((summary) => {
+            let total = 0;
+            let count = 0;
+            Object.keys(summary[rollType]).forEach((key) => {
+              const val = summary[rollType][key];
+              if (val !== 0) {
+                total += parseInt(key, 10);
+                count += val;
+              }
+            });
+            return {
+                count: count
+            }
+        })
     }
-  }
+
+    private getCountText(stats: HistoryStats[], usernames: string[]): string {
+        const longestUsername = Math.max(...usernames.map((username) => username.length))
+
+        let ret = "```js\n"
+        if (usernames.length !== stats.length) {
+            throw new Error("Unequal username and stat length: Fix this spaghetti code")
+        }
+
+        for (let i = 0; i < stats.length; i++) {
+            ret += `${usernames[i]}: `
+            for (let j = 0; j < (longestUsername - usernames[i].length); j++) {
+                ret += ' '
+            }
+            ret += stats[i].count
+            ret += "\n"
+        }
+
+        ret += "```"
+        return ret;
+    }
 }

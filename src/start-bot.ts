@@ -2,23 +2,26 @@ import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button } from './buttons/index.js';
+import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton } from './buttons/index.js';
 import {
-  D20Command,
-  DevCommand,
-  HelpCommand,
-  InfoCommand,
-  TestCommand,
-  JumpCommand,
-  AtBatCommand,
-  CcCreateCommand,
-  CcFetchCommand,
-  CcDeleteCommand,
-  FieldingCommand,
-  ChartCreateCommand,
-  ChartDeleteCommand,
-  ChartFetchCommand,
-  AbHistoryCommand, ButtStuffCommand, PlayerCommand, CcMineCommand,
+    D20Command,
+    HelpCommand,
+    InfoCommand,
+    TestCommand,
+    JumpCommand,
+    AtBatCommand,
+    CcCreateCommand,
+    CcFetchCommand,
+    CcDeleteCommand,
+    FieldingCommand,
+    ChartCreateCommand,
+    ChartDeleteCommand,
+    ChartFetchCommand,
+    AbHistoryCommand,
+    ButtStuffCommand,
+    PlayerCommand,
+    CcMineCommand,
+    CcUsageCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -87,6 +90,7 @@ async function start(): Promise<void> {
         new CcMineCommand(databaseService),
         new CcDeleteCommand(databaseService),
         new CcFetchCommand(databaseService),
+        new CcUsageCommand(databaseService, client),
         new CcMineCommand(databaseService),
         new FieldingCommand(databaseService),
         new ChartCreateCommand(databaseService),
@@ -106,7 +110,10 @@ async function start(): Promise<void> {
 
     // Buttons
     let buttons: Button[] = [
-        // TODO: Add new buttons here
+        new CcMineNextButton(databaseService),
+        new CcMinePreviousButton(databaseService),
+        new CcMineFirstButton(databaseService),
+        new CcMineLastButton(databaseService)
     ];
 
     // Reactions

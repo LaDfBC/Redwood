@@ -1,6 +1,6 @@
 import {
-  ActionRowBuilder, ButtonBuilder,
   EmbedBuilder,
+  EmbedField,
   Locale,
   LocalizationMap,
   resolveColor,
@@ -20,12 +20,19 @@ export class Lang {
     public static getEmbed(
         location: string,
         langCode: Locale,
-        variables?: { [name: string]: string }
+        variables?: { [name: string]: string },
+        overrideFields?: EmbedField[],
     ): EmbedBuilder {
-        return (
+        let builder: EmbedBuilder = (
             this.linguini.get(location, langCode, this.embedTm, variables) ??
             this.linguini.get(location, Language.Default, this.embedTm, variables)
         );
+
+        if (overrideFields) {
+            builder.setFields(overrideFields)
+        }
+
+        return builder;
     }
 
     public static getRegex(location: string, langCode: Locale): RegExp {

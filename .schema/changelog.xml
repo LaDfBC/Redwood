@@ -220,4 +220,26 @@
         <renameColumn tableName="custom_command_usage" oldColumnName="server_id" newColumnName="guild_id" />
         <renameColumn tableName="custom_command_usage" oldColumnName="calling_username" newColumnName="calling_userid" />
     </changeSet>
+    <changeSet author="Jaera" id="15">
+        <createTable tableName="message_pagination">
+            <column name="message_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="guild_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="range_low" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="range_high" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_timestamp" type="timestamp with time zone"/>
+            <column name="updated_timestamp" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Jaera" id="16">
+        <renameColumn tableName="message_pagination" oldColumnName="range_low" newColumnName="page" />
+        <dropColumn tableName="message_pagination" columnName="range_high" />
+    </changeSet>
 </databaseChangeLog>

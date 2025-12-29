@@ -145,6 +145,21 @@ export const ChatCommandMetadata: {
             }
         ]
     },
+    CC_USAGE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.cc-usage', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.cc-usage'),
+        description: Lang.getRef('commandDescs.ccUsage', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.ccUsage'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CC_USAGE_NAME_OPTION,
+                required: true
+            }
+        ]
+    },
     CC_MINE: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.cc-mine', Language.Default),
@@ -242,6 +257,10 @@ export const ChatCommandMetadata: {
             {
                 ...Args.AB_HISTORY_ROLL_TYPE_OPTION,
                 required: true
+            },
+            {
+                ...Args.AB_HISTORY_ADDITIONAL_USER_OPTION,
+                required: false
             }
         ]
     },

@@ -13,6 +13,7 @@ import {
   ChartRow,
   CustomCommandRow,
   CustomCommandUsageRow,
+  CustomCommandWithUsageCountRow,
   DeleteChartResult,
   DeleteCommandResult,
   FieldingErrorRow,
@@ -25,6 +26,7 @@ import {PlayerRow} from "../models/database/player-row";
 import AWS, {AWSError} from "aws-sdk";
 import {PromiseResult} from "aws-sdk/lib/request";
 import {DeleteObjectOutput} from "aws-sdk/clients/s3";
+import {MessagePaginationRow} from "../models/database/message-pagination-row";
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -78,6 +80,16 @@ export class DatabaseService {
 
     public async fetchAllCommands(): Promise<CustomCommandRow[]> {
       return knex<CustomCommandRow>('custom_command').orderBy('command_name')
+    }
+
+    public async fetchAllCommandsForUser(guildId: string, userId: string): Promise<CustomCommandWithUsageCountRow[]> {
+        return await knex<CustomCommandUsageRow>("custom_command")
+            .leftOuterJoin("custom_command_usage", "custom_command.command_name", "custom_command_usage.command_name")
+            .where("custom_command.guild_id", guildId)
+            .andWhere("custom_command.owner_username", userId)
+            .groupBy("custom_command.command_name", "custom_command.guild_id", "custom_command.owner_username", "custom_command.link", "custom_command.created")
+            .orderBy("custom_command.created")
+            .select(["custom_command.*", knex.raw("count(custom_command_usage.*) as usage_count")])
     }
 
 
@@ -318,5 +330,42 @@ export class DatabaseService {
             calling_userid: userId,
             usage_date: new Date(),
         })
+    }
+
+    async fetchCommandUsage(command_name: string, guildId: string): Promise<CustomCommandUsageRow[]> {
+        return knex<CustomCommandUsageRow>("custom_command_usage")
+            .where("custom_command.guild_id", guildId)
+            .andWhere("custom_command.command_name", command_name)
+            .join("custom_command", "custom_command.command_name", "custom_command_usage.command_name")
+            .select("custom_command_usage.*", "custom_command.created")
+    }
+
+    async insertMineCommandMessage(messageId: string, guildId: string, page: number): Promise<void> {
+        await knex<MessagePaginationRow>('message_pagination')
+            .insert({
+                message_id: messageId,
+                guild_id: guildId,
+                page: page,
+                created_timestamp: new Date(),
+                updated_timestamp: new Date(),
+            })
+    }
+
+    async fetchMessagePaginationData(messageId: string, guildId: string): Promise<MessagePaginationRow> {
+        return await knex<MessagePaginationRow>('message_pagination')
+            .where('message_id', messageId)
+            .andWhere("guild_id", guildId)
+            .first()
+    }
+
+    async updateMesssagePaginationData(messageId: string, newMessageId: string, guildId: string, page: number): Promise<void> {
+        await knex<MessagePaginationRow>('message_pagination')
+            .where("message_id", messageId)
+            .andWhere("guild_id", guildId)
+            .update({
+                "page": page,
+                "message_id": newMessageId,
+                updated_timestamp: new Date(),
+            })
     }
 }
