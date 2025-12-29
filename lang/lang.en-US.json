@@ -53,7 +53,9 @@
                         "value": [
                           "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
                           "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
-                          "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}"
+                          "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}",
+                          "{{CMD_LINK_CC_MINE}} - {{REF:commandDescs.ccMine}}",
+                          "{{CMD_LINK_CC_USAGE}} - {{REF:commandDescs.ccUsage}}"
                         ]
                     },
                     {

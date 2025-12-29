@@ -68,6 +68,18 @@ export class HelpCommand implements Command {
                             Lang.getRef('chatCommands.cc-delete', Language.Default)
                         )
                     ),
+                    CMD_LINK_CC_MINE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.cc-mine', Language.Default)
+                        )
+                    ),
+                    CMD_LINK_CC_USAGE: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.cc-usage', Language.Default)
+                        )
+                    ),
                     CMD_LINK_CHART: FormatUtils.commandMention(
                         await ClientUtils.findAppCommand(
                             intr.client,
