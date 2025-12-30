@@ -17,3 +17,5 @@ export { ChartFetchCommand } from './chart-command.js';
 export { AbHistoryCommand } from './ab-history-command.js';
 export { PlayerCommand } from './player-command.js'
 export { ButtStuffCommand } from './butt-stuff-command.js'
+export { VibeCommand } from './vibe-command.js'
+export { InjuryCommand } from './injury-command.js'

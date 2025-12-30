@@ -288,6 +288,15 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    VIBE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.vibe', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.vibe'),
+        description: Lang.getRef('commandDescs.vibe', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.vibe'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
 };
 
 export const MessageCommandMetadata: {

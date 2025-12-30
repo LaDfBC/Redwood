@@ -94,6 +94,27 @@
                 ],
                 "color": "{{COM:colors.success}}"
             },
+            "vibeCommand": {
+                "title": "Vibe check for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Result",
+                        "value": ["{{VIBE}}"]
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
+            "injuryCommand": {
+                "title": "Injury roll for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Result",
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"]
+                    }
+                ],
+
+                "color": "{{COM:colors.success}}"
+            },
             "abStandardCommand": {
                 "title": "At bat roll for {{USER}}",
                 "fields": [
@@ -631,6 +652,8 @@
             "info": "info",
             "test": "test",
             "d20": "d20",
+            "injury": "injury",
+            "vibe": "vibe",
             "ab": "ab",
             "ab-history": "ab-history",
             "jump": "jump",
@@ -691,7 +714,8 @@
             "chartDelete": "Delete a chart",
             "chartFetch": "Fetch a chart",
             "playerFetch": "Fetch a player",
-            "buttStuff": "My anaconda don't want none unless you got buns, hun"
+            "buttStuff": "My anaconda don't want none unless you got buns, hun",
+            "vibe": "You feelin' lucky, punk?"
         },
         "argDescs": {
             "devCommand": "Command.",

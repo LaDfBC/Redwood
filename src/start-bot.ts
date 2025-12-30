@@ -21,7 +21,7 @@ import {
     ButtStuffCommand,
     PlayerCommand,
     CcMineCommand,
-    CcUsageCommand,
+    CcUsageCommand, VibeCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -97,6 +97,7 @@ async function start(): Promise<void> {
         new ChartDeleteCommand(databaseService),
         new ChartFetchCommand(databaseService),
         new ButtStuffCommand(),
+        new VibeCommand(),
         new PlayerCommand(databaseService),
 
         // Message Context Commands
