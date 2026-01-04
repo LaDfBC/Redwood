@@ -184,6 +184,15 @@ export const ChatCommandMetadata: {
             }
         ]
     },
+    INJURY: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.injury', Language.Default),
+        name_localizations:Lang.getRefLocalizationMap('chatCommands.injury'),
+        description: Lang.getRef('commandDescs.injury', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.injury'),
+        default_member_permissions: undefined,
+        dm_permission: true
+    },
     CHART_CREATE: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.chart-create', Language.Default),

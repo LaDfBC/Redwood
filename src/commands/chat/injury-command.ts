@@ -2,9 +2,10 @@ import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'di
 
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
+import {DatabaseService, Lang } from '../../services/index.js';
 import { InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
+import {ChartRow} from "../../models/database";
 
 const injuryList = [
     "OK",
@@ -31,15 +32,21 @@ const injuryList = [
 
 // TODO: THIS IS NOT READY - IT NEEDS TO FETCH THE INJURY IMAGE FROM THE DATABASE AND RETURN IT TO THE EMBED
 export class InjuryCommand implements Command {
+    constructor(
+        private databaseService: DatabaseService,
+    ) {}
+
     public names = [Lang.getRef('chatCommands.injury', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const roll = getRandomInt(1, 20)
+        const injuryChart: ChartRow = await this.databaseService.fetchChart("Injury Maximums", intr.guildId)
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.injuryCommand', data.lang, {
             ROLL_RESULT: roll.toString(),
             INJURY: injuryList[roll - 1],
             USER: intr.user.displayName,
+            IMAGE_LINK: injuryChart.image_link
         });
 
         await InteractionUtils.send(intr, embed);

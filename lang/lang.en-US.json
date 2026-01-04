@@ -109,10 +109,10 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"]
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"]
                     }
                 ],
-
+                "image": "{{IMAGE_LINK}}",
                 "color": "{{COM:colors.success}}"
             },
             "abStandardCommand": {
@@ -708,6 +708,7 @@
             "ccFetch": "Run a custom command",
             "ccUsage": "View usage statistics for a custom command",
             "ccMine": "View all of your custom commands",
+            "injury": "Roll for and view an injury when it happens",
             "jump": "Roll for baserunner's jump before stealing",
             "fielding": "Roll for a fielder's response to a ball in play",
             "chartCreate": "Create a chart",
