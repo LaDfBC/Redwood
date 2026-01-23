@@ -108,6 +108,7 @@ export class DatabaseService {
           } else if ((await this.fetchCommand(commandName, guildId)).owner_username !== requestingUser) {
               return { success: false, reason: DeleteCommandFailureReason.USER_NOT_OWNER}
           } else {
+              await knex<CustomCommandRow>('custom_command_usage').where('command_name', commandName).del();
               await knex<CustomCommandRow>('custom_command').where('command_name', commandName).del();
               return { success: true, reason: undefined };
           }
