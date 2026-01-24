@@ -48,7 +48,22 @@ const knex: Knex = require('knex')({
     }
 })
 
+function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
 export class DatabaseService {
+    private async retryOnce<R>(fn:() => R): Promise<R> {
+      // Return a new function
+      let isRetry = false;
+      try {
+        return await fn();
+      } catch (error: any) {
+        await delay(1000);
+        return await fn();
+      }
+    }
+
     /**
     * TODO: Return something meaningful and add useful error handling
     * @param commandName
@@ -56,14 +71,16 @@ export class DatabaseService {
     * @param link
     */
     public async insertCommand(commandName: string, ownerUsername: string, guildId: string, link: string): Promise<void> {
-    await knex<CustomCommandRow>('custom_command')
-      .insert({
-          command_name: commandName,
-          owner_username: ownerUsername,
-          guild_id: guildId,
-          link,
-          created: new Date(),
-      })
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<CustomCommandRow>('custom_command')
+                .insert({
+                  command_name: commandName,
+                  owner_username: ownerUsername,
+                  guild_id: guildId,
+                  link,
+                  created: new Date(),
+              })
+        })
     }
 
     /**
@@ -72,10 +89,12 @@ export class DatabaseService {
     * @param guildId The guild (Server) of Discord this command belongs to
     */
     public async fetchCommand(commandName: string, guildId: string): Promise<CustomCommandRow | undefined> {
-    return knex<CustomCommandRow>('custom_command')
-        .whereILike('command_name', commandName.toLowerCase())
-        .andWhere("guild_id", guildId)
-        .first();
+        return await this.retryOnce(async (): Promise<CustomCommandRow> => {
+            return knex<CustomCommandRow>('custom_command')
+                .whereILike('command_name', commandName.toLowerCase())
+                .andWhere("guild_id", guildId)
+                .first();
+        })
     }
 
     public async fetchAllCommands(): Promise<CustomCommandRow[]> {
@@ -83,53 +102,63 @@ export class DatabaseService {
     }
 
     public async fetchAllCommandsForUser(guildId: string, userId: string): Promise<CustomCommandWithUsageCountRow[]> {
-        return await knex<CustomCommandUsageRow>("custom_command")
-            .leftOuterJoin("custom_command_usage", "custom_command.command_name", "custom_command_usage.command_name")
-            .where("custom_command.guild_id", guildId)
-            .andWhere("custom_command.owner_username", userId)
-            .groupBy("custom_command.command_name", "custom_command.guild_id", "custom_command.owner_username", "custom_command.link", "custom_command.created")
-            .orderBy("custom_command.created")
-            .select(["custom_command.*", knex.raw("count(custom_command_usage.*) as usage_count")])
+        return await this.retryOnce(async (): Promise<CustomCommandWithUsageCountRow[]> => {
+            return await knex<CustomCommandUsageRow>("custom_command")
+                .leftOuterJoin("custom_command_usage", "custom_command.command_name", "custom_command_usage.command_name")
+                .where("custom_command.guild_id", guildId)
+                .andWhere("custom_command.owner_username", userId)
+                .groupBy("custom_command.command_name", "custom_command.guild_id", "custom_command.owner_username", "custom_command.link", "custom_command.created")
+                .orderBy("custom_command.created")
+                .select(["custom_command.*", knex.raw("count(custom_command_usage.*) as usage_count")])
+        })
     }
 
 
     public async fetchAllCommandsMatchingString(commandName: string, guildId: string): Promise<CustomCommandRow[]> {
-      return await knex<CustomCommandRow>('custom_command')
-          .whereILike('command_name', `%${commandName}%`)
-          .andWhere('guild_id', guildId)
-          .orderBy('command_name')
-          .select('command_name')
+        return await this.retryOnce(async (): Promise<CustomCommandRow[]> => {
+            return await knex<CustomCommandRow>('custom_command')
+              .whereILike('command_name', `%${commandName}%`)
+              .andWhere('guild_id', guildId)
+              .orderBy('command_name')
+              .select('command_name')
+        })
     }
 
     public async deleteCommand(commandName: string, requestingUser: string, guildId: string): Promise<DeleteCommandResult> {
-      try {
-          if (!(await this.commandExists(commandName, guildId))) {
-              return { success: false, reason: DeleteCommandFailureReason.COMMAND_DOES_NOT_EXIST };
-          } else if ((await this.fetchCommand(commandName, guildId)).owner_username !== requestingUser) {
-              return { success: false, reason: DeleteCommandFailureReason.USER_NOT_OWNER}
-          } else {
-              await knex<CustomCommandRow>('custom_command_usage').where('command_name', commandName).del();
-              await knex<CustomCommandRow>('custom_command').where('command_name', commandName).del();
-              return { success: true, reason: undefined };
+        return await this.retryOnce(async (): Promise<DeleteCommandResult> => {
+            try {
+              if (!(await this.commandExists(commandName, guildId))) {
+                  return { success: false, reason: DeleteCommandFailureReason.COMMAND_DOES_NOT_EXIST };
+              } else if ((await this.fetchCommand(commandName, guildId)).owner_username !== requestingUser) {
+                  return { success: false, reason: DeleteCommandFailureReason.USER_NOT_OWNER}
+              } else {
+                  await knex<CustomCommandRow>('custom_command_usage').where('command_name', commandName).del();
+                  await knex<CustomCommandRow>('custom_command').where('command_name', commandName).del();
+                  return { success: true, reason: undefined };
+              }
+          } catch (error) {
+              await Logger.error("Encountered an unexpected database error: "  + error);
+              return { success: false, reason: DeleteCommandFailureReason.UNKNOWN };
           }
-      } catch (error) {
-          await Logger.error("Encountered an unexpected database error: "  + error);
-          return { success: false, reason: DeleteCommandFailureReason.UNKNOWN };
-      }
+        })
     }
 
     public async fetchFieldingRange(position: string, roll: number): Promise<FieldingRangeRow> {
-      return await knex<FieldingRangeRow>('fielding_range')
-          .whereILike('position', position.toLowerCase())
-          .andWhere('roll', roll)
-          .first()
+        return await this.retryOnce(async (): Promise<FieldingRangeRow> => {
+            return await knex<FieldingRangeRow>('fielding_range')
+              .whereILike('position', position.toLowerCase())
+              .andWhere('roll', roll)
+              .first()
+        })
     }
 
     public async fetchFieldingErrorData(position: string, roll: number): Promise<FieldingErrorRow[]> {
-      return await knex<FieldingErrorRow>(   'fielding_error')
-          .whereILike('position', position.toLowerCase())
-          .andWhere('roll', roll)
-          .select('*')
+        return await this.retryOnce(async (): Promise<FieldingErrorRow[]> => {
+            return await knex<FieldingErrorRow>(   'fielding_error')
+              .whereILike('position', position.toLowerCase())
+              .andWhere('roll', roll)
+              .select('*')
+        })
     }
 
     /**
@@ -139,7 +168,7 @@ export class DatabaseService {
     * @param commandName The name of the command whose existence should be verified
     */
     public async commandExists(commandName: string, guildId: string): Promise<boolean> {
-    return await this.fetchCommand(commandName, guildId) !== undefined;
+        return await this.fetchCommand(commandName, guildId) !== undefined;
     }
 
     /**
@@ -149,59 +178,69 @@ export class DatabaseService {
      * @param link
      */
     public async insertChart(chartName: string, ownerUsername: string, guildId: string, description: string, title: string, imagelink: string): Promise<void> {
-        await knex<ChartRow>('chart')
-            .insert({
-                chart_name: chartName,
-                owner_username: ownerUsername,
-                guild_id: guildId,
-                description: description,
-                title: title,
-                image_link: imagelink,
-                created: new Date(),
-            })
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<ChartRow>('chart')
+                .insert({
+                    chart_name: chartName,
+                    owner_username: ownerUsername,
+                    guild_id: guildId,
+                    description: description,
+                    title: title,
+                    image_link: imagelink,
+                    created: new Date(),
+                })
+        })
     }
 
     public async fetchAllCharts(guildId: string): Promise<ChartRow[]> {
-        return knex<ChartRow>('chart')
-            .where('guild_id', guildId)
-            .orderBy('chart_name')
+        return await this.retryOnce(async (): Promise<ChartRow[]> => {
+            return knex<ChartRow>('chart')
+                .where('guild_id', guildId)
+                .orderBy('chart_name')
+        })
     }
 
     public async fetchChart(chartName: string, guildId: string): Promise<ChartRow | undefined> {
-        return knex<ChartRow>('chart')
-            .whereILike('chart_name', chartName.toLowerCase())
-            .andWhere("guild_id", guildId)
-            .first();
+        return await this.retryOnce(async (): Promise<ChartRow | undefined> => {
+            return knex<ChartRow>('chart')
+                .whereILike('chart_name', chartName.toLowerCase())
+                .andWhere("guild_id", guildId)
+                .first();
+        })
     }
 
     public async fetchAllChartsMatchingString(chartName: string, guildId: string): Promise<ChartRow[]> {
-        return await knex<ChartRow>('chart')
-            .whereILike('chart_name', `%${chartName}%`)
-            .andWhere('guild_id', guildId)
-            .orderBy('chart_name')
-            .select('chart_name')
+        return await this.retryOnce(async (): Promise<ChartRow[]> => {
+            return await knex<ChartRow>('chart')
+                .whereILike('chart_name', `%${chartName}%`)
+                .andWhere('guild_id', guildId)
+                .orderBy('chart_name')
+                .select('chart_name')
+        })
     }
 
     public async deleteChart(chartName: string, requestingUser: string, guildId: string): Promise<DeleteChartResult> {
-        try {
-            if (!(await this.chartExists(chartName, guildId))) {
-                return { success: false, reason: DeleteChartFailureReason.CHART_DOES_NOT_EXIST };
-            } else if ((await this.fetchChart(chartName, guildId)).owner_username !== requestingUser) {
-                return { success: false, reason: DeleteChartFailureReason.USER_NOT_OWNER}
-            } else {
-                if (await this.deleteChartFromS3(guildId, chartName)) {
-                    await knex<ChartRow>('chart').where('chart_name', chartName).del();
-                    return { success: true, reason: undefined };
+        return await this.retryOnce(async (): Promise<DeleteChartResult> => {
+            try {
+                if (!(await this.chartExists(chartName, guildId))) {
+                    return { success: false, reason: DeleteChartFailureReason.CHART_DOES_NOT_EXIST };
+                } else if ((await this.fetchChart(chartName, guildId)).owner_username !== requestingUser) {
+                    return { success: false, reason: DeleteChartFailureReason.USER_NOT_OWNER}
                 } else {
-                    //TODO: Improve this error handling
-                    await Logger.error("Encountered an error with S3");
-                    return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
+                    if (await this.deleteChartFromS3(guildId, chartName)) {
+                        await knex<ChartRow>('chart').where('chart_name', chartName).del();
+                        return { success: true, reason: undefined };
+                    } else {
+                        //TODO: Improve this error handling
+                        await Logger.error("Encountered an error with S3");
+                        return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
+                    }
                 }
+            } catch (error) {
+                await Logger.error("Encountered an unexpected database error: "  + error);
+                return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
             }
-        } catch (error) {
-            await Logger.error("Encountered an unexpected database error: "  + error);
-            return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
-        }
+        })
     }
 
     private async deleteChartFromS3(guildId: string, chartName: string): Promise<boolean> {
@@ -223,150 +262,175 @@ export class DatabaseService {
     }
 
     public async logChaosRoll(username: string, guildId: string, chaosRoll: number): Promise<void> {
-        await knex<AbHistoryRow>('ab_history')
-            .insert({
-                uuid: randomUUID(),
-                username: username,
-                guild_id: guildId,
-                roll_type: RollType.CHAOS,
-                roll_value: chaosRoll,
-                roll_date: new Date(),
-            })
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<AbHistoryRow>('ab_history')
+                .insert({
+                    uuid: randomUUID(),
+                    username: username,
+                    guild_id: guildId,
+                    roll_type: RollType.CHAOS,
+                    roll_value: chaosRoll,
+                    roll_date: new Date(),
+                })
+        })
     }
 
     public async logAtBatRolls(username: string, guildId: string, rolls: RollMapping): Promise<void> {
         const uuidFor2d6 = randomUUID()
 
-        await knex<AbHistoryRow>('ab_history')
-            .insert([
-                {
-                    uuid: randomUUID(),
-                    username: username,
-                    guild_id: guildId,
-                    roll_type: RollType.D20,
-                    roll_value: rolls.d20,
-                    roll_date: new Date(),
-                },
+        await this.retryOnce(async (): Promise<void> => {
+            await knex<AbHistoryRow>('ab_history')
+                .insert([
                     {
-                    uuid: uuidFor2d6,
-                    username: username,
-                    guild_id: guildId,
-                    roll_type: RollType.TWOD6,
-                    roll_value: rolls.twod6.reduce((acc, currentValue) => acc + currentValue, 0),
-                    roll_date: new Date(),
-                },
-                {
-                    uuid: randomUUID(),
-                    username: username,
-                    guild_id: guildId,
-                    roll_type: RollType.D6,
-                    roll_value: rolls.d6,
-                    roll_date: new Date(),
-                }
-            ])
+                        uuid: randomUUID(),
+                        username: username,
+                        guild_id: guildId,
+                        roll_type: RollType.D20,
+                        roll_value: rolls.d20,
+                        roll_date: new Date(),
+                    },
+                        {
+                        uuid: uuidFor2d6,
+                        username: username,
+                        guild_id: guildId,
+                        roll_type: RollType.TWOD6,
+                        roll_value: rolls.twod6.reduce((acc, currentValue) => acc + currentValue, 0),
+                        roll_date: new Date(),
+                    },
+                    {
+                        uuid: randomUUID(),
+                        username: username,
+                        guild_id: guildId,
+                        roll_type: RollType.D6,
+                        roll_value: rolls.d6,
+                        roll_date: new Date(),
+                    }
+                ])
+        })
 
-
-        await knex<AbHistoryIndividualRollRow>('ab_history_individual_rolls')
-            .insert([
-                {
-                    uuid: uuidFor2d6,
-                    sequence_number: 1,
-                    roll_value: rolls.twod6[0]
-                },
-                {
-                    uuid: uuidFor2d6,
-                    sequence_number: 2,
-                    roll_value: rolls.twod6[1]
-                }
-            ])
+        await this.retryOnce(async (): Promise<void> => {
+            await knex<AbHistoryIndividualRollRow>('ab_history_individual_rolls')
+                .insert([
+                    {
+                        uuid: uuidFor2d6,
+                        sequence_number: 1,
+                        roll_value: rolls.twod6[0]
+                    },
+                    {
+                        uuid: uuidFor2d6,
+                        sequence_number: 2,
+                        roll_value: rolls.twod6[1]
+                    }
+                ])
+        })
     }
 
     public async fetchAbHistory(username: string, guildId: string, rollType: RollType, count: number): Promise<AbHistoryRow[]> {
         const typeToFetch = rollType === RollType.ALL ? [RollType.D20, RollType.D6, RollType.TWOD6] : [rollType]
         const limit = rollType === RollType.ALL ? count * 3 : count
 
-        return knex<AbHistoryRow>('ab_history')
-            .select('*')
-            .whereIn('roll_type', typeToFetch)
-            .where('username', username)
-            .andWhere('guild_id', guildId)
-            .orderBy('roll_date', 'desc')
-            .limit(limit)
+        return await this.retryOnce(async (): Promise<AbHistoryRow[]> => {
+            return knex<AbHistoryRow>('ab_history')
+                .select('*')
+                .whereIn('roll_type', typeToFetch)
+                .where('username', username)
+                .andWhere('guild_id', guildId)
+                .orderBy('roll_date', 'desc')
+                .limit(limit)
+        })
     }
 
     public async fetchPlayer(playerName: string): Promise<PlayerRow[] | undefined> {
-        return knex<PlayerRow>('player')
-            .whereILike('player_name', playerName.toLowerCase())
-            .join('player_position', 'player.uuid', 'player_position.uuid')
-            .orderBy('player_name')
-            .select('player.*', 'player_position.position')
+        return await this.retryOnce(async (): Promise<PlayerRow[] | undefined> => {
+            return knex<PlayerRow>('player')
+                .whereILike('player_name', playerName.toLowerCase())
+                .join('player_position', 'player.uuid', 'player_position.uuid')
+                .orderBy('player_name')
+                .select('player.*', 'player_position.position')
+        })
     }
 
     public async fetchAllPlayersMatchingString(playerName: string): Promise<PlayerRow[]> {
-        return await knex<PlayerRow>('player')
-            .whereILike('player_name', `%${playerName}%`)
-            .orderBy('player_name')
-            .select('player_name')
+        return await this.retryOnce(async (): Promise<PlayerRow[]> => {
+            return await knex<PlayerRow>('player')
+                .whereILike('player_name', `%${playerName}%`)
+                .orderBy('player_name')
+                .select('player_name')
+        })
     }
 
-    async insertPlayer(playerName: string, positions: string[], cardUrl: string, playerType: PlayerType, season: string) {
+    async insertPlayer(playerName: string, positions: string[], cardUrl: string, playerType: PlayerType, season: string): Promise<void> {
         const playerUuid = randomUUID()
-        await knex<PlayerRow>("player").insert({
-            uuid: playerUuid,
-            player_name: playerName,
-            card_url: cardUrl,
-            player_type: playerType,
-            year: parseInt(season, 10),
-            active: true
-        });
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<PlayerRow>("player").insert({
+                uuid: playerUuid,
+                player_name: playerName,
+                card_url: cardUrl,
+                player_type: playerType,
+                year: parseInt(season, 10),
+                active: true
+            });
+        })
 
-        await knex<PlayerPositionRow>('ab_history')
-            .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<PlayerPositionRow>('ab_history')
+                .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
+        })
     }
 
-    async insertCommandUsage(command_name: string, userId: string, guildId: string) {
-        await knex<CustomCommandUsageRow>('custom_command_usage').insert({
-            command_name: command_name,
-            guild_id: guildId,
-            calling_userid: userId,
-            usage_date: new Date(),
+    async insertCommandUsage(command_name: string, userId: string, guildId: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<CustomCommandUsageRow>('custom_command_usage').insert({
+                command_name: command_name,
+                guild_id: guildId,
+                calling_userid: userId,
+                usage_date: new Date(),
+            })
         })
     }
 
     async fetchCommandUsage(command_name: string, guildId: string): Promise<CustomCommandUsageRow[]> {
-        return knex<CustomCommandUsageRow>("custom_command_usage")
-            .where("custom_command.guild_id", guildId)
-            .andWhere("custom_command.command_name", command_name)
-            .join("custom_command", "custom_command.command_name", "custom_command_usage.command_name")
-            .select("custom_command_usage.*", "custom_command.created")
+        return await this.retryOnce(async (): Promise<CustomCommandUsageRow[]> => {
+            return knex<CustomCommandUsageRow>("custom_command_usage")
+                .where("custom_command.guild_id", guildId)
+                .andWhere("custom_command.command_name", command_name)
+                .join("custom_command", "custom_command.command_name", "custom_command_usage.command_name")
+                .select("custom_command_usage.*", "custom_command.created")
+        })
     }
 
     async insertMineCommandMessage(messageId: string, guildId: string, page: number): Promise<void> {
-        await knex<MessagePaginationRow>('message_pagination')
-            .insert({
-                message_id: messageId,
-                guild_id: guildId,
-                page: page,
-                created_timestamp: new Date(),
-                updated_timestamp: new Date(),
-            })
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<MessagePaginationRow>('message_pagination')
+                .insert({
+                    message_id: messageId,
+                    guild_id: guildId,
+                    page: page,
+                    created_timestamp: new Date(),
+                    updated_timestamp: new Date(),
+                })
+        })
     }
 
     async fetchMessagePaginationData(messageId: string, guildId: string): Promise<MessagePaginationRow> {
-        return await knex<MessagePaginationRow>('message_pagination')
-            .where('message_id', messageId)
-            .andWhere("guild_id", guildId)
-            .first()
+        return await this.retryOnce(async (): Promise<MessagePaginationRow> => {
+            return await knex<MessagePaginationRow>('message_pagination')
+                .where('message_id', messageId)
+                .andWhere("guild_id", guildId)
+                .first()
+        })
     }
 
     async updateMesssagePaginationData(messageId: string, newMessageId: string, guildId: string, page: number): Promise<void> {
-        await knex<MessagePaginationRow>('message_pagination')
-            .where("message_id", messageId)
-            .andWhere("guild_id", guildId)
-            .update({
-                "page": page,
-                "message_id": newMessageId,
-                updated_timestamp: new Date(),
-            })
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<MessagePaginationRow>('message_pagination')
+                .where("message_id", messageId)
+                .andWhere("guild_id", guildId)
+                .update({
+                    "page": page,
+                    "message_id": newMessageId,
+                    updated_timestamp: new Date(),
+                })
+        })
     }
 }
