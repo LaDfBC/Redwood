@@ -57,7 +57,7 @@ export class CcCreateCommand implements Command {
   private async uploadToS3(name: string, guildId: string, imageLink: string): Promise<string> {
     const { writeStream, promise } = this.uploadStreamToS3({
       Bucket: Config.s3.commandBucket,
-      Key: `${guildId}/${name}.png`,
+      Key: `${guildId}/${name}.gif`,
     });
 
     const image = await fetch(imageLink);

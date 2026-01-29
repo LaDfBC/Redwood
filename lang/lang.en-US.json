@@ -142,7 +142,7 @@
                 ],
                 "color": "{{COM:colors.chaos}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20) \n(This should be ignored if there has already been a failed chaos roll during this at bat)"
                 }
             },
             "abPassedBallCommand": {
@@ -159,7 +159,7 @@
                 ],
                 "color": "{{COM:colors.chaos}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20) \nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)\n(This should be ignored if there has already been a failed chaos roll during this at bat)"
                 }
             },
             "abBalkCommand": {
@@ -176,7 +176,7 @@
                 ],
                 "color": "{{COM:colors.chaos}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20) \nSecondary Chaos Roll: {{SECONDARY_CHAOS_ROLL}} (1d6)\n(This should be ignored if there has already been a failed chaos roll during this at bat)"
                 }
             },
             "ccNameDoesNotExist": {
@@ -445,16 +445,16 @@
                 "fields": [
                     {
                         "name": "Pickoff Attempt!",
-                        "value": ["Check for pickoff"]
+                        "value": ["If this number is greater than the runner's second running number, he is picked off"]
                     },
                     {
                         "name": "Pickoff Roll",
                         "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
                 ],
-                "color": "{{COM:colors.success}}",
+                "color": "{{COM:colors.chaos}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\n(This should be ignored if there has already been a failed chaos roll during this at bat)"
                 }
             },
             "jumpBalkCommand": {
@@ -469,9 +469,9 @@
                         "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
                     }
                 ],
-                "color": "{{COM:colors.success}}",
+                "color": "{{COM:colors.chaos}}",
                 "footer": {
-                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)"
+                    "text": "Chaos Roll: {{CHAOS_ROLL}} (1d20)\n(This should be ignored if there has already been a failed chaos roll during this at bat)"
                 }
             },
             "fielding": {
