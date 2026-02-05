@@ -693,7 +693,8 @@
             "abHistoryCountOption": "count",
             "abHistoryRollTypeOption": "roll-type",
             "abHistoryAdditionalUserOption": "additional-user",
-            "playerFetchNameOption": "player-name"
+            "playerFetchNameOption": "player-name",
+            "playerFetchSeasonOption": "season"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -739,7 +740,8 @@
             "abHistoryCountOption": "How many results will be analyzed",
             "abHistoryRollTypeOption": "Type of roll whose results will be fetched - All does not include Chaos rolls",
             "abHistoryAdditionalUserOption": "Show another user side-by-side with you in the same chart",
-            "playerFetchNameOption": "Name of the player to fetch"
+            "playerFetchNameOption": "Name of the player to fetch",
+            "playerFetchSeasonOption": "Specific season for the player to fetch"
         },
         "fields": {
             "commands": "Commands",

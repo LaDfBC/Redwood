@@ -10,7 +10,7 @@ import {randomUUID} from "crypto";
 import {createRequire} from "node:module";
 
 const require = createRequire(import.meta.url);
-let Config = require('../config/config.json');
+let Config = require('../config/config.prod.json');
 
 interface PlayerData {
     season: string;
@@ -45,24 +45,15 @@ export class LoadPlayers {
                 let rowIndex = 0
                 const season = rowParts[rowIndex++].replaceAll('\n', '')
                 const player_name = rowParts[rowIndex++]
-                const position1 = rowParts[rowIndex++]
-                const position2 = rowParts[rowIndex++]
-                const position3 = rowParts[rowIndex++]
-                const position4 = rowParts[rowIndex++]
-                const position5 = rowParts[rowIndex++]
-                const position6 = rowParts[rowIndex++]
-                const position7 = rowParts[rowIndex++]
-                const position8 = rowParts[rowIndex++]
-                const positions = [position1, position2, position3, position4, position5, position6, position7, position8].filter((pos: string) => pos.trim() !== '')
-                const pitcherCardUrl = rowParts[rowIndex++]
+                const positions = undefined
                 const batterCardUrl = rowParts[rowIndex++]
 
                 const player: PlayerData = {
                     season,
                     playerName: player_name,
                     positions,
-                    cardUrl: pitcherCardUrl === '' ? batterCardUrl : pitcherCardUrl,
-                    playerType: pitcherCardUrl === '' ? PlayerType.BATTER : PlayerType.PITCHER,
+                    cardUrl: batterCardUrl,
+                    playerType: PlayerType.BATTER
                 }
 
                 const newUrl = await this.addToS3(player)
@@ -127,12 +118,12 @@ export class LoadPlayers {
             active: true
         });
 
-        await knex<PlayerPositionRow>('player_position')
-            .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
+        // await knex<PlayerPositionRow>('player_position')
+        //     .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
     }
 }
 
-await new LoadPlayers().getRowsFromCSV('/home/george/Downloads/ops_players.csv')
+await new LoadPlayers().getRowsFromCSV('/home/george/Downloads/legacy_card_images.csv')
 
 console.warn("Done!")
 process.exit(0)

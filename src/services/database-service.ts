@@ -27,6 +27,7 @@ import AWS, {AWSError} from "aws-sdk";
 import {PromiseResult} from "aws-sdk/lib/request";
 import {DeleteObjectOutput} from "aws-sdk/clients/s3";
 import {MessagePaginationRow} from "../models/database/message-pagination-row";
+import * as sea from "node:sea";
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -340,11 +341,12 @@ export class DatabaseService {
         })
     }
 
-    public async fetchPlayer(playerName: string): Promise<PlayerRow[] | undefined> {
+    public async fetchPlayer(playerName: string, season: number): Promise<PlayerRow[] | undefined> {
         return await this.retryOnce(async (): Promise<PlayerRow[] | undefined> => {
             return knex<PlayerRow>('player')
                 .whereILike('player_name', playerName.toLowerCase())
-                .join('player_position', 'player.uuid', 'player_position.uuid')
+                .andWhere('year', season)
+                .leftJoin('player_position', 'player.uuid', 'player_position.uuid')
                 .orderBy('player_name')
                 .select('player.*', 'player_position.position')
         })
@@ -355,7 +357,16 @@ export class DatabaseService {
             return await knex<PlayerRow>('player')
                 .whereILike('player_name', `%${playerName}%`)
                 .orderBy('player_name')
-                .select('player_name')
+                .select('player_name').distinct()
+        })
+    }
+
+    public async fetchAllSeasonsMatchingString(seasonString: string): Promise<PlayerRow[]> {
+        return await this.retryOnce(async (): Promise<PlayerRow[]> => {
+            return await knex<PlayerRow>('player')
+                .whereILike('year', `%${seasonString}%`)
+                .orderBy('year')
+                .select('year').distinct()
         })
     }
 

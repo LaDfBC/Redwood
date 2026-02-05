@@ -24,15 +24,22 @@ export class PlayerCommand implements Command {
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        let args: { name: string } = {
+        let args: { name: string, season: string } = {
             name: intr.options.getString(
                 Lang.getRef('arguments.playerFetchNameOption', Language.Default)
+            ),
+            season: intr.options.getString(
+                Lang.getRef('arguments.playerFetchSeasonOption', Language.Default)
             )
         };
 
         let embed: EmbedBuilder;
 
-        const result: PlayerRow[] | undefined = await this.databaseService.fetchPlayer(args.name)
+        let season = 2024
+        if (args.season) {
+            season = parseInt(args.season, 10);
+        }
+        const result: PlayerRow[] | undefined = await this.databaseService.fetchPlayer(args.name, season)
         if (result === undefined) {
             embed = Lang.getEmbed('displayEmbeds.playerNameDoesNotExist', data.lang, {
                 PLAYER_NAME: args.name
@@ -40,7 +47,7 @@ export class PlayerCommand implements Command {
 
             await InteractionUtils.send(intr, embed);
         } else {
-            const positions = result.map((row: PlayerRow) => row.position).join(', ')
+            const positions = result[0].position === null ? 'Unrecorded, Legacy Player' : result.map((row: PlayerRow) => row.position).join(', ')
             // SUCCESS - Simply return the requested command
             embed = Lang.getEmbed('displayEmbeds.playerFetchSuccess', data.lang, {
                 PLAYER_NAME: result[0].player_name,
@@ -55,15 +62,32 @@ export class PlayerCommand implements Command {
 
     public async autocomplete(intr: AutocompleteInteraction, option: AutocompleteFocusedOption): Promise<ApplicationCommandOptionChoiceData<string | number>[]> {
         const searchString = option.value
-        const players: PlayerRow[] = await this.databaseService.fetchAllPlayersMatchingString(searchString);
-        return players.map((player: PlayerRow) => {
+
+        if (option.name === "player-name") {
+          const players: PlayerRow[] =
+            await this.databaseService.fetchAllPlayersMatchingString(
+              searchString,
+            );
+          return players.map((player: PlayerRow) => {
             return {
-                name: player.player_name,
-                name_localizations: {
-                    "en-US": player.player_name,
-                },
-                value: player.player_name,
+              name: player.player_name,
+              name_localizations: {
+                "en-US": player.player_name,
+              },
+              value: player.player_name,
             };
-        })
+          });
+        } else if (option.name === "season") {
+            const players: PlayerRow[] = await this.databaseService.fetchAllSeasonsMatchingString(searchString);
+            return players.map((player: PlayerRow) => {
+                return {
+                  name: player.year.toString(),
+                  name_localizations: {
+                    "en-US": player.year.toString(),
+                  },
+                  value: player.year.toString(),
+                };
+          });
+        }
     }
 }

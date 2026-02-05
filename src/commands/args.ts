@@ -252,4 +252,12 @@ export class Args {
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };
+    public static readonly PLAYER_FETCH_SEASON_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.playerFetchSeasonOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.playerFetchSeasonOption'),
+        description: Lang.getRef('argDescs.playerFetchSeasonOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.playerFetchSeasonOption'),
+        autocomplete: true,
+        type: ApplicationCommandOptionType.String,
+    };
 }

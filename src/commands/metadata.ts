@@ -285,6 +285,10 @@ export const ChatCommandMetadata: {
             {
                 ...Args.PLAYER_FETCH_NAME_OPTION,
                 required: true
+            },
+            {
+                ...Args.PLAYER_FETCH_SEASON_OPTION,
+                required: false,
             }
         ]
     },
