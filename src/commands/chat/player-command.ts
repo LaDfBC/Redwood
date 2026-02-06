@@ -53,7 +53,8 @@ export class PlayerCommand implements Command {
                 PLAYER_NAME: result[0].player_name,
                 POSITION_NAME: result.length > 1 ? "Positions" : "Position",
                 POSITION_VALUE: positions,
-                IMAGE_LINK: result[0].card_url
+                IMAGE_LINK: result[0].card_url,
+                SEASON: result[0].year.toString(),
             })
 
             await InteractionUtils.send(intr, embed)

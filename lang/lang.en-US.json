@@ -498,6 +498,10 @@
                     {
                         "name": "{{POSITION_NAME}}",
                         "value": "{{POSITION_VALUE}}"
+                    },
+                    {
+                        "name": "Season",
+                        "value": "{{SEASON}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
