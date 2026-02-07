@@ -94,6 +94,16 @@
                 ],
                 "color": "{{COM:colors.success}}"
             },
+            "weatherCommand": {
+                "title": "Weather roll for {{USER}}",
+                "fields": [
+                    {
+                        "name": "Result",
+                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"]
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
             "vibeCommand": {
                 "title": "Vibe check for {{USER}}",
                 "fields": [
@@ -517,6 +527,16 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
+            "playerNotFoundForSeason": {
+                "title": ":x: Player not found for season",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The player {{PLAYER_NAME}} exists, but not for season {{SEASON}}!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
             "test": {
                 "description": "Test command works!"
             },
@@ -656,6 +676,7 @@
             "info": "info",
             "test": "test",
             "d20": "d20",
+            "weather": "weather",
             "injury": "injury",
             "vibe": "vibe",
             "ab": "ab",
@@ -706,6 +727,7 @@
             "info": "View bot info.",
             "test": "Run the test command.",
             "d20": "Roll a single d20.",
+            "weather": "Roll a weather check.",
             "ab": "Roll for a plate appearance",
             "abHistory": "Fetch statistics on your own previous ab rolls",
             "ccCreate": "Create a custom command",

@@ -352,6 +352,15 @@ export class DatabaseService {
         })
     }
 
+    public async playerExists(playerName: string): Promise<boolean> {
+        return await this.retryOnce(async (): Promise<boolean> => {
+            const result = await knex<PlayerRow>('player')
+                .whereILike('player_name', playerName.toLowerCase())
+                .first();
+            return result !== undefined;
+        })
+    }
+
     public async fetchAllPlayersMatchingString(playerName: string): Promise<PlayerRow[]> {
         return await this.retryOnce(async (): Promise<PlayerRow[]> => {
             return await knex<PlayerRow>('player')

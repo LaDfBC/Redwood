@@ -40,10 +40,18 @@ export class PlayerCommand implements Command {
             season = parseInt(args.season, 10);
         }
         const result: PlayerRow[] | undefined = await this.databaseService.fetchPlayer(args.name, season)
-        if (result === undefined) {
-            embed = Lang.getEmbed('displayEmbeds.playerNameDoesNotExist', data.lang, {
-                PLAYER_NAME: args.name
-            })
+        if (result === undefined || result.length === 0) {
+            const exists = await this.databaseService.playerExists(args.name);
+            if (exists) {
+                embed = Lang.getEmbed('displayEmbeds.playerNotFoundForSeason', data.lang, {
+                    PLAYER_NAME: args.name,
+                    SEASON: season.toString()
+                })
+            } else {
+                embed = Lang.getEmbed('displayEmbeds.playerNameDoesNotExist', data.lang, {
+                    PLAYER_NAME: args.name
+                })
+            }
 
             await InteractionUtils.send(intr, embed);
         } else {

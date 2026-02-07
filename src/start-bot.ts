@@ -2,7 +2,7 @@ import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton } from './buttons/index.js';
+import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton, AbRepeatButton } from './buttons/index.js';
 import {
   D20Command,
   HelpCommand,
@@ -24,6 +24,7 @@ import {
   CcUsageCommand,
   VibeCommand,
   InjuryCommand,
+  WeatherCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -85,6 +86,7 @@ async function start(): Promise<void> {
         new InfoCommand(),
         new TestCommand(),
         new D20Command(),
+        new WeatherCommand(),
         new JumpCommand(),
         new AtBatCommand(databaseService),
         new AbHistoryCommand(databaseService),
@@ -117,7 +119,8 @@ async function start(): Promise<void> {
         new CcMineNextButton(databaseService),
         new CcMinePreviousButton(databaseService),
         new CcMineFirstButton(databaseService),
-        new CcMineLastButton(databaseService)
+        new CcMineLastButton(databaseService),
+        new AbRepeatButton(databaseService)
     ];
 
     // Reactions

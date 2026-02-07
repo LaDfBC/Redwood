@@ -78,6 +78,15 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    WEATHER: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.weather', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.weather'),
+        description: Lang.getRef('commandDescs.weather', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.weather'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
     AB: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.ab', Language.Default),
