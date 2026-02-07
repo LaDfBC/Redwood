@@ -38,12 +38,27 @@ export class CcFetchCommand implements Command {
             embed = Lang.getEmbed('displayEmbeds.ccNameDoesNotExist', data.lang, {
                 COMMAND_NAME: args.name
             })
-
-            await InteractionUtils.send(intr, embed);
         } else {
-            // SUCCESS - Simply return the requested command
-            await InteractionUtils.send(intr, result.link)
+            // SUCCESS - Return the command in an embed
+            const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+            const isImage = imageExtensions.some(ext =>
+                result.link.toLowerCase().endsWith(ext)
+            );
+
+            if (isImage) {
+                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessImage', data.lang, {
+                    COMMAND_NAME: result.command_name,
+                    IMAGE_LINK: result.link,
+                });
+            } else {
+                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessText', data.lang, {
+                    COMMAND_NAME: result.command_name,
+                    LINK: result.link,
+                });
+            }
         }
+
+        await InteractionUtils.send(intr, embed);
     }
 
     public async autocomplete(intr: AutocompleteInteraction, option: AutocompleteFocusedOption): Promise<ApplicationCommandOptionChoiceData<string | number>[]> {

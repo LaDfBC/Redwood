@@ -199,6 +199,16 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
+            "ccFetchSuccessImage": {
+                "title": "{{COMMAND_NAME}}",
+                "image": "{{IMAGE_LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
+            "ccFetchSuccessText": {
+                "title": "{{COMMAND_NAME}}",
+                "description": "{{LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
             "ccUsageNameDoesNotExist": {
                 "title": "Unsuccessful custom command usage lookup",
                 "fields": [
