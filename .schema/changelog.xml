@@ -242,4 +242,18 @@
         <renameColumn tableName="message_pagination" oldColumnName="range_low" newColumnName="page" />
         <dropColumn tableName="message_pagination" columnName="range_high" />
     </changeSet>
+    <changeSet author="Jaera" id="17">
+        <createTable tableName="user_settings">
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="guild_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="primary_color" type="VARCHAR(7)"/>
+            <column name="secondary_color" type="VARCHAR(7)"/>
+            <column name="created_timestamp" type="timestamp with time zone"/>
+            <column name="updated_timestamp" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

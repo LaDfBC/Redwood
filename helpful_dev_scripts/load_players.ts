@@ -8,6 +8,7 @@ import {
 } from "../src/models/database";
 import {randomUUID} from "crypto";
 import {createRequire} from "node:module";
+import {MessagePaginationRow} from "../src/models/database/message-pagination-row";
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.prod.json');
@@ -38,14 +39,33 @@ export class LoadPlayers {
             const data = fs.readFileSync(filePath, 'utf8')
             let rows = data.split('\r')
             rows.splice(0, 2)
-            for (let i = 0; i < rows.length; i++) {
+            for (let i = 1377; i < rows.length; i++) {
                 let row = rows[i]
                 const rowParts = row.split(",")
 
                 let rowIndex = 0
                 const season = rowParts[rowIndex++].replaceAll('\n', '')
-                const player_name = rowParts[rowIndex++]
-                const positions = undefined
+                let player_name = rowParts[rowIndex++]
+                if (player_name.includes('MJ ')) {
+                    player_name = player_name.replaceAll('MJ ', 'M.J. ')
+                }
+                if (player_name.includes('PJ ')) {
+                    player_name = player_name.replaceAll('PJ ', 'P.J. ')
+                }
+                if (player_name.includes('RJ ')) {
+                    player_name = player_name.replaceAll('RJ ', 'R.J. ')
+                }
+                if (player_name.includes('TJ ')) {
+                    player_name = player_name.replaceAll('TJ ', 'T.J. ')
+                }
+                const position1 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position2 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position3 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position4 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position5 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position6 = rowParts[rowIndex++].replaceAll('\n', '')
+                const position7 = rowParts[rowIndex++].replaceAll('\n', '')
+                const positions = [position1, position2, position3, position4, position5, position6, position7].filter(pos => pos.trim() !== '')
                 const batterCardUrl = rowParts[rowIndex++]
 
                 const player: PlayerData = {
@@ -53,12 +73,12 @@ export class LoadPlayers {
                     playerName: player_name,
                     positions,
                     cardUrl: batterCardUrl,
-                    playerType: PlayerType.BATTER
+                    playerType: positions.includes('SP') || positions.includes('RP') ? PlayerType.PITCHER : PlayerType.BATTER,
                 }
 
-                const newUrl = await this.addToS3(player)
-                player.cardUrl = newUrl
-                await this.insertPlayer(knex, player_name, positions, newUrl, player.playerType, season)
+                // const newUrl = await this.addToS3(player)
+                // player.cardUrl = newUrl
+                await this.updatePlayer(knex, player_name, positions, '', player.playerType, season)
                 console.log("COUNT: " + ++count)
             }
         } catch (err) {
@@ -107,6 +127,23 @@ export class LoadPlayers {
         });
     }
 
+    async updatePlayer(knex: Knex, playerName: string, positions: string[], cardUrl: string, playerType: PlayerType, season: string) {
+        const playerUuid: string = await knex.select("uuid").from('player').where("player_name", playerName).andWhere("year", "2025").first();
+        if (!playerUuid) {
+            throw "COULD NOT FIND PLAYER: " + playerName;
+        }
+
+         await knex<PlayerPositionRow>('player_position')
+            .insert(positions.map((position) => {return { uuid: playerUuid['uuid'], position }}))
+
+         await knex<PlayerRow>('player')
+                .where("player_name", playerName)
+                .andWhere("year", '2025')
+                .update({
+                    "player_type": playerType,
+                })
+    }
+
     async insertPlayer(knex: Knex, playerName: string, positions: string[], cardUrl: string, playerType: PlayerType, season: string) {
         const playerUuid = randomUUID()
         await knex<PlayerRow>("player").insert({
@@ -118,12 +155,11 @@ export class LoadPlayers {
             active: true
         });
 
-        // await knex<PlayerPositionRow>('player_position')
-        //     .insert(positions.map((position) => {return { uuid: playerUuid, position }}))
+
     }
 }
 
-await new LoadPlayers().getRowsFromCSV('/home/george/Downloads/legacy_card_images.csv')
+await new LoadPlayers().getRowsFromCSV('/home/george/Downloads/player_positions_2025.csv')
 
 console.warn("Done!")
 process.exit(0)

@@ -25,6 +25,9 @@ import {
   VibeCommand,
   InjuryCommand,
   WeatherCommand,
+  ThemeSetCommand,
+  ThemeGetCommand,
+  ThemeResetCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -104,6 +107,9 @@ async function start(): Promise<void> {
         new VibeCommand(),
         new InjuryCommand(databaseService),
         new PlayerCommand(databaseService),
+        new ThemeSetCommand(databaseService),
+        new ThemeGetCommand(databaseService),
+        new ThemeResetCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

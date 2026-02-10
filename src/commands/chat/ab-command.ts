@@ -3,6 +3,7 @@ import {
     ButtonBuilder,
     ButtonStyle,
     ChatInputCommandInteraction,
+    ColorResolvable,
     EmbedBuilder,
     Locale,
     PermissionsString
@@ -79,6 +80,12 @@ export async function executeAtBat(
             USER: displayName,
             CHAOS_ROLL: chaosRoll.toString(),
         });
+
+        // Apply user's custom theme color if set
+        const userSettings = await databaseService.fetchUserSettings(userId, guildId);
+        if (userSettings?.primary_color) {
+            embed.setColor(userSettings.primary_color as ColorResolvable);
+        }
 
         if (rollSingle === 6 && twoD6Total > 6) {
             embed.addFields([{

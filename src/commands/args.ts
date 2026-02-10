@@ -260,4 +260,18 @@ export class Args {
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };
+    public static readonly THEME_SET_PRIMARY_COLOR_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.themeSetPrimaryColorOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.themeSetPrimaryColorOption'),
+        description: Lang.getRef('argDescs.themeSetPrimaryColorOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.themeSetPrimaryColorOption'),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly THEME_SET_SECONDARY_COLOR_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.themeSetSecondaryColorOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.themeSetSecondaryColorOption'),
+        description: Lang.getRef('argDescs.themeSetSecondaryColorOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.themeSetSecondaryColorOption'),
+        type: ApplicationCommandOptionType.String,
+    };
 }

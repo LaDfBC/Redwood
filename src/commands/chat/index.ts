@@ -20,3 +20,6 @@ export { ButtStuffCommand } from './butt-stuff-command.js'
 export { VibeCommand } from './vibe-command.js'
 export { InjuryCommand } from './injury-command.js'
 export { WeatherCommand } from './weather-command.js';
+export { ThemeSetCommand } from './theme-set-command.js';
+export { ThemeGetCommand } from './theme-get-command.js';
+export { ThemeResetCommand } from './theme-reset-command.js';

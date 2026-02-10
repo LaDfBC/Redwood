@@ -20,6 +20,7 @@ import {
   FieldingRangeRow,
   PlayerPositionRow,
   RollMapping,
+  UserSettingsRow,
 } from "../models/database";
 import {randomUUID} from 'crypto'
 import {PlayerRow} from "../models/database/player-row";
@@ -451,6 +452,54 @@ export class DatabaseService {
                     "message_id": newMessageId,
                     updated_timestamp: new Date(),
                 })
+        })
+    }
+
+    async fetchUserSettings(userId: string, guildId: string): Promise<UserSettingsRow | undefined> {
+        return await this.retryOnce(async (): Promise<UserSettingsRow | undefined> => {
+            return knex<UserSettingsRow>('user_settings')
+                .where('user_id', userId)
+                .andWhere('guild_id', guildId)
+                .first()
+        })
+    }
+
+    async upsertUserSettings(userId: string, guildId: string, primaryColor: string, secondaryColor: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            const existing = await knex<UserSettingsRow>('user_settings')
+                .where('user_id', userId)
+                .andWhere('guild_id', guildId)
+                .first()
+
+            if (existing) {
+                await knex<UserSettingsRow>('user_settings')
+                    .where('user_id', userId)
+                    .andWhere('guild_id', guildId)
+                    .update({
+                        primary_color: primaryColor ?? existing.primary_color,
+                        secondary_color: secondaryColor ?? existing.secondary_color,
+                        updated_timestamp: new Date(),
+                    })
+            } else {
+                await knex<UserSettingsRow>('user_settings')
+                    .insert({
+                        user_id: userId,
+                        guild_id: guildId,
+                        primary_color: primaryColor,
+                        secondary_color: secondaryColor,
+                        created_timestamp: new Date(),
+                        updated_timestamp: new Date(),
+                    })
+            }
+        })
+    }
+
+    async deleteUserSettings(userId: string, guildId: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<UserSettingsRow>('user_settings')
+                .where('user_id', userId)
+                .andWhere('guild_id', guildId)
+                .del()
         })
     }
 }

@@ -1,4 +1,5 @@
 import {
+    ApplicationCommandOptionType,
     ApplicationCommandType,
     PermissionFlagsBits,
     PermissionsBitField,
@@ -318,6 +319,43 @@ export const ChatCommandMetadata: {
         description_localizations: Lang.getRefLocalizationMap('commandDescs.vibe'),
         dm_permission: true,
         default_member_permissions: undefined,
+    },
+    USER_SETTINGS: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.user-settings', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.user-settings'),
+        description: Lang.getRef('commandDescs.userSettings', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.userSettings'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                name: 'theme',
+                description: 'Customize your embed theme colors',
+                type: ApplicationCommandOptionType.SubcommandGroup,
+                options: [
+                    {
+                        name: 'set',
+                        description: 'Set your theme colors',
+                        type: ApplicationCommandOptionType.Subcommand,
+                        options: [
+                            { ...Args.THEME_SET_PRIMARY_COLOR_OPTION, required: false },
+                            { ...Args.THEME_SET_SECONDARY_COLOR_OPTION, required: false },
+                        ],
+                    },
+                    {
+                        name: 'get',
+                        description: 'View your current theme colors',
+                        type: ApplicationCommandOptionType.Subcommand,
+                    },
+                    {
+                        name: 'reset',
+                        description: 'Reset your theme to defaults',
+                        type: ApplicationCommandOptionType.Subcommand,
+                    },
+                ],
+            },
+        ],
     },
 };
 

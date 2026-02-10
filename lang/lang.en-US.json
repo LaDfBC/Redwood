@@ -547,6 +547,44 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
+            "themeSetSuccess": {
+                "title": "Theme updated!",
+                "fields": [
+                    {
+                        "name": "Primary Color",
+                        "value": "{{PRIMARY_COLOR}}"
+                    },
+                    {
+                        "name": "Secondary Color",
+                        "value": "{{SECONDARY_COLOR}}"
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
+            "themeGetSuccess": {
+                "title": "Your current theme",
+                "fields": [
+                    {
+                        "name": "Primary Color",
+                        "value": "{{PRIMARY_COLOR}}"
+                    },
+                    {
+                        "name": "Secondary Color",
+                        "value": "{{SECONDARY_COLOR}}"
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
+            "themeGetNoTheme": {
+                "title": "No custom theme set",
+                "description": "You haven't set a custom theme for this server. Use /user-settings theme set to create one!",
+                "color": "{{COM:colors.warning}}"
+            },
+            "themeResetSuccess": {
+                "title": "Theme reset!",
+                "description": "Your custom theme has been removed. Default colors will be used.",
+                "color": "{{COM:colors.success}}"
+            },
             "test": {
                 "description": "Test command works!"
             },
@@ -702,7 +740,8 @@
             "chart-create": "chart-create",
             "chart-delete": "chart-delete",
             "player-fetch": "player",
-            "butt-stuff": "butt-stuff"
+            "butt-stuff": "butt-stuff",
+            "user-settings": "user-settings"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -729,7 +768,9 @@
             "abHistoryRollTypeOption": "roll-type",
             "abHistoryAdditionalUserOption": "additional-user",
             "playerFetchNameOption": "player-name",
-            "playerFetchSeasonOption": "season"
+            "playerFetchSeasonOption": "season",
+            "themeSetPrimaryColorOption": "primary-color",
+            "themeSetSecondaryColorOption": "secondary-color"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -753,7 +794,8 @@
             "chartFetch": "Fetch a chart",
             "playerFetch": "Fetch a player",
             "buttStuff": "My anaconda don't want none unless you got buns, hun",
-            "vibe": "You feelin' lucky, punk?"
+            "vibe": "You feelin' lucky, punk?",
+            "userSettings": "Manage your personal settings"
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -777,7 +819,9 @@
             "abHistoryRollTypeOption": "Type of roll whose results will be fetched - All does not include Chaos rolls",
             "abHistoryAdditionalUserOption": "Show another user side-by-side with you in the same chart",
             "playerFetchNameOption": "Name of the player to fetch",
-            "playerFetchSeasonOption": "Specific season for the player to fetch"
+            "playerFetchSeasonOption": "Specific season for the player to fetch",
+            "themeSetPrimaryColorOption": "Hex color code (e.g. #FF0000)",
+            "themeSetSecondaryColorOption": "Hex color code (e.g. #00FF00)"
         },
         "fields": {
             "commands": "Commands",
