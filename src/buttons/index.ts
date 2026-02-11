@@ -4,3 +4,4 @@ export { CcMineFirstButton } from './cc-mine-first-button.js';
 export { CcMinePreviousButton } from './cc-mine-previous-button.js';
 export { CcMineLastButton } from './cc-mine-last-button.js';
 export { AbRepeatButton } from './ab-repeat-button.js';
+export { RollRepeatButton } from './roll-repeat-button.js';

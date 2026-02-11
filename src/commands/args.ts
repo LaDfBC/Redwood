@@ -267,6 +267,13 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.themeSetPrimaryColorOption'),
         type: ApplicationCommandOptionType.String,
     };
+    public static readonly ROLL_DICE_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.rollDiceOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.rollDiceOption'),
+        description: Lang.getRef('argDescs.rollDiceOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.rollDiceOption'),
+        type: ApplicationCommandOptionType.String,
+    };
     public static readonly THEME_SET_SECONDARY_COLOR_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.themeSetSecondaryColorOption', Language.Default),
         name_localizations: Lang.getRefLocalizationMap('arguments.themeSetSecondaryColorOption'),

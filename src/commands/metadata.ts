@@ -320,6 +320,16 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    ROLL: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.roll', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.roll'),
+        description: Lang.getRef('commandDescs.roll', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.roll'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [{ ...Args.ROLL_DICE_OPTION, required: true }],
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),

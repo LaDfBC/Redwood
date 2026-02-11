@@ -585,6 +585,20 @@
                 "description": "Your custom theme has been removed. Default colors will be used.",
                 "color": "{{COM:colors.success}}"
             },
+            "rollCommand": {
+                "title": "\uD83C\uDFB2 {{DICE_NOTATION}}",
+                "fields": [
+                    {
+                        "name": "Rolls",
+                        "value": "```js\n# {{ROLLS}}```"
+                    },
+                    {
+                        "name": "Total",
+                        "value": "**{{TOTAL}}**"
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
             "test": {
                 "description": "Test command works!"
             },
@@ -666,6 +680,14 @@
                 "description": "This action can only be done by developers.",
                 "color": "{{COM:colors.warning}}"
             },
+            "rollInvalidFormat": {
+                "description": "Invalid dice format! Please use XdY notation (e.g. `2d6`, `1d20`) without negatives.",
+                "color": "{{COM:colors.error}}"
+            },
+            "rollOutOfRange": {
+                "description": "Number of dice and sides must be between 1 and 1000.",
+                "color": "{{COM:colors.error}}"
+            },
             "missingClientPerms": {
                 "description": [
                     "I don't have all permissions required to run that command here! Please check the server and channel permissions to make sure I have the following permissions.",
@@ -741,7 +763,8 @@
             "chart-delete": "chart-delete",
             "player-fetch": "player",
             "butt-stuff": "butt-stuff",
-            "user-settings": "user-settings"
+            "user-settings": "user-settings",
+            "roll": "roll"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -770,7 +793,8 @@
             "playerFetchNameOption": "player-name",
             "playerFetchSeasonOption": "season",
             "themeSetPrimaryColorOption": "primary-color",
-            "themeSetSecondaryColorOption": "secondary-color"
+            "themeSetSecondaryColorOption": "secondary-color",
+            "rollDiceOption": "dice"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -795,7 +819,8 @@
             "playerFetch": "Fetch a player",
             "buttStuff": "My anaconda don't want none unless you got buns, hun",
             "vibe": "You feelin' lucky, punk?",
-            "userSettings": "Manage your personal settings"
+            "userSettings": "Manage your personal settings",
+            "roll": "Roll dice in XdY format (e.g. 2d6)"
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -821,7 +846,8 @@
             "playerFetchNameOption": "Name of the player to fetch",
             "playerFetchSeasonOption": "Specific season for the player to fetch",
             "themeSetPrimaryColorOption": "Hex color code (e.g. #FF0000)",
-            "themeSetSecondaryColorOption": "Hex color code (e.g. #00FF00)"
+            "themeSetSecondaryColorOption": "Hex color code (e.g. #00FF00)",
+            "rollDiceOption": "Dice to roll in XdY format (e.g. 2d6, 1d20)"
         },
         "fields": {
             "commands": "Commands",
