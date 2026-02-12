@@ -612,7 +612,9 @@
                     }
                 ],
                 "color": "{{COM:colors.success}}",
-                "footer": "nope"
+                "footer": {
+                    "text": "nope"
+                }
             },
             "immaculateCelebration": {
                 "title": "🚨🚨🚨 THE IMMACULATE NUMBER 🚨🚨🚨",
@@ -641,7 +643,9 @@
                 ],
                 "image": "https://online-pennant-static-assets.s3.us-east-1.amazonaws.com/excessive_celebration2.gif",
                 "color": "{{COM:colors.immaculateWin}}",
-                "footer": "YOU DID IT, AMAZING"
+                "footer": {
+                    "text": "YOU DID IT, AMAZING"
+                }
             },
             "test": {
                 "description": "Test command works!"
