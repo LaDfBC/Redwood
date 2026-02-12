@@ -589,7 +589,7 @@
                 "title": "\uD83C\uDFB2 {{DICE_NOTATION}}",
                 "fields": [
                     {
-                        "name": "Rolls",
+                        "name": "{{ROLL_NAME}}",
                         "value": "```js\n# {{ROLLS}}```"
                     },
                     {
@@ -598,6 +598,50 @@
                     }
                 ],
                 "color": "{{COM:colors.success}}"
+            },
+            "immaculateCommand": {
+                "title": "🎲 1d283",
+                "fields": [
+                    {
+                        "name": "Roll",
+                        "value": "```js\n# {{ROLL}}```"
+                    },
+                    {
+                        "name": "Total",
+                        "value": "**{{TOTAL}}**"
+                    }
+                ],
+                "color": "{{COM:colors.success}}",
+                "footer": "nope"
+            },
+            "immaculateCelebration": {
+                "title": "🚨🚨🚨 THE IMMACULATE NUMBER 🚨🚨🚨",
+                "description": "YOU ROLLED A 69 ON A D283. THIS IS NOT A DRILL. ALERT THE AUTHORITIES. CALL YOUR MOM. THE PROPHECY HAS BEEN FULFILLED. THE STARS HAVE ALIGNED. SOMEONE CHECK ON THE TIMELINE BECAUSE REALITY JUST BROKE. YOU ABSOLUTE LEGEND. THEY SAID IT COULDN'T BE DONE. THEY WERE ALMOST RIGHT. BUT HERE YOU ARE, STANDING AT THE SUMMIT OF MOUNT NICE, LOOKING DOWN UPON ALL OF CREATION.",
+                "fields": [
+                    {
+                        "name": "THE ROLL",
+                        "value": "```js\n# 69```"
+                    },
+                    {
+                        "name": "THE TOTAL",
+                        "value": "**69**"
+                    },
+                    {
+                        "name": "GO CRAZY FOLKS!",
+                        "value": "GO CRAZY"
+                    },
+                    {
+                        "name": "WHAT THE HELL, THAT'S INSANE",
+                        "value": "\uD83C\uDF89 \uD83C\uDF89 \uD83C\uDF89 \uD83C\uDF89 \uD83C\uDF89 \uD83C\uDF89 \uD83E\uDD73 \uD83E\uDD73 \uD83E\uDD73 \uD83E\uDD73 \uD83E\uDD73 \uD83C\uDF7E \uD83C\uDF7E \uD83C\uDF7E \uD83C\uDF7E \uD83C\uDF7E"
+                    },
+                    {
+                        "name": "IN A YEAR THAT HAS BEEN SO IMPROBABLE",
+                        "value": "THE IMPOSSIBLE HAS HAPPENED"
+                    }
+                ],
+                "image": "https://online-pennant-static-assets.s3.us-east-1.amazonaws.com/excessive_celebration2.gif",
+                "color": "{{COM:colors.immaculateWin}}",
+                "footer": "YOU DID IT, AMAZING"
             },
             "test": {
                 "description": "Test command works!"
@@ -764,7 +808,8 @@
             "player-fetch": "player",
             "butt-stuff": "butt-stuff",
             "user-settings": "user-settings",
-            "roll": "roll"
+            "roll": "roll",
+            "immaculate": "immaculate"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -820,7 +865,8 @@
             "buttStuff": "My anaconda don't want none unless you got buns, hun",
             "vibe": "You feelin' lucky, punk?",
             "userSettings": "Manage your personal settings",
-            "roll": "Roll dice in XdY format (e.g. 2d6)"
+            "roll": "Roll dice in XdY format (e.g. 2d6)",
+            "immaculate": "Roll 1d283. You'll know when it happens."
         },
         "argDescs": {
             "devCommand": "Command.",

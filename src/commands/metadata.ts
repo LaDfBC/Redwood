@@ -330,6 +330,15 @@ export const ChatCommandMetadata: {
         default_member_permissions: undefined,
         options: [{ ...Args.ROLL_DICE_OPTION, required: true }],
     },
+    IMMACULATE: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.immaculate', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.immaculate'),
+        description: Lang.getRef('commandDescs.immaculate', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.immaculate'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),

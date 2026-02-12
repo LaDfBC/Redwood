@@ -29,6 +29,7 @@ export function executeRoll(
     let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.rollCommand', lang, {
         DICE_NOTATION: `${numDice}d${numSides}`,
         ROLLS: rolls.join(', '),
+        ROLL_NAME: rolls.length === 1 ? 'Roll' : 'Rolls',
         TOTAL: total.toString(),
     });
 

@@ -19,6 +19,7 @@
     "colors": {
         "default": "#0099ff",
         "success": "#00ff83",
+        "immaculateWin": "#FF5C00",
         "warning": "#ffcc66",
         "error": "#ff4a4a",
         "chaos": "cc8899"

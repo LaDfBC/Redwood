@@ -29,6 +29,7 @@ import {
   ThemeGetCommand,
   ThemeResetCommand,
   RollCommand,
+  ImmaculateCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -112,6 +113,7 @@ async function start(): Promise<void> {
         new ThemeGetCommand(databaseService),
         new ThemeResetCommand(databaseService),
         new RollCommand(),
+        new ImmaculateCommand(),
 
         // Message Context Commands
         new ViewDateSent(),
