@@ -21,7 +21,7 @@ export class ThemeGetCommand implements Command {
         if (settings) {
             embed = Lang.getEmbed('displayEmbeds.themeGetSuccess', data.lang, {
                 PRIMARY_COLOR: settings.primary_color ?? 'Not set',
-                SECONDARY_COLOR: settings.secondary_color ?? 'Not set',
+                TEXT_COLOR: settings.text_color ?? 'Not set'
             });
         } else {
             embed = Lang.getEmbed('displayEmbeds.themeGetNoTheme', data.lang);

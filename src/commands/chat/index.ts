@@ -25,3 +25,4 @@ export { ImmaculateCommand } from './immaculate-command.js';
 export { ThemeSetCommand } from './theme-set-command.js';
 export { ThemeGetCommand } from './theme-get-command.js';
 export { ThemeResetCommand } from './theme-reset-command.js';
+export { ThemeClearCommand } from './theme-clear-command.js';

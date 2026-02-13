@@ -18,22 +18,22 @@ export class ThemeSetCommand implements Command {
         let primaryColor = intr.options.getString(
             Lang.getRef('arguments.themeSetPrimaryColorOption', Language.Default)
         );
-        let secondaryColor = intr.options.getString(
-            Lang.getRef('arguments.themeSetSecondaryColorOption', Language.Default)
+        let textColor = intr.options.getString(
+            Lang.getRef('arguments.themeSetTextColorOption', Language.Default)
         );
 
         await this.databaseService.upsertUserSettings(
             intr.user.id,
             intr.guildId,
             primaryColor,
-            secondaryColor
+            textColor,
         );
 
         let settings = await this.databaseService.fetchUserSettings(intr.user.id, intr.guildId);
 
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.themeSetSuccess', data.lang, {
             PRIMARY_COLOR: settings.primary_color ?? 'Not set',
-            SECONDARY_COLOR: settings.secondary_color ?? 'Not set',
+            TEXT_COLOR: settings.text_color ?? 'Not set'
         });
 
         await InteractionUtils.send(intr, embed);

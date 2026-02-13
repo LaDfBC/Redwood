@@ -3,6 +3,7 @@ export interface UserSettingsRow {
     guild_id: string;
     primary_color: string;
     secondary_color: string;
+    text_color?: string;
     created_timestamp: Date;
     updated_timestamp: Date;
 }

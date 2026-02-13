@@ -130,7 +130,7 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}\nDetails: [1d6, 2d6, 1d20 ({{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}})]```"]
+                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}{{ANSI_SUFFIX}}\nDetails: [1d6, 2d6, 1d20 ({{ANSI_PREFIX}}{{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}}{{ANSI_SUFFIX}})]```"]
                     }
                 ],
                 "color": "{{COM:colors.success}}",
@@ -147,7 +147,7 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
+                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -164,7 +164,7 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
+                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -181,7 +181,7 @@
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}}]```"]
+                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -555,8 +555,8 @@
                         "value": "{{PRIMARY_COLOR}}"
                     },
                     {
-                        "name": "Secondary Color",
-                        "value": "{{SECONDARY_COLOR}}"
+                        "name": "Text Color",
+                        "value": "{{TEXT_COLOR}}"
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -569,8 +569,8 @@
                         "value": "{{PRIMARY_COLOR}}"
                     },
                     {
-                        "name": "Secondary Color",
-                        "value": "{{SECONDARY_COLOR}}"
+                        "name": "Text Color",
+                        "value": "{{TEXT_COLOR}}"
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -584,6 +584,20 @@
                 "title": "Theme reset!",
                 "description": "Your custom theme has been removed. Default colors will be used.",
                 "color": "{{COM:colors.success}}"
+            },
+            "themeClearSuccess": {
+                "title": "Theme options cleared!",
+                "fields": [
+                    {
+                        "name": "Cleared Options",
+                        "value": "{{CLEARED_OPTIONS}}"
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
+            "themeClearNoneSelected": {
+                "description": "You must select at least one option to clear.",
+                "color": "{{COM:colors.warning}}"
             },
             "rollCommand": {
                 "title": "\uD83C\uDFB2 {{DICE_NOTATION}}",
@@ -842,7 +856,9 @@
             "playerFetchNameOption": "player-name",
             "playerFetchSeasonOption": "season",
             "themeSetPrimaryColorOption": "primary-color",
-            "themeSetSecondaryColorOption": "secondary-color",
+            "themeSetTextColorOption": "text-color",
+            "themeClearPrimaryColorOption": "primary-color",
+            "themeClearTextColorOption": "text-color",
             "rollDiceOption": "dice"
         },
         "commandDescs": {
@@ -896,7 +912,9 @@
             "playerFetchNameOption": "Name of the player to fetch",
             "playerFetchSeasonOption": "Specific season for the player to fetch",
             "themeSetPrimaryColorOption": "Hex color code (e.g. #FF0000)",
-            "themeSetSecondaryColorOption": "Hex color code (e.g. #00FF00)",
+            "themeSetTextColorOption": "ANSI text color for code blocks",
+            "themeClearPrimaryColorOption": "Clear your primary embed color",
+            "themeClearTextColorOption": "Clear your text color",
             "rollDiceOption": "Dice to roll in XdY format (e.g. 2d6, 1d20)"
         },
         "fields": {

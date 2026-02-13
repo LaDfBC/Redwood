@@ -464,7 +464,7 @@ export class DatabaseService {
         })
     }
 
-    async upsertUserSettings(userId: string, guildId: string, primaryColor: string, secondaryColor: string): Promise<void> {
+    async upsertUserSettings(userId: string, guildId: string, primaryColor: string, textColor: string): Promise<void> {
         return await this.retryOnce(async (): Promise<void> => {
             const existing = await knex<UserSettingsRow>('user_settings')
                 .where('user_id', userId)
@@ -477,7 +477,7 @@ export class DatabaseService {
                     .andWhere('guild_id', guildId)
                     .update({
                         primary_color: primaryColor ?? existing.primary_color,
-                        secondary_color: secondaryColor ?? existing.secondary_color,
+                        text_color: textColor ?? existing.text_color,
                         updated_timestamp: new Date(),
                     })
             } else {
@@ -486,11 +486,24 @@ export class DatabaseService {
                         user_id: userId,
                         guild_id: guildId,
                         primary_color: primaryColor,
-                        secondary_color: secondaryColor,
+                        text_color: textColor,
                         created_timestamp: new Date(),
                         updated_timestamp: new Date(),
                     })
             }
+        })
+    }
+
+    async clearUserSettingsFields(userId: string, guildId: string, fields: string[]): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            const updateObj: Record<string, any> = { updated_timestamp: new Date() };
+            for (const field of fields) {
+                updateObj[field] = null;
+            }
+            await knex<UserSettingsRow>('user_settings')
+                .where('user_id', userId)
+                .andWhere('guild_id', guildId)
+                .update(updateObj)
         })
     }
 

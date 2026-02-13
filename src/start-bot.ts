@@ -28,6 +28,7 @@ import {
   ThemeSetCommand,
   ThemeGetCommand,
   ThemeResetCommand,
+  ThemeClearCommand,
   RollCommand,
   ImmaculateCommand,
 } from "./commands/chat/index.js";
@@ -112,6 +113,7 @@ async function start(): Promise<void> {
         new ThemeSetCommand(databaseService),
         new ThemeGetCommand(databaseService),
         new ThemeResetCommand(databaseService),
+        new ThemeClearCommand(databaseService),
         new RollCommand(),
         new ImmaculateCommand(),
 

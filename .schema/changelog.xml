@@ -256,4 +256,14 @@
             <column name="updated_timestamp" type="timestamp with time zone"/>
         </createTable>
     </changeSet>
+    <changeSet author="Jaera" id="18">
+        <addColumn tableName="user_settings">
+            <column name="text_color" type="VARCHAR(25)"/>
+            <column name="background_color" type="VARCHAR(25)"/>
+        </addColumn>
+        <dropColumn tableName="user_settings" columnName="secondary_color" />
+    </changeSet>
+    <changeSet author="Jaera" id="19">
+        <dropColumn tableName="user_settings" columnName="background_color" />
+    </changeSet>
 </databaseChangeLog>

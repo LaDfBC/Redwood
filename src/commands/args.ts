@@ -274,11 +274,35 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.rollDiceOption'),
         type: ApplicationCommandOptionType.String,
     };
-    public static readonly THEME_SET_SECONDARY_COLOR_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.themeSetSecondaryColorOption', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.themeSetSecondaryColorOption'),
-        description: Lang.getRef('argDescs.themeSetSecondaryColorOption', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.themeSetSecondaryColorOption'),
+    public static readonly THEME_SET_TEXT_COLOR_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.themeSetTextColorOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.themeSetTextColorOption'),
+        description: Lang.getRef('argDescs.themeSetTextColorOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.themeSetTextColorOption'),
         type: ApplicationCommandOptionType.String,
+        choices: [
+            { name: 'Gray', value: 'Gray' },
+            { name: 'Red', value: 'Red' },
+            { name: 'Green', value: 'Green' },
+            { name: 'Yellow', value: 'Yellow' },
+            { name: 'Blue', value: 'Blue' },
+            { name: 'Pink', value: 'Pink' },
+            { name: 'Cyan', value: 'Cyan' },
+            { name: 'White', value: 'White' },
+        ],
+    };
+    public static readonly THEME_CLEAR_PRIMARY_COLOR_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.themeClearPrimaryColorOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.themeClearPrimaryColorOption'),
+        description: Lang.getRef('argDescs.themeClearPrimaryColorOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.themeClearPrimaryColorOption'),
+        type: ApplicationCommandOptionType.Boolean,
+    };
+    public static readonly THEME_CLEAR_TEXT_COLOR_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.themeClearTextColorOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.themeClearTextColorOption'),
+        description: Lang.getRef('argDescs.themeClearTextColorOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.themeClearTextColorOption'),
+        type: ApplicationCommandOptionType.Boolean,
     };
 }

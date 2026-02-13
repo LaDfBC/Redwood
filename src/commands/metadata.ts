@@ -359,7 +359,7 @@ export const ChatCommandMetadata: {
                         type: ApplicationCommandOptionType.Subcommand,
                         options: [
                             { ...Args.THEME_SET_PRIMARY_COLOR_OPTION, required: false },
-                            { ...Args.THEME_SET_SECONDARY_COLOR_OPTION, required: false },
+                            { ...Args.THEME_SET_TEXT_COLOR_OPTION, required: false },
                         ],
                     },
                     {
@@ -371,6 +371,15 @@ export const ChatCommandMetadata: {
                         name: 'reset',
                         description: 'Reset your theme to defaults',
                         type: ApplicationCommandOptionType.Subcommand,
+                    },
+                    {
+                        name: 'clear',
+                        description: 'Clear specific theme options',
+                        type: ApplicationCommandOptionType.Subcommand,
+                        options: [
+                            { ...Args.THEME_CLEAR_PRIMARY_COLOR_OPTION, required: false },
+                            { ...Args.THEME_CLEAR_TEXT_COLOR_OPTION, required: false },
+                        ],
                     },
                 ],
             },
