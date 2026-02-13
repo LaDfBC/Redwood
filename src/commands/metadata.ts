@@ -339,6 +339,15 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    TEST_SHEETS: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.test-sheets', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.test-sheets'),
+        description: Lang.getRef('commandDescs.testSheets', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.testSheets'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),

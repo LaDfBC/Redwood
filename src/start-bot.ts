@@ -31,6 +31,7 @@ import {
   ThemeClearCommand,
   RollCommand,
   ImmaculateCommand,
+  TestSheetsCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -58,7 +59,8 @@ import {
     EventDataService,
     JobService,
     Logger,
-    DatabaseService
+    DatabaseService,
+    GoogleSheetsService,
 } from './services/index.js';
 import { Trigger } from './triggers/index.js';
 
@@ -70,6 +72,7 @@ async function start(): Promise<void> {
     // Services
     let eventDataService = new EventDataService();
     let databaseService = new DatabaseService();
+    let googleSheetsService = new GoogleSheetsService();
 
     // Client
     let client = new CustomClient({
@@ -116,6 +119,7 @@ async function start(): Promise<void> {
         new ThemeClearCommand(databaseService),
         new RollCommand(),
         new ImmaculateCommand(),
+        new TestSheetsCommand(googleSheetsService),
 
         // Message Context Commands
         new ViewDateSent(),

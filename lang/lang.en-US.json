@@ -661,6 +661,16 @@
                     "text": "YOU DID IT, AMAZING"
                 }
             },
+            "testSheets": {
+                "title": "Google Sheets Test",
+                "fields": [
+                    {
+                        "name": "Cell Value (Sheet1!A1)",
+                        "value": "{{CELL_VALUE}}"
+                    }
+                ],
+                "color": "{{COM:colors.success}}"
+            },
             "test": {
                 "description": "Test command works!"
             },
@@ -827,7 +837,8 @@
             "butt-stuff": "butt-stuff",
             "user-settings": "user-settings",
             "roll": "roll",
-            "immaculate": "immaculate"
+            "immaculate": "immaculate",
+            "test-sheets": "test-sheets"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -886,7 +897,8 @@
             "vibe": "You feelin' lucky, punk?",
             "userSettings": "Manage your personal settings",
             "roll": "Roll dice in XdY format (e.g. 2d6)",
-            "immaculate": "Roll 1d283. You'll know when it happens."
+            "immaculate": "Roll 1d283. You'll know when it happens.",
+            "testSheets": "Fetch a value from Google Sheets"
         },
         "argDescs": {
             "devCommand": "Command.",

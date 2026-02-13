@@ -6,3 +6,4 @@ export { Lang } from './lang.js';
 export { Logger } from './logger.js';
 export { MasterApiService } from './master-api-service.js';
 export { DatabaseService } from './database-service.js';
+export { GoogleSheetsService } from './google-sheets-service.js';

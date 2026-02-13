@@ -72,8 +72,8 @@ export async function executeAtBat(
             ROLL_RESULT: getRandomInt(1, 20).toString(),
             USER: displayName,
             CHAOS_ROLL: chaosRoll.toString(),
-            ANSI_PREFIX: ansiColors.ansiPrefix,
-            ANSI_SUFFIX: ansiColors.ansiSuffix,
+            ANSI_PREFIX: ansiColors ? ansiColors.ansiPrefix : '',
+            ANSI_SUFFIX: ansiColors ? ansiColors.ansiSuffix : '',
         });
     } else if (chaosRoll === 2) { // Balk or Passed Ball
         const chaosDecisionRoll: number = getRandomInt(1, 6);
@@ -83,8 +83,8 @@ export async function executeAtBat(
                 USER: displayName,
                 CHAOS_ROLL: chaosRoll.toString(),
                 SECONDARY_CHAOS_ROLL: chaosDecisionRoll.toString(),
-                ANSI_PREFIX: ansiColors.ansiPrefix,
-                ANSI_SUFFIX: ansiColors.ansiSuffix,
+                ANSI_PREFIX: ansiColors ? ansiColors.ansiPrefix : '',
+                ANSI_SUFFIX: ansiColors ? ansiColors.ansiSuffix : '',
             });
         } else { // Passed Ball
             embed = Lang.getEmbed('displayEmbeds.abPassedBallCommand', lang, {
@@ -92,8 +92,8 @@ export async function executeAtBat(
                 USER: displayName,
                 CHAOS_ROLL: chaosRoll.toString(),
                 SECONDARY_CHAOS_ROLL: chaosDecisionRoll.toString(),
-                ANSI_PREFIX: ansiColors.ansiPrefix,
-                ANSI_SUFFIX: ansiColors.ansiSuffix,
+                ANSI_PREFIX: ansiColors ? ansiColors.ansiPrefix : '',
+                ANSI_SUFFIX: ansiColors ? ansiColors.ansiSuffix : '',
             });
         }
     } else {
@@ -118,8 +118,8 @@ export async function executeAtBat(
             ROLL_TWENTY: finald20Roll.toString(),
             USER: displayName,
             CHAOS_ROLL: chaosRoll.toString(),
-            ANSI_PREFIX: ansiColors.ansiPrefix,
-            ANSI_SUFFIX: ansiColors.ansiSuffix,
+            ANSI_PREFIX: ansiColors ? ansiColors.ansiPrefix : '',
+            ANSI_SUFFIX: ansiColors ? ansiColors.ansiSuffix : '',
         });
 
         // Apply user's custom theme color if set
