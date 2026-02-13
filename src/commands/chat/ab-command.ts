@@ -59,8 +59,7 @@ export async function executeAtBat(
     displayName: string,
     lang: Locale
 ): Promise<{ embed: EmbedBuilder }> {
-    // const chaosRoll: number = getRandomInt(1, 20);
-    const chaosRoll: number = 3
+    const chaosRoll: number = getRandomInt(1, 20);
     await databaseService.logChaosRoll(userId, guildId, chaosRoll);
 
     const userSettings = await databaseService.fetchUserSettings(userId, guildId);
