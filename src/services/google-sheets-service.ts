@@ -9,8 +9,8 @@ export class GoogleSheetsService {
     private spreadsheetId: string;
 
     constructor() {
-        this.apiKey = Config.googleSheets.apiKey;
-        this.spreadsheetId = Config.googleSheets.spreadsheetId;
+        this.apiKey = ""
+        this.spreadsheetId = ''
     }
 
     public async fetchCellValue(tab: string, cell: string): Promise<string> {
