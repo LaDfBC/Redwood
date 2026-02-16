@@ -7,6 +7,8 @@ import {
   PermissionsString,
 } from "discord.js";
 
+import fetch from 'node-fetch';
+
 import {Language} from '../../models/enum-helpers/index.js';
 import {EventData} from '../../models/internal-models.js';
 import {Lang} from '../../services/index.js';
@@ -40,8 +42,25 @@ export class CcFetchCommand implements Command {
             })
             await InteractionUtils.send(intr, embed);
         } else {
-            // SUCCESS - Simply return the requested command
-            await InteractionUtils.send(intr, result.link)
+             // SUCCESS - Simply return the requested command
+            if (result.link.startsWith('https://tenor.com')) {
+                const gifUrl = await getGifUrl(result.link);
+                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessImage', data.lang, {
+                    COMMAND_NAME: args.name,
+                    IMAGE_LINK: gifUrl ?? result.link,
+                });
+            } else if (result.link.includes('.gif') || result.link.includes('.png') || result.link.includes('.jpg')) {
+                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessImage', data.lang, {
+                    COMMAND_NAME: args.name,
+                    IMAGE_LINK: result.link
+                })
+            } else {
+                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessText', data.lang, {
+                    COMMAND_NAME: args.name,
+                    LINK: result.link
+                })
+            }
+            await InteractionUtils.send(intr, embed)
         }
     }
 
@@ -58,4 +77,19 @@ export class CcFetchCommand implements Command {
             };
         })
     }
+}
+
+async function getGifUrl(viewUrl: string): Promise<string | null> {
+    const embedUrl = viewUrl.replace(/\/view\/[^/?]+-(\d+)/, '/embed/$1');
+    const response = await fetch(embedUrl);
+    if (!response.ok) {
+        return null;
+    }
+    const html = await response.text();
+    const scriptMatch = html.match(/<script\s+id="gif-json"[^>]*>(.+?)<\/script>/);
+    if (!scriptMatch) {
+        return null;
+    }
+    const gifData = JSON.parse(scriptMatch[1]);
+    return gifData.media_formats?.gif.url.replace('https://media1.tenor.com/m/', 'https://c.tenor.com/') ?? null;
 }

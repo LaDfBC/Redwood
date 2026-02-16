@@ -10,7 +10,7 @@ export class GoogleSheetsService {
 
     constructor() {
         this.apiKey = ""
-        this.spreadsheetId = ''
+        this.spreadsheetId = 'G'
     }
 
     public async fetchCellValue(tab: string, cell: string): Promise<string> {
