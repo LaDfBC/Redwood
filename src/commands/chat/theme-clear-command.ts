@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'di
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import { DatabaseService } from '../../services/database-service.js';
 
@@ -45,6 +45,7 @@ export class ThemeClearCommand implements Command {
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.themeClearSuccess', data.lang, {
             CLEARED_OPTIONS: clearedNames.join(', '),
         });
+        await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
         await InteractionUtils.send(intr, embed);
     }

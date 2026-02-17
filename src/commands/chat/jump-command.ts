@@ -2,11 +2,13 @@ import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'di
 
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { DatabaseService, Lang } from '../../services/index.js';
+import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class JumpCommand implements Command {
+    constructor(private databaseService: DatabaseService) {}
+
     public names = [Lang.getRef('chatCommands.jump', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
@@ -34,6 +36,7 @@ export class JumpCommand implements Command {
                 USER: intr.user.displayName,
                 CHAOS_ROLL: chaosRoll.toString(),
             });
+            await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
             await InteractionUtils.send(intr, embed);
         }

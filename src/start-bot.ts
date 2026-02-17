@@ -90,13 +90,13 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        // new DevCommand(),
-        new HelpCommand(),
-        new InfoCommand(),
-        new TestCommand(),
-        new D20Command(),
-        new WeatherCommand(),
-        new JumpCommand(),
+        // new DevCommand(databaseService),
+        new HelpCommand(databaseService),
+        new InfoCommand(databaseService),
+        new TestCommand(databaseService),
+        new D20Command(databaseService),
+        new WeatherCommand(databaseService),
+        new JumpCommand(databaseService),
         new AtBatCommand(databaseService),
         new AbHistoryCommand(databaseService),
         new CcCreateCommand(databaseService),
@@ -110,16 +110,16 @@ async function start(): Promise<void> {
         new ChartDeleteCommand(databaseService),
         new ChartFetchCommand(databaseService),
         new ButtStuffCommand(),
-        new VibeCommand(),
+        new VibeCommand(databaseService),
         new InjuryCommand(databaseService),
         new PlayerCommand(databaseService),
         new ThemeSetCommand(databaseService),
         new ThemeGetCommand(databaseService),
         new ThemeResetCommand(databaseService),
         new ThemeClearCommand(databaseService),
-        new RollCommand(),
-        new ImmaculateCommand(),
-        new TestSheetsCommand(googleSheetsService),
+        new RollCommand(databaseService),
+        new ImmaculateCommand(databaseService),
+        new TestSheetsCommand(googleSheetsService, databaseService),
 
         // Message Context Commands
         new ViewDateSent(),
@@ -137,7 +137,7 @@ async function start(): Promise<void> {
         new CcMineFirstButton(databaseService),
         new CcMineLastButton(databaseService),
         new AbRepeatButton(databaseService),
-        new RollRepeatButton(),
+        new RollRepeatButton(databaseService),
     ];
 
     // Reactions

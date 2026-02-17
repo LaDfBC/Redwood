@@ -11,14 +11,21 @@ vi.mock('../../../src/utils/index.js', () => ({
     InteractionUtils: {
         send: vi.fn().mockResolvedValue({}),
     },
+    EmbedUtils: {
+        applyUserTheme: vi.fn().mockResolvedValue(undefined),
+    },
 }));
 
 describe('TestCommand', () => {
     let testCommand: TestCommand;
     let mockEventData: EventData;
+    let mockDatabaseService: any;
 
     beforeEach(() => {
-        testCommand = new TestCommand();
+        mockDatabaseService = {
+            fetchUserSettings: vi.fn().mockResolvedValue(null),
+        };
+        testCommand = new TestCommand(mockDatabaseService);
         mockEventData = new EventData(Locale.EnglishUS, Locale.EnglishUS);
     });
 

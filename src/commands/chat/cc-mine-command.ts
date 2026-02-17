@@ -12,7 +12,7 @@ import {
 import {Language} from '../../models/enum-helpers/index.js';
 import {EventData} from '../../models/internal-models.js';
 import {Lang} from '../../services/index.js';
-import {InteractionUtils} from '../../utils/index.js';
+import {EmbedUtils, InteractionUtils} from '../../utils/index.js';
 import {Command, CommandDeferType} from '../index.js';
 import {DatabaseService} from "../../services/database-service";
 import { CustomCommandWithUsageCountRow } from "../../models/database";
@@ -47,6 +47,7 @@ export class CcMineCommand implements Command {
                 RANGE_HIGH: Math.min(5, myCommands.length).toString(),
                 TOTAL_COUNT: myCommands.length.toString(),
             }, buildMyCommandsResponse(myCommands));
+            await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
             if (myCommands.length <= 5) {
                 await InteractionUtils.send(intr, embed);

@@ -8,7 +8,7 @@ import {
 } from "discord.js";
 import {EventData} from "../models/internal-models";
 import { Button, ButtonDeferType } from "./index.js";
-import {InteractionUtils} from "../utils/index.js";
+import {EmbedUtils, InteractionUtils} from "../utils/index.js";
 import {buildMyCommandsResponse} from "../commands/chat/index.js";
 
 export class CcMinePreviousButton implements Button {
@@ -30,6 +30,7 @@ export class CcMinePreviousButton implements Button {
                 RANGE_HIGH: (newPage * 5).toString(),
                 TOTAL_COUNT: mineCommands.length.toString(),
             }, buildMyCommandsResponse(mineCommands, newPage));
+      await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
       const message: Message = await InteractionUtils.send(intr, {
           embeds: [embed],

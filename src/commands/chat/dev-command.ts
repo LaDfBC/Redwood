@@ -6,8 +6,8 @@ import typescript from 'typescript';
 import { DevCommandName } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
-import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils/index.js';
+import { DatabaseService, Lang } from '../../services/index.js';
+import { EmbedUtils, FormatUtils, InteractionUtils, ShardUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 const require = createRequire(import.meta.url);
@@ -15,6 +15,8 @@ let Config = require('../../../config/config.json');
 let TsConfig = require('../../../tsconfig.json');
 
 export class DevCommand implements Command {
+    constructor(private databaseService: DatabaseService) {}
+
     public names = [Lang.getRef('chatCommands.dev', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
@@ -54,9 +56,7 @@ export class DevCommand implements Command {
 
                 let memory = process.memoryUsage();
 
-                await InteractionUtils.send(
-                    intr,
-                    Lang.getEmbed('displayEmbeds.devInfo', data.lang, {
+                let devEmbed = Lang.getEmbed('displayEmbeds.devInfo', data.lang, {
                         NODE_VERSION: process.version,
                         TS_VERSION: `v${typescript.version}`,
                         ES_VERSION: TsConfig.compilerOptions.target,
@@ -86,8 +86,9 @@ export class DevCommand implements Command {
                         SERVER_ID: intr.guild?.id ?? Lang.getRef('other.na', data.lang),
                         BOT_ID: intr.client.user?.id,
                         USER_ID: intr.user.id,
-                    })
-                );
+                    });
+                await EmbedUtils.applyUserTheme(devEmbed, this.databaseService, intr.user.id, intr.guildId);
+                await InteractionUtils.send(intr, devEmbed);
                 break;
             }
             default: {

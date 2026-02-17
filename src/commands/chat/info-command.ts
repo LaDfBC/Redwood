@@ -3,11 +3,13 @@ import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'di
 import { InfoOption } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { DatabaseService, Lang } from '../../services/index.js';
+import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class InfoCommand implements Command {
+    constructor(private databaseService: DatabaseService) {}
+
     public names = [Lang.getRef('chatCommands.info', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
@@ -30,6 +32,7 @@ export class InfoCommand implements Command {
             }
         }
 
+        await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
         await InteractionUtils.send(intr, embed);
     }
 }

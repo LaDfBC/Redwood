@@ -3,7 +3,6 @@ import {
     ButtonBuilder,
     ButtonStyle,
     ChatInputCommandInteraction,
-    ColorResolvable,
     EmbedBuilder,
     Locale,
     PermissionsString
@@ -12,7 +11,7 @@ import {
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { DatabaseService, Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import {AnsiColors} from "../../models/command-models";
 
@@ -123,9 +122,7 @@ export async function executeAtBat(
         });
 
         // Apply user's custom theme color if set
-        if (userSettings?.primary_color) {
-            embed.setColor(userSettings.primary_color as ColorResolvable);
-        }
+        await EmbedUtils.applyUserTheme(embed, databaseService, userId, guildId);
 
         if (rollSingle === 6 && twoD6Total > 6) {
             embed.addFields([{

@@ -9,7 +9,7 @@ import {
 } from "discord.js";
 import {EventData} from "../models/internal-models";
 import { Button, ButtonDeferType } from "./index.js";
-import {InteractionUtils} from "../utils/index.js";
+import {EmbedUtils, InteractionUtils} from "../utils/index.js";
 import {buildMyCommandsResponse} from "../commands/chat/index.js";
 
 export class CcMineNextButton implements Button {
@@ -31,6 +31,7 @@ export class CcMineNextButton implements Button {
                 RANGE_HIGH: Math.min((newPage * 5), mineCommands.length).toString(),
                 TOTAL_COUNT: mineCommands.length.toString(),
             }, buildMyCommandsResponse(mineCommands, newPage));
+      await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
       const messageData: Message = await InteractionUtils.send(intr, {
               embeds: [embed],
