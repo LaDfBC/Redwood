@@ -122,7 +122,7 @@
                         "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"]
                     }
                 ],
-                "image": "{{IMAGE_LINK}}",
+                "image": "https://online-pennant-static-assets.s3.us-east-1.amazonaws.com/Injury+Maxiums.png",
                 "color": "{{COM:colors.success}}"
             },
             "abStandardCommand": {

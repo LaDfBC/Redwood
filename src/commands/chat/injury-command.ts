@@ -41,12 +41,10 @@ export class InjuryCommand implements Command {
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const roll = getRandomInt(1, 20)
-        const injuryChart: ChartRow = await this.databaseService.fetchChart("Injury Maximums", intr.guildId)
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.injuryCommand', data.lang, {
             ROLL_RESULT: roll.toString(),
             INJURY: injuryList[roll - 1],
             USER: intr.user.displayName,
-            IMAGE_LINK: injuryChart.image_link
         });
         await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 
