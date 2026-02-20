@@ -135,8 +135,8 @@ export async function executeAtBat(
     return { embed };
 }
 
-// Helper to create the repeat button row
-export function createRepeatButtonRow(): ActionRowBuilder<ButtonBuilder> {
+// Helper to create the ab button row (Repeat + Jump)
+export function createAbButtonRow(): ActionRowBuilder<ButtonBuilder> {
     return new ActionRowBuilder<ButtonBuilder>()
         .setComponents([
             new ButtonBuilder({
@@ -144,7 +144,13 @@ export function createRepeatButtonRow(): ActionRowBuilder<ButtonBuilder> {
                 style: ButtonStyle.Secondary,
                 label: 'Repeat',
                 emoji: '🔄'
-            })
+            }),
+            new ButtonBuilder({
+                customId: 'abJumpButton',
+                style: ButtonStyle.Secondary,
+                label: 'Jump',
+                emoji: '🏃'
+            }),
         ]);
 }
 
@@ -168,7 +174,7 @@ export class AtBatCommand implements Command {
 
         await InteractionUtils.send(intr, {
             embeds: [result.embed],
-            components: [createRepeatButtonRow()]
+            components: [createAbButtonRow()]
         });
     }
 }

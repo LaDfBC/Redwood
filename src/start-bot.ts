@@ -2,7 +2,7 @@ import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton, AbRepeatButton, RollRepeatButton } from './buttons/index.js';
+import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton, AbRepeatButton, AbJumpButton, RollRepeatButton } from './buttons/index.js';
 import {
   D20Command,
   HelpCommand,
@@ -137,6 +137,7 @@ async function start(): Promise<void> {
         new CcMineFirstButton(databaseService),
         new CcMineLastButton(databaseService),
         new AbRepeatButton(databaseService),
+        new AbJumpButton(databaseService),
         new RollRepeatButton(databaseService),
     ];
 
