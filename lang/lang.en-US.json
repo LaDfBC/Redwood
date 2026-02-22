@@ -63,7 +63,8 @@
                         "value": [
                           "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
                           "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
-                          "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}"
+                          "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}",
+                          "{{CMD_LINK_CHART_EDIT}} - {{REF:commandDescs.chartEdit}}"
                         ]
                     },
                     {
@@ -408,6 +409,70 @@
                     {
                         "name": "Error",
                         "value": "UNKNOWN FAILURE REASON - Something catastrophic happened -  Please use the /help command to contact support."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditNoOptionsProvided": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "You must provide at least one of new-name or new-image."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditNameDoesNotExist": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "The chart {{CHART_NAME}} does not exist!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditUserNotOwner": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "{{USER_NAME}} does not own {{CHART_NAME}} and therefore cannot edit it"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditNameAlreadyExists": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "A chart with the name {{NEW_NAME}} already exists!"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditBadUrl": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error: {{REASON}}: {{IMAGE_LINK}}",
+                        "value": "Please verify that this is a valid image and try again"
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
+            },
+            "chartEditSuccess": {
+                "title": "Success - {{CHART_NAME}} has been updated!",
+                "color": "{{COM:colors.success}}"
+            },
+            "chartEditUnknownError": {
+                "title": ":x: Failed to edit chart",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "UNKNOWN ERROR - An error was caught but was unexpected.  Please use the /help command to contact support."
                     }
                 ],
                 "color": "{{COM:colors.error}}"
@@ -833,6 +898,7 @@
             "chart-fetch": "chart",
             "chart-create": "chart-create",
             "chart-delete": "chart-delete",
+            "chart-edit": "chart-edit",
             "player-fetch": "player",
             "butt-stuff": "butt-stuff",
             "user-settings": "user-settings",
@@ -860,6 +926,9 @@
             "chartCreateDescriptionOption": "description",
             "chartCreateImageLinkOption": "image-link",
             "chartDeleteNameOption": "name",
+            "chartEditNameOption": "name",
+            "chartEditNewNameOption": "new-name",
+            "chartEditNewImageOption": "new-image",
             "chartFetchNameOption": "name",
             "abHistoryCountOption": "count",
             "abHistoryRollTypeOption": "roll-type",
@@ -891,6 +960,7 @@
             "fielding": "Roll for a fielder's response to a ball in play",
             "chartCreate": "Create a chart",
             "chartDelete": "Delete a chart",
+            "chartEdit": "Edit a chart's name or image",
             "chartFetch": "Fetch a chart",
             "playerFetch": "Fetch a player",
             "buttStuff": "My anaconda don't want none unless you got buns, hun",
@@ -917,6 +987,9 @@
             "chartCreateDescriptionOption": "Chart Description - Long form explanation of the chart",
             "chartCreateImageLinkOption": "Chart Image Link/URL - How this chart can be found on the internet",
             "chartDeleteNameOption": "Name of the chart to delete",
+            "chartEditNameOption": "Name of the chart to edit",
+            "chartEditNewNameOption": "New name for the chart",
+            "chartEditNewImageOption": "New image URL for the chart",
             "chartFetchNameOption": "Name of the chart to fetch",
             "abHistoryCountOption": "How many results will be analyzed",
             "abHistoryRollTypeOption": "Type of roll whose results will be fetched - All does not include Chaos rolls",

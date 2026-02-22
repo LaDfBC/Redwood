@@ -100,6 +100,12 @@ export class HelpCommand implements Command {
                             Lang.getRef('chatCommands.chart-delete', Language.Default)
                         )
                     ),
+                    CMD_LINK_CHART_EDIT: FormatUtils.commandMention(
+                        await ClientUtils.findAppCommand(
+                            intr.client,
+                            Lang.getRef('chatCommands.chart-edit', Language.Default)
+                        )
+                    ),
                     CMD_LINK_D20: FormatUtils.commandMention(
                         await ClientUtils.findAppCommand(
                             intr.client,

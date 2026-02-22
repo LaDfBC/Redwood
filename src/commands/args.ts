@@ -132,6 +132,28 @@ export class Args {
         autocomplete: true,
         type: ApplicationCommandOptionType.String,
     };
+    public static readonly CHART_EDIT_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartEditNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartEditNameOption'),
+        description: Lang.getRef('argDescs.chartEditNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartEditNameOption'),
+        autocomplete: true,
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_EDIT_NEW_NAME_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartEditNewNameOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartEditNewNameOption'),
+        description: Lang.getRef('argDescs.chartEditNewNameOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartEditNewNameOption'),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly CHART_EDIT_NEW_IMAGE_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.chartEditNewImageOption', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.chartEditNewImageOption'),
+        description: Lang.getRef('argDescs.chartEditNewImageOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.chartEditNewImageOption'),
+        type: ApplicationCommandOptionType.String,
+    };
     public static readonly CHART_FETCH_NAME_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.chartFetchNameOption', Language.Default),
         name_localizations: Lang.getRefLocalizationMap('arguments.chartFetchNameOption'),

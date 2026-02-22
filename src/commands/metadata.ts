@@ -245,6 +245,29 @@ export const ChatCommandMetadata: {
             }
         ]
     },
+    CHART_EDIT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.chart-edit', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.chart-edit'),
+        description: Lang.getRef('commandDescs.chartEdit', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.chartEdit'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.CHART_EDIT_NAME_OPTION,
+                required: true,
+            },
+            {
+                ...Args.CHART_EDIT_NEW_NAME_OPTION,
+                required: false,
+            },
+            {
+                ...Args.CHART_EDIT_NEW_IMAGE_OPTION,
+                required: false,
+            },
+        ],
+    },
     CHART_FETCH: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.chart-fetch', Language.Default),

@@ -2,6 +2,7 @@ import {Knex} from "knex";
 import {createRequire} from "node:module";
 import {
   DeleteChartFailureReason,
+  EditChartFailureReason,
   DeleteCommandFailureReason,
   PlayerType,
   RollType,
@@ -15,6 +16,7 @@ import {
   CustomCommandUsageRow,
   CustomCommandWithUsageCountRow,
   DeleteChartResult,
+  EditChartResult,
   DeleteCommandResult,
   FieldingErrorRow,
   FieldingRangeRow,
@@ -241,6 +243,37 @@ export class DatabaseService {
             } catch (error) {
                 await Logger.error("Encountered an unexpected database error: "  + error);
                 return { success: false, reason: DeleteChartFailureReason.UNKNOWN };
+            }
+        })
+    }
+
+    public async updateChart(
+        chartName: string,
+        requestingUser: string,
+        guildId: string,
+        updates: { chart_name?: string; image_link?: string }
+    ): Promise<EditChartResult> {
+        return await this.retryOnce(async (): Promise<EditChartResult> => {
+            try {
+                if (!(await this.chartExists(chartName, guildId))) {
+                    return { success: false, reason: EditChartFailureReason.CHART_DOES_NOT_EXIST };
+                } else if ((await this.fetchChart(chartName, guildId)).owner_username !== requestingUser) {
+                    return { success: false, reason: EditChartFailureReason.USER_NOT_OWNER };
+                } else if (updates.chart_name && await this.chartExists(updates.chart_name, guildId)) {
+                    return { success: false, reason: EditChartFailureReason.NAME_ALREADY_EXISTS };
+                } else {
+                    const updateObj: Record<string, any> = {};
+                    if (updates.chart_name) updateObj.chart_name = updates.chart_name;
+                    if (updates.image_link) updateObj.image_link = updates.image_link;
+                    await knex<ChartRow>('chart')
+                        .where('chart_name', chartName)
+                        .andWhere('guild_id', guildId)
+                        .update(updateObj);
+                    return { success: true, reason: undefined };
+                }
+            } catch (error) {
+                await Logger.error("Encountered an unexpected database error: " + error);
+                return { success: false, reason: EditChartFailureReason.UNKNOWN };
             }
         })
     }

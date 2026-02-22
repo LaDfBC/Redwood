@@ -3,7 +3,7 @@ import path from 'node:path'
 import * as stream from "node:stream";
 import AWS from "aws-sdk";
 import {Knex} from "knex";
-import {PlayerRow} from "../src/models/database";
+import { PlayerPositionRow, PlayerRow } from "../src/models/database";
 import {randomUUID} from "crypto";
 import {createRequire} from "node:module";
 import {PlayerType} from "../src/enums";
@@ -29,7 +29,7 @@ export class LoadPlayersFromDirectory {
 
             for (const file of files) {
                 const rawFileName = path.parse(file).name;
-                const playerName: string = rawFileName.split(' ').map((namePart => {
+                let playerName: string = rawFileName.split(' ').map((namePart => {
                     if (namePart.includes('.')) {
                         return namePart
                     }
@@ -37,8 +37,15 @@ export class LoadPlayersFromDirectory {
                 })).join(' ');
                 const filePath = path.join(directoryPath, file);
 
+                if (playerName === 'Anthony Desclafani') {
+                    playerName = 'Anthony DeSclafani';
+                }
+                if (playerName === 'D.L. Hall') {
+                    playerName = 'DL Hall';
+                }
                 const s3Url = await this.addToS3(playerName, filePath);
-                await this.insertPlayer(knex, playerName, s3Url);
+                await this.updatePlayer(knex, playerName, s3Url);
+                await this.removeStartingPlayerPosition(knex, playerName);
                 console.log(`COUNT: ${++count} - ${playerName}`);
             }
         } catch (err) {
@@ -97,9 +104,32 @@ export class LoadPlayersFromDirectory {
             active: true
         });
     }
+
+
+    async updatePlayer(knex: Knex, playerName: string, cardUrl: string) {
+        await knex<PlayerRow>('player')
+            .where("player_name", playerName)
+            .andWhere("year", '2025')
+            .update({
+                card_url: cardUrl,
+            })
+    }
+
+    async removeStartingPlayerPosition(knex: Knex, playerName: string) {
+        const playerRow: PlayerRow = await knex<PlayerRow>("player")
+            .where("player_name", playerName)
+            .andWhere("year", '2025')
+            .first();
+
+        await knex<PlayerPositionRow>('player_position')
+            .where("uuid", playerRow.uuid)
+            .andWhere("position", 'SP')
+            .del()
+
+    }
 }
 
-await new LoadPlayersFromDirectory().loadFromDirectory('/home/george/Downloads/png')
+await new LoadPlayersFromDirectory().loadFromDirectory('/home/george/Downloads/KIGERFIX')
 
 console.warn("Done!")
 process.exit(0)
