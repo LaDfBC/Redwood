@@ -266,4 +266,7 @@
     <changeSet author="Jaera" id="19">
         <dropColumn tableName="user_settings" columnName="background_color" />
     </changeSet>
+    <changeSet author="Jaera" id="20">
+        <modifyDataType tableName="custom_command" columnName="link" newDataType="text" />
+    </changeSet>
 </databaseChangeLog>
