@@ -371,6 +371,30 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    SCOREBUG: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.scorebug', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.scorebug'),
+        description: Lang.getRef('commandDescs.scorebug', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.scorebug'),
+        dm_permission: false,
+        default_member_permissions: undefined,
+    },
+    SET_GAME_CONTEXT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.set-game-context', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.set-game-context'),
+        description: Lang.getRef('commandDescs.setGameContext', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.setGameContext'),
+        dm_permission: false,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.SET_GAME_CONTEXT_LINK_OPTION,
+                required: true,
+            },
+        ],
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),

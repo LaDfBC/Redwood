@@ -20,6 +20,7 @@ import {
   DeleteCommandResult,
   FieldingErrorRow,
   FieldingRangeRow,
+  GameContextRow,
   PlayerPositionRow,
   RollMapping,
   UserSettingsRow,
@@ -547,5 +548,28 @@ export class DatabaseService {
                 .andWhere('guild_id', guildId)
                 .del()
         })
+    }
+
+    public async fetchGameContext(serverId: string, channelId: string): Promise<GameContextRow | undefined> {
+        return await this.retryOnce(async (): Promise<GameContextRow | undefined> => {
+            return knex<GameContextRow>('game_context')
+                .where({ server_id: serverId, channel_id: channelId })
+                .first();
+        });
+    }
+
+    public async upsertGameContext(serverId: string, channelId: string, sheetLink: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<GameContextRow>('game_context')
+                .where({ server_id: serverId, channel_id: channelId })
+                .delete();
+            await knex<GameContextRow>('game_context')
+                .insert({
+                    server_id: serverId,
+                    channel_id: channelId,
+                    sheet_link: sheetLink,
+                    created: new Date(),
+                });
+        });
     }
 }

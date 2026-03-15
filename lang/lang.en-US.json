@@ -726,6 +726,39 @@
                     "text": "YOU DID IT, AMAZING"
                 }
             },
+            "scorebug": {
+                "title": "{{GAME_TITLE}}",
+                "description": "{{SCOREBUG}}",
+                "color": "{{COM:colors.success}}",
+                "footer": {
+                    "text": "This command is in beta; you may encounter issues.  Please provide any feedback or problems you have in #redwood-help, thanks!"
+                }
+            },
+            "scorebugNoContext": {
+                "title": "No Active Game",
+                "description": "No game has been set for this channel. Use `/set-game-context` first.",
+                "color": "{{COM:colors.error}}"
+            },
+            "scorebugInvalidLink": {
+                "title": "Invalid Sheet Link",
+                "description": "The stored sheet link could not be parsed as a valid Google Sheets URL.",
+                "color": "{{COM:colors.error}}"
+            },
+            "scorebugSheetReadError": {
+                "title": "Could Not Read Sheet",
+                "description": "Failed to read the Google Sheet. The sheet may be inaccessible or the service account may not have permission.",
+                "color": "{{COM:colors.error}}"
+            },
+            "scorebugNoData": {
+                "title": "Box Score Not Found",
+                "description": "The **Box Score** sheet was not found or contains no data in the expected rows.",
+                "color": "{{COM:colors.error}}"
+            },
+            "setGameContextSuccess": {
+                "title": "Game Context Set",
+                "description": "This channel is now linked to:\n{{SHEET_LINK}}",
+                "color": "{{COM:colors.success}}"
+            },
             "testSheets": {
                 "title": "Google Sheets Test",
                 "fields": [
@@ -904,7 +937,9 @@
             "user-settings": "user-settings",
             "roll": "roll",
             "immaculate": "immaculate",
-            "test-sheets": "test-sheets"
+            "test-sheets": "test-sheets",
+            "set-game-context": "set-game-context",
+            "scorebug": "scorebug"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -939,7 +974,8 @@
             "themeSetTextColorOption": "text-color",
             "themeClearPrimaryColorOption": "primary-color",
             "themeClearTextColorOption": "text-color",
-            "rollDiceOption": "dice"
+            "rollDiceOption": "dice",
+            "setGameContextLink": "sheet-link"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -968,7 +1004,9 @@
             "userSettings": "Manage your personal settings",
             "roll": "Roll dice in XdY format (e.g. 2d6)",
             "immaculate": "Roll 1d283. You'll know when it happens.",
-            "testSheets": "Fetch a value from Google Sheets"
+            "testSheets": "Fetch a value from Google Sheets",
+            "setGameContext": "Set the active game spreadsheet for this channel.",
+            "scorebug": "Display the current game scorebug for this channel."
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -1000,7 +1038,8 @@
             "themeSetTextColorOption": "ANSI text color for code blocks",
             "themeClearPrimaryColorOption": "Clear your primary embed color",
             "themeClearTextColorOption": "Clear your text color",
-            "rollDiceOption": "Dice to roll in XdY format (e.g. 2d6, 1d20)"
+            "rollDiceOption": "Dice to roll in XdY format (e.g. 2d6, 1d20)",
+            "setGameContextLink": "Google Sheets link for the active game"
         },
         "fields": {
             "commands": "Commands",

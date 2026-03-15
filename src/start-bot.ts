@@ -32,7 +32,8 @@ import {
   ThemeClearCommand,
   RollCommand,
   ImmaculateCommand,
-  TestSheetsCommand,
+  SetGameContextCommand,
+  ScoreBugCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -96,7 +97,7 @@ async function start(): Promise<void> {
         new InfoCommand(databaseService),
         new TestCommand(databaseService),
         new D20Command(databaseService),
-        new WeatherCommand(databaseService),
+        new WeatherCommand(databaseService, googleSheetsService),
         new JumpCommand(databaseService),
         new AtBatCommand(databaseService),
         new AbHistoryCommand(databaseService),
@@ -121,7 +122,8 @@ async function start(): Promise<void> {
         new ThemeClearCommand(databaseService),
         new RollCommand(databaseService),
         new ImmaculateCommand(databaseService),
-        new TestSheetsCommand(googleSheetsService, databaseService),
+        new SetGameContextCommand(databaseService),
+        new ScoreBugCommand(databaseService, googleSheetsService),
 
         // Message Context Commands
         new ViewDateSent(),

@@ -327,4 +327,11 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.themeClearTextColorOption'),
         type: ApplicationCommandOptionType.Boolean,
     };
+    public static readonly SET_GAME_CONTEXT_LINK_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.setGameContextLink', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.setGameContextLink'),
+        description: Lang.getRef('argDescs.setGameContextLink', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.setGameContextLink'),
+        type: ApplicationCommandOptionType.String,
+    };
 }

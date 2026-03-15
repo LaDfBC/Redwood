@@ -27,4 +27,5 @@ export { ThemeSetCommand } from './theme-set-command.js';
 export { ThemeGetCommand } from './theme-get-command.js';
 export { ThemeResetCommand } from './theme-reset-command.js';
 export { ThemeClearCommand } from './theme-clear-command.js';
-export { TestSheetsCommand } from './test-sheets-command.js';
+export { SetGameContextCommand } from './set-game-context-command.js';
+export { ScoreBugCommand } from './scorebug-command.js';
