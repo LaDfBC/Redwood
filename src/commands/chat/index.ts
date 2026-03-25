@@ -4,13 +4,13 @@ export { InfoCommand } from './info-command.js';
 export { TestCommand } from './test-command.js';
 export { D20Command } from './d20-command.js';
 export { JumpCommand, executeJump } from './jump-command.js';
-export { AtBatCommand, executeAtBat, createAbButtonRow } from './ab-command.js';
+export { AtBatCommand, executeAtBat, createAbButtonRow, createAbFieldingSelectMenuRow } from './ab-command.js';
 export { CcCreateCommand } from './cc-create-command.js';
 export { CcUsageCommand } from './cc-usage-command.js';
 export { CcDeleteCommand } from './cc-delete-command.js';
 export { CcMineCommand, buildMyCommandsResponse } from './cc-mine-command.js'
 export { CcFetchCommand } from './cc-command.js';
-export { FieldingCommand } from './fielding-command.js';
+export { FieldingCommand, executeFielding } from './fielding-command.js';
 export { ChartCreateCommand } from './chart-create-command.js';
 export { ChartDeleteCommand } from './chart-delete-command.js';
 export { ChartEditCommand } from './chart-edit-command.js';

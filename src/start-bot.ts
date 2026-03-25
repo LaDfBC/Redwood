@@ -3,6 +3,7 @@ import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Button, CcMineNextButton, CcMineLastButton, CcMinePreviousButton, CcMineFirstButton, AbRepeatButton, AbJumpButton, RollRepeatButton } from './buttons/index.js';
+import { SelectMenu, AbFieldingSelectMenu } from './select-menus/index.js';
 import {
   D20Command,
   HelpCommand,
@@ -50,6 +51,7 @@ import {
     GuildLeaveHandler,
     MessageHandler,
     ReactionHandler,
+    SelectMenuHandler,
     TriggerHandler,
 } from './events/index.js';
 import { CustomClient } from './extensions/index.js';
@@ -155,11 +157,17 @@ async function start(): Promise<void> {
         // TODO: Add new triggers here
     ];
 
+    // Select Menus
+    let selectMenus: SelectMenu[] = [
+        new AbFieldingSelectMenu(databaseService),
+    ];
+
     // Event handlers
     let guildJoinHandler = new GuildJoinHandler(eventDataService);
     let guildLeaveHandler = new GuildLeaveHandler();
     let commandHandler = new CommandHandler(commands, eventDataService);
     let buttonHandler = new ButtonHandler(buttons, eventDataService);
+    let selectMenuHandler = new SelectMenuHandler(selectMenus, eventDataService);
     let triggerHandler = new TriggerHandler(triggers, eventDataService);
     let messageHandler = new MessageHandler(triggerHandler);
     let reactionHandler = new ReactionHandler(reactions, eventDataService);
@@ -179,6 +187,7 @@ async function start(): Promise<void> {
         commandHandler,
         buttonHandler,
         reactionHandler,
+        selectMenuHandler,
         new JobService(jobs)
     );
 

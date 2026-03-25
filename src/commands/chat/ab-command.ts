@@ -5,9 +5,12 @@ import {
     ChatInputCommandInteraction,
     EmbedBuilder,
     Locale,
-    PermissionsString
+    PermissionsString,
+    StringSelectMenuBuilder,
+    StringSelectMenuOptionBuilder,
 } from 'discord.js';
 
+import { PositionOption } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { DatabaseService, Lang } from '../../services/index.js';
@@ -154,6 +157,26 @@ export function createAbButtonRow(): ActionRowBuilder<ButtonBuilder> {
         ]);
 }
 
+export function createAbFieldingSelectMenuRow(): ActionRowBuilder<StringSelectMenuBuilder> {
+    return new ActionRowBuilder<StringSelectMenuBuilder>()
+        .setComponents([
+            new StringSelectMenuBuilder()
+                .setCustomId('abFieldingSelectMenu')
+                .setPlaceholder('🧤 Fielding')
+                .setOptions([
+                    new StringSelectMenuOptionBuilder().setLabel('C').setValue(PositionOption.CATCHER),
+                    new StringSelectMenuOptionBuilder().setLabel('P').setValue(PositionOption.PITCHER),
+                    new StringSelectMenuOptionBuilder().setLabel('1B').setValue(PositionOption.FIRST_BASE),
+                    new StringSelectMenuOptionBuilder().setLabel('2B').setValue(PositionOption.SECOND_BASE),
+                    new StringSelectMenuOptionBuilder().setLabel('SS').setValue(PositionOption.SHORTSTOP),
+                    new StringSelectMenuOptionBuilder().setLabel('3B').setValue(PositionOption.THIRD_BASE),
+                    new StringSelectMenuOptionBuilder().setLabel('RF').setValue(PositionOption.RIGHT_FIELD),
+                    new StringSelectMenuOptionBuilder().setLabel('CF').setValue(PositionOption.CENTER_FIELD),
+                    new StringSelectMenuOptionBuilder().setLabel('LF').setValue(PositionOption.LEFT_FIELD),
+                ]),
+        ]);
+}
+
 export class AtBatCommand implements Command {
     constructor(
         private databaseService: DatabaseService,
@@ -174,7 +197,7 @@ export class AtBatCommand implements Command {
 
         await InteractionUtils.send(intr, {
             embeds: [result.embed],
-            components: [createAbButtonRow()]
+            components: [createAbFieldingSelectMenuRow(), createAbButtonRow()]
         });
     }
 }

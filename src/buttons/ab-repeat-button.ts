@@ -1,7 +1,7 @@
 import { ButtonInteraction } from 'discord.js';
 
 import { Button, ButtonDeferType } from './index.js';
-import { createAbButtonRow, executeAtBat } from '../commands/chat/index.js';
+import { createAbButtonRow, executeAtBat, createAbFieldingSelectMenuRow } from '../commands/chat/index.js';
 import { EventData } from '../models/internal-models.js';
 import { DatabaseService } from '../services/index.js';
 import { InteractionUtils } from '../utils/index.js';
@@ -25,7 +25,7 @@ export class AbRepeatButton implements Button {
 
         await InteractionUtils.send(intr, {
             embeds: [result.embed],
-            components: [createAbButtonRow()]
+            components: [createAbButtonRow(), createAbFieldingSelectMenuRow()]
         });
     }
 }

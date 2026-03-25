@@ -12,6 +12,7 @@ import {
     PartialUser,
     RateLimitData,
     RESTEvents,
+    StringSelectMenuInteraction,
     User,
 } from 'discord.js';
 import { createRequire } from 'node:module';
@@ -23,6 +24,7 @@ import {
     GuildLeaveHandler,
     MessageHandler,
     ReactionHandler,
+    SelectMenuHandler,
 } from '../events/index.js';
 import { JobService, Logger } from '../services/index.js';
 import { PartialUtils } from '../utils/index.js';
@@ -44,6 +46,7 @@ export class Bot {
         private commandHandler: CommandHandler,
         private buttonHandler: ButtonHandler,
         private reactionHandler: ReactionHandler,
+        private selectMenuHandler: SelectMenuHandler,
         private jobService: JobService
     ) {}
 
@@ -157,6 +160,12 @@ export class Bot {
         } else if (intr instanceof ButtonInteraction) {
             try {
                 await this.buttonHandler.process(intr);
+            } catch (error) {
+                Logger.error(Logs.error.button, error);
+            }
+        } else if (intr instanceof StringSelectMenuInteraction) {
+            try {
+                await this.selectMenuHandler.process(intr);
             } catch (error) {
                 Logger.error(Logs.error.button, error);
             }

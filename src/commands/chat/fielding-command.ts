@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, Locale, PermissionsString } from 'discord.js';
 
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
@@ -6,6 +6,67 @@ import { DatabaseService, Lang } from "../../services/index.js";
 import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import {FieldingErrorRow, FieldingRangeRow} from "../../models/database";
+
+export async function executeFielding(
+    databaseService: DatabaseService,
+    userId: string,
+    guildId: string,
+    displayName: string,
+    position: string,
+    lang: Locale
+): Promise<{ embed: EmbedBuilder }> {
+    const rangeRoll: number = getRandomInt(1, 20)
+    const errorRoll1: number = getRandomInt(1, 6);
+    const errorRoll2: number = getRandomInt(1, 6);
+    const errorRoll3: number = getRandomInt(1, 6);
+    const errorRollTotal = errorRoll1 + errorRoll2 + errorRoll3;
+
+    const rangeData: FieldingRangeRow = await databaseService.fetchFieldingRange(position, rangeRoll);
+    // We are assuming 5 numbers here as per the current requirements. If this changes we can generify it without too much hassle
+    const rangeValuesFormatted: string = rangeData.values.replaceAll(',', ' | ')
+    const rangeValuesSplit = rangeValuesFormatted.split(' | ')
+    const rangeNumbersFormatted: string = ['1', '2', '3', '4', '5']
+        .map((rangeNum: string, index: number) => {
+            const charactersInVal = rangeValuesSplit[index].length + 2
+            const middle: number = Math.ceil(charactersInVal / 2)
+            return ' '.repeat(middle - 1) + rangeNum + ' '.repeat(charactersInVal - middle)
+        })
+        .join('|')
+        .slice(1)
+
+    const errorData = await databaseService.fetchFieldingErrorData(position, errorRollTotal)
+    const errorBaseCountMap = errorData.reduce((acc: any, row: FieldingErrorRow) => {
+        if (row.value) {
+            acc[row.value].push(row.e_rating)
+        }
+        return acc
+    }, { E1: [], E2: [], E3: []})
+
+    // This could be generified into a function for ANY number of bases.
+    // However, last I checked, baseball only has 4 and giving up a 4-base error is called a "Home Run" so this is cleaner imo
+    let errorText: string = ''
+    if (errorBaseCountMap.E1.length === 0 && errorBaseCountMap.E2.length === 0 && errorBaseCountMap.E3.length === 0) {
+        errorText = "*<No error numbers>*"
+    }
+    errorText = errorText + (errorBaseCountMap.E1.length > 0 ? `1-base: ${errorBaseCountMap.E1.join(' | ')}` : '')
+    errorText = errorText + (errorBaseCountMap.E2.length > 0 ? `\n2-base: ${errorBaseCountMap.E2.join(' | ')}` : '')
+    errorText = errorText + (errorBaseCountMap.E3.length > 0 ? `\n3-base: ${errorBaseCountMap.E3.join(' | ')}` : '')
+
+    const embed = Lang.getEmbed('displayEmbeds.fielding', lang, {
+        RANGE_ROLL: rangeRoll.toString(),
+        ERROR_ROLL_1: errorRoll1.toString(),
+        ERROR_ROLL_2: errorRoll2.toString(),
+        ERROR_ROLL_3: errorRoll3.toString(),
+        ERROR_ROLL_TOTAL: errorRollTotal.toString(),
+        POSITION: position,
+        RANGE_NUMBERS: rangeNumbersFormatted,
+        RANGE_TEXT: rangeValuesFormatted,
+        ERROR_TEXT: errorText,
+        USER: displayName
+    });
+    await EmbedUtils.applyUserTheme(embed, databaseService, userId, guildId);
+    return { embed };
+}
 
 export class FieldingCommand implements Command {
     constructor(
@@ -16,64 +77,18 @@ export class FieldingCommand implements Command {
     public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        let args: { position: string } = {
-            position: intr.options.getString(
-                Lang.getRef('arguments.fieldingPositionOption', Language.Default)
-            )
-        };
-
-        const rangeRoll: number = getRandomInt(1, 20)
-        const errorRoll1: number = getRandomInt(1, 6);
-        const errorRoll2: number = getRandomInt(1, 6);
-        const errorRoll3: number = getRandomInt(1, 6);
-        const errorRollTotal = errorRoll1 + errorRoll2 + errorRoll3;
-
-        const rangeData: FieldingRangeRow = await this.databaseService.fetchFieldingRange(args.position, rangeRoll);
-        // We are assuming 5 numbers here as per the current requirements. If this changes we can generify it without too much hassle
-        const rangeValuesFormatted: string = rangeData.values.replaceAll(',', ' | ')
-        const rangeValuesSplit = rangeValuesFormatted.split(' | ')
-        const rangeNumbersFormatted: string = ['1', '2', '3', '4', '5']
-            .map((rangeNum: string, index: number) => {
-                const charactersInVal = rangeValuesSplit[index].length + 2
-                const middle: number = Math.ceil(charactersInVal / 2)
-                return ' '.repeat(middle - 1) + rangeNum + ' '.repeat(charactersInVal - middle)
-            })
-            .join('|')
-            .slice(1)
-
-        const errorData = await this.databaseService.fetchFieldingErrorData(args.position, errorRollTotal)
-        const errorBaseCountMap = errorData.reduce((acc: any, row: FieldingErrorRow) => {
-            if (row.value) {
-                acc[row.value].push(row.e_rating)
-            }
-            return acc
-        }, { E1: [], E2: [], E3: []})
-
-        // This could be generified into a function for ANY number of bases.
-        // However, last I checked, baseball only has 4 and giving up a 4-base error is called a "Home Run" so this is cleaner imo
-        let errorText: string = ''
-        if (errorBaseCountMap.E1.length === 0 && errorBaseCountMap.E2.length === 0 && errorBaseCountMap.E3.length === 0) {
-            errorText = "*<No error numbers>*"
-        }
-        errorText = errorText + (errorBaseCountMap.E1.length > 0 ? `1-base: ${errorBaseCountMap.E1.join(' | ')}` : '')
-        errorText = errorText + (errorBaseCountMap.E2.length > 0 ? `\n2-base: ${errorBaseCountMap.E2.join(' | ')}` : '')
-        errorText = errorText + (errorBaseCountMap.E3.length > 0 ? `\n3-base: ${errorBaseCountMap.E3.join(' | ')}` : '')
-
-            let embed = Lang.getEmbed('displayEmbeds.fielding', data.lang, {
-            RANGE_ROLL: rangeRoll.toString(),
-            ERROR_ROLL_1: errorRoll1.toString(),
-            ERROR_ROLL_2: errorRoll2.toString(),
-            ERROR_ROLL_3: errorRoll3.toString(),
-            ERROR_ROLL_TOTAL: errorRollTotal.toString(),
-            POSITION: args.position,
-            RANGE_NUMBERS: rangeNumbersFormatted,
-            RANGE_TEXT: rangeValuesFormatted,
-            ERROR_TEXT: errorText,
-            USER: intr.user.displayName
-        });
-            await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
-            await InteractionUtils.send(intr, embed);
-
+        const position = intr.options.getString(
+            Lang.getRef('arguments.fieldingPositionOption', Language.Default)
+        );
+        const result = await executeFielding(
+            this.databaseService,
+            intr.user.id,
+            intr.guildId,
+            intr.user.displayName,
+            position,
+            data.lang
+        );
+        await InteractionUtils.send(intr, result.embed);
     }
 }
 
