@@ -25,7 +25,7 @@ export class AbRepeatButton implements Button {
 
         await InteractionUtils.send(intr, {
             embeds: [result.embed],
-            components: [createAbButtonRow(), createAbFieldingSelectMenuRow()]
+            components: [createAbFieldingSelectMenuRow(), createAbButtonRow()]
         });
     }
 }
