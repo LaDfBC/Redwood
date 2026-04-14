@@ -154,6 +154,12 @@ export function createAbButtonRow(): ActionRowBuilder<ButtonBuilder> {
                 label: 'Jump',
                 emoji: '🏃'
             }),
+            new ButtonBuilder({
+                customId: 'abD20Button',
+                style: ButtonStyle.Secondary,
+                label: 'd20',
+                emoji: '🎲'
+            })
         ]);
 }
 
