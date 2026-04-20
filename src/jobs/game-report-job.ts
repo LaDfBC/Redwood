@@ -126,6 +126,10 @@ function buildBoxScore(lineScore: string): string {
 async function buildEmbed(row: any[], spreadsheetId: string, gameLogTab: string, googleSheetsService: GoogleSheetsService): Promise<EmbedBuilder> {
     const get = (col: number): string => (row[col] != null ? String(row[col]).trim() : '');
 
+    const awayRuns = parseInt(get(COL.AW_R), 10)
+    const homeRuns = parseInt(get(COL.HM_R), 10)
+    const isAwayTeamTheWinner = awayRuns > homeRuns
+
     const hexRaw = get(COL.WINNER_HEX).replace('#', '');
     const loserHex = get(COL.LOSER_HEX).replace('#', '');
     const color = hexRaw ? parseInt(hexRaw, 16) : 0x000000;
@@ -188,8 +192,8 @@ async function buildEmbed(row: any[], spreadsheetId: string, gameLogTab: string,
                         datasets: [{
                             data: values,
                             backgroundColor: values.map(v => v >= 0
-                                ? `#${hexRaw}`
-                                : `#${loserHex}`
+                                ? (isAwayTeamTheWinner ? `#${hexRaw}` : `#${loserHex}`)
+                                : (isAwayTeamTheWinner ? `#${loserHex}` : `#${hexRaw}`)
                             ),
                         }],
                     },
