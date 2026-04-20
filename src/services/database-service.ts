@@ -21,6 +21,7 @@ import {
   FieldingErrorRow,
   FieldingRangeRow,
   GameContextRow,
+  GameReportRow,
   PlayerPositionRow,
   RollMapping,
   UserSettingsRow,
@@ -570,6 +571,26 @@ export class DatabaseService {
                     sheet_link: sheetLink,
                     created: new Date(),
                 });
+        });
+    }
+
+    public async isGameReportPosted(gameId: string): Promise<boolean> {
+        return await this.retryOnce(async (): Promise<boolean> => {
+            const row = await knex<GameReportRow>('game_report_history')
+                .where({ game_id: gameId })
+                .first();
+            return row !== undefined;
+        });
+    }
+
+    public async insertGameReport(gameId: string, sheetId: string, channelId: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<GameReportRow>('game_report_history').insert({
+                game_id: gameId,
+                sheet_id: sheetId,
+                channel_id: channelId,
+                posted_at: new Date(),
+            });
         });
     }
 }

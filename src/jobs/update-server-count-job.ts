@@ -8,7 +8,6 @@ import { HttpService, Lang, Logger } from '../services/index.js';
 import { ShardUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
-let BotSites: BotSite[] = require('../../config/bot-sites.json');
 let Config = require('../../config/config.json');
 let Logs = require('../../lang/logs.json');
 
@@ -26,7 +25,6 @@ export class UpdateServerCountJob extends Job {
         private httpService: HttpService
     ) {
         super();
-        this.botSites = BotSites.filter(botSite => botSite.enabled);
     }
 
     public async run(): Promise<void> {

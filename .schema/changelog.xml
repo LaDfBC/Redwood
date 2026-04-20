@@ -285,4 +285,20 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="Jaera" id="22">
+        <createTable tableName="game_report_history">
+            <column name="game_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sheet_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="channel_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="posted_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

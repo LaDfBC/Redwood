@@ -44,4 +44,19 @@ export class GoogleSheetsService {
         });
         return res.data.values ?? [];
     }
+
+    public async writeCell(tab: string, cell: string, value: string, spreadsheetId: string): Promise<void> {
+        const jwt = new auth.JWT({
+            email: this.email,
+            key: this.privateKey.split(String.raw`\n`).join('\n'),
+            scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        });
+        const sheet = sheets({ version: 'v4', auth: jwt });
+        await sheet.spreadsheets.values.update({
+            spreadsheetId,
+            range: `${tab}!${cell}`,
+            valueInputOption: 'RAW',
+            requestBody: { values: [[value]] },
+        });
+    }
 }
