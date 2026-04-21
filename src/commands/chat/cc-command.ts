@@ -43,25 +43,17 @@ export class CcFetchCommand implements Command {
             await InteractionUtils.send(intr, embed);
         } else {
              // SUCCESS - Simply return the requested command
-            if (result.link.startsWith('https://tenor.com')) {
-                const gifUrl = await getGifUrl(result.link);
-                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessImage', data.lang, {
-                    COMMAND_NAME: args.name,
-                    IMAGE_LINK: gifUrl ?? result.link,
-                });
-            } else if (result.link.includes('.gif') || result.link.includes('.png') || result.link.includes('.jpg')) {
-                embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessImage', data.lang, {
-                    COMMAND_NAME: args.name,
-                    IMAGE_LINK: result.link
-                })
+            if (result.link.includes('.gif') || result.link.includes('.png') || result.link.includes('.jpg') || result.link.includes('imgur') || result.link.includes('tenor')) {
+                await InteractionUtils.send(intr, result.link)
             } else {
                 embed = Lang.getEmbed('displayEmbeds.ccFetchSuccessText', data.lang, {
                     COMMAND_NAME: args.name,
                     LINK: result.link
                 })
+
+                await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
+                await InteractionUtils.send(intr, embed)
             }
-            await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
-            await InteractionUtils.send(intr, embed)
         }
     }
 
