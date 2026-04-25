@@ -16,3 +16,4 @@ export { CustomCommandWithUsageCountRow } from './custom-command-with-usage-coun
 export { UserSettingsRow } from './user-settings-row.js'
 export { GameContextRow } from './game-context-row.js'
 export { GameReportRow } from './game-report-row.js'
+export { TransactionReportRow } from './transaction-report-row.js'

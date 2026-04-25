@@ -32,6 +32,7 @@
     "start:bot": "npm run build && node --enable-source-maps dist/start-bot.js",
     "start-only:bot": "node --enable-source-maps dist/start-bot.js",
     "job:game-report": "npm run build && node --enable-source-maps dist/run-game-report.js",
+    "job:transaction-report": "npm run build && node --enable-source-maps dist/run-transaction-report.js",
     "start:manager": "npm run build && node --enable-source-maps dist/start-manager.js",
     "start:pm2": "npm run build && npm run pm2:start",
     "pm2:start": "pm2 start process.json",

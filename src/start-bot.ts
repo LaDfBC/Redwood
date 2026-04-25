@@ -55,7 +55,7 @@ import {
     TriggerHandler,
 } from './events/index.js';
 import { CustomClient } from './extensions/index.js';
-import { Job, GameReportJob } from './jobs/index.js';
+import { Job, GameReportJob, TransactionReportJob } from './jobs/index.js';
 import { Bot } from './models/bot.js';
 import { Reaction } from './reactions/index.js';
 import {
@@ -176,6 +176,7 @@ async function start(): Promise<void> {
     // Jobs
     let jobs: Job[] = [
         new GameReportJob(client, databaseService, googleSheetsService),
+        new TransactionReportJob(client, databaseService, googleSheetsService),
     ];
 
     // Bot

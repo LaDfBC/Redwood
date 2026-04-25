@@ -22,6 +22,7 @@ import {
   FieldingRangeRow,
   GameContextRow,
   GameReportRow,
+  TransactionReportRow,
   PlayerPositionRow,
   RollMapping,
   UserSettingsRow,
@@ -588,6 +589,25 @@ export class DatabaseService {
             await knex<GameReportRow>('game_report_history').insert({
                 game_id: gameId,
                 sheet_id: sheetId,
+                channel_id: channelId,
+                posted_at: new Date(),
+            });
+        });
+    }
+
+    public async isTransactionReportPosted(transId: string): Promise<boolean> {
+        return await this.retryOnce(async (): Promise<boolean> => {
+            const row = await knex<TransactionReportRow>('transaction_report_history')
+                .where({ trans_id: transId })
+                .first();
+            return row !== undefined;
+        });
+    }
+
+    public async insertTransactionReport(transId: string, channelId: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<TransactionReportRow>('transaction_report_history').insert({
+                trans_id: transId,
                 channel_id: channelId,
                 posted_at: new Date(),
             });
