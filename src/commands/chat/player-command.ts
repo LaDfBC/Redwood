@@ -35,7 +35,7 @@ export class PlayerCommand implements Command {
 
         let embed: EmbedBuilder;
 
-        let season = 2024
+        let season = 2025
         if (args.season) {
             season = parseInt(args.season, 10);
         }
