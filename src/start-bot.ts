@@ -134,7 +134,7 @@ async function start(): Promise<void> {
         new ImmaculateCommand(databaseService),
         new SetGameContextCommand(databaseService),
         new ScoreBugCommand(databaseService, googleSheetsService),
-        new SetJobIntervalCommand(jobService),
+        new SetJobIntervalCommand(jobService, databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

@@ -1,18 +1,22 @@
-import { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { JobOption } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
+import { DatabaseService } from '../../services/database-service.js';
 import { JobService, Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../../config/config.json');
 
 export class SetJobIntervalCommand implements Command {
-    constructor(private jobService: JobService) {}
+    constructor(
+        private jobService: JobService,
+        private databaseService: DatabaseService
+    ) {}
 
     public names = [Lang.getRef('chatCommands.set-job-interval', Language.Default)];
     public deferType = CommandDeferType.PUBLIC;
@@ -61,8 +65,9 @@ export class SetJobIntervalCommand implements Command {
             changes.push(`Transaction Report → every ${minutes} minute(s)`);
         }
 
-        await InteractionUtils.send(intr,
-            Lang.getEmbed('errorEmbeds.setJobIntervalSuccess', data.lang,
-                { CHANGES: changes.join('\n') }));
+        const embed: EmbedBuilder = Lang.getEmbed('errorEmbeds.setJobIntervalSuccess', data.lang,
+            { CHANGES: changes.join('\n') });
+        await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
+        await InteractionUtils.send(intr, embed);
     }
 }
