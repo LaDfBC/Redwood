@@ -15,7 +15,7 @@ export class SetJobIntervalCommand implements Command {
     constructor(private jobService: JobService) {}
 
     public names = [Lang.getRef('chatCommands.set-job-interval', Language.Default)];
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
