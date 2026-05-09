@@ -7,3 +7,4 @@ export { DeleteChartFailureReason } from './delete-chart-failure-reason.js';
 export { EditChartFailureReason } from './edit-chart-failure-reason.js';
 export { RollType } from './roll-type.js'
 export { PlayerType } from './player-type.js';
+export { JobOption } from './job-option.js';

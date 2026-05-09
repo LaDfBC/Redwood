@@ -12,6 +12,8 @@ let Logs = require('../../lang/logs.json');
 export class JobService {
     constructor(private jobs: Job[]) {}
 
+    private jobHandles = new Map<string, schedule.Job>();
+
     public start(): void {
         for (let job of this.jobs) {
             let jobSchedule = job.runOnce
@@ -27,7 +29,7 @@ export class JobService {
                       rule: job.schedule,
                   };
 
-            schedule.scheduleJob(jobSchedule, async () => {
+            const handle = schedule.scheduleJob(jobSchedule, async () => {
                 try {
                     if (job.log) {
                         Logger.info(Logs.info.jobRun.replaceAll('{JOB}', job.name));
@@ -42,11 +44,18 @@ export class JobService {
                     Logger.error(Logs.error.job.replaceAll('{JOB}', job.name), error);
                 }
             });
+            this.jobHandles.set(job.name, handle);
             Logger.info(
                 Logs.info.jobScheduled
                     .replaceAll('{JOB}', job.name)
                     .replaceAll('{SCHEDULE}', job.schedule)
             );
         }
+    }
+
+    public reschedule(jobName: string, newCronSchedule: string): boolean {
+        const handle = this.jobHandles.get(jobName);
+        if (!handle) return false;
+        return handle.reschedule(newCronSchedule);
     }
 }

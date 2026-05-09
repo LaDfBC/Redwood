@@ -395,6 +395,21 @@ export const ChatCommandMetadata: {
             },
         ],
     },
+    SET_JOB_INTERVAL: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.set-job-interval', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.set-job-interval'),
+        description: Lang.getRef('commandDescs.setJobInterval', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.setJobInterval'),
+        dm_permission: false,
+        default_member_permissions: PermissionsBitField.resolve([
+            PermissionFlagsBits.Administrator,
+        ]).toString(),
+        options: [
+            { ...Args.SET_JOB_INTERVAL_MINUTES, required: true },
+            { ...Args.SET_JOB_INTERVAL_JOB, required: true },
+        ],
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),

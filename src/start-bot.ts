@@ -35,6 +35,7 @@ import {
   ImmaculateCommand,
   SetGameContextCommand,
   ScoreBugCommand,
+  SetJobIntervalCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -91,6 +92,13 @@ async function start(): Promise<void> {
         enforceNonce: true,
     });
 
+    // Jobs
+    let jobs: Job[] = [
+        new GameReportJob(client, databaseService, googleSheetsService),
+        new TransactionReportJob(client, databaseService, googleSheetsService),
+    ];
+    let jobService = new JobService(jobs);
+
     // Commands
     let commands: Command[] = [
         // Chat Commands
@@ -126,6 +134,7 @@ async function start(): Promise<void> {
         new ImmaculateCommand(databaseService),
         new SetGameContextCommand(databaseService),
         new ScoreBugCommand(databaseService, googleSheetsService),
+        new SetJobIntervalCommand(jobService),
 
         // Message Context Commands
         new ViewDateSent(),
@@ -173,12 +182,6 @@ async function start(): Promise<void> {
     let messageHandler = new MessageHandler(triggerHandler);
     let reactionHandler = new ReactionHandler(reactions, eventDataService);
 
-    // Jobs
-    let jobs: Job[] = [
-        new GameReportJob(client, databaseService, googleSheetsService),
-        new TransactionReportJob(client, databaseService, googleSheetsService),
-    ];
-
     // Bot
     let bot = new Bot(
         Config.client.token,
@@ -190,7 +193,7 @@ async function start(): Promise<void> {
         buttonHandler,
         reactionHandler,
         selectMenuHandler,
-        new JobService(jobs)
+        jobService
     );
 
     // Register

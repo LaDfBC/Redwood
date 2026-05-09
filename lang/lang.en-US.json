@@ -897,6 +897,26 @@
             "notImplemented": {
                 "description": "This feature has not been implemented yet!",
                 "color": "{{COM:colors.warning}}"
+            },
+            "setJobIntervalSuccess": {
+                "title": "Job Intervals Updated",
+                "fields": [{ "name": "Changes Applied", "value": "{{CHANGES}}" }],
+                "color": "{{COM:colors.success}}"
+            },
+            "setJobIntervalNoArgs": {
+                "title": ":x: No interval provided",
+                "description": "Provide at least one interval argument.",
+                "color": "{{COM:colors.error}}"
+            },
+            "setJobIntervalFailed": {
+                "title": ":x: Reschedule failed",
+                "description": "Could not reschedule **{{JOB_NAME}}**. The job may not be running yet.",
+                "color": "{{COM:colors.error}}"
+            },
+            "setJobIntervalUnauthorized": {
+                "title": ":no_entry: Unauthorized",
+                "description": "Sorry, you do not have permission to run this command.  Please contact a league organizer!",
+                "color": "{{COM:colors.error}}"
             }
         },
         "channelRegexes": {
@@ -939,7 +959,8 @@
             "immaculate": "immaculate",
             "test-sheets": "test-sheets",
             "set-game-context": "set-game-context",
-            "scorebug": "scorebug"
+            "scorebug": "scorebug",
+            "set-job-interval": "set-job-interval"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -975,7 +996,9 @@
             "themeClearPrimaryColorOption": "primary-color",
             "themeClearTextColorOption": "text-color",
             "rollDiceOption": "dice",
-            "setGameContextLink": "sheet-link"
+            "setGameContextLink": "sheet-link",
+            "setJobIntervalMinutes": "minutes",
+            "setJobIntervalJob": "job"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -1006,7 +1029,8 @@
             "immaculate": "Roll 1d283. You'll know when it happens.",
             "testSheets": "Fetch a value from Google Sheets",
             "setGameContext": "Set the active game spreadsheet for this channel.",
-            "scorebug": "Display the current game scorebug for this channel."
+            "scorebug": "Display the current game scorebug for this channel.",
+            "setJobInterval": "Set the polling interval (in minutes) for the Game Report and/or Transaction Report jobs."
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -1039,7 +1063,9 @@
             "themeClearPrimaryColorOption": "Clear your primary embed color",
             "themeClearTextColorOption": "Clear your text color",
             "rollDiceOption": "Dice to roll in XdY format (e.g. 2d6, 1d20)",
-            "setGameContextLink": "Google Sheets link for the active game"
+            "setGameContextLink": "Google Sheets link for the active game",
+            "setJobIntervalMinutes": "Polling interval in minutes (1-1440).",
+            "setJobIntervalJob": "Which job to reschedule."
         },
         "fields": {
             "commands": "Commands",
@@ -1135,6 +1161,11 @@
             "rightField": "RF",
             "centerField": "CF",
             "leftField": "LF"
+        },
+        "jobOptions": {
+            "gameReport": "Game Report",
+            "transactionReport": "Transaction Report",
+            "all": "All Jobs"
         },
         "rollTypeOptions": {
             "d20": "d20",

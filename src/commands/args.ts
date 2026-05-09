@@ -4,6 +4,7 @@ import {
   DevCommandName,
   HelpOption,
   InfoOption,
+  JobOption,
   PositionOption,
   RollType,
 } from "../enums/index.js";
@@ -333,5 +334,38 @@ export class Args {
         description: Lang.getRef('argDescs.setGameContextLink', Language.Default),
         description_localizations: Lang.getRefLocalizationMap('argDescs.setGameContextLink'),
         type: ApplicationCommandOptionType.String,
+    };
+    public static readonly SET_JOB_INTERVAL_MINUTES: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.setJobIntervalMinutes', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.setJobIntervalMinutes'),
+        description: Lang.getRef('argDescs.setJobIntervalMinutes', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.setJobIntervalMinutes'),
+        type: ApplicationCommandOptionType.Integer,
+        min_value: 1,
+        max_value: 1440,
+    };
+    public static readonly SET_JOB_INTERVAL_JOB: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.setJobIntervalJob', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.setJobIntervalJob'),
+        description: Lang.getRef('argDescs.setJobIntervalJob', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.setJobIntervalJob'),
+        type: ApplicationCommandOptionType.String,
+        choices: [
+            {
+                name: Lang.getRef('jobOptions.gameReport', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('jobOptions.gameReport'),
+                value: JobOption.GAME_REPORT,
+            },
+            {
+                name: Lang.getRef('jobOptions.transactionReport', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('jobOptions.transactionReport'),
+                value: JobOption.TRANSACTION_REPORT,
+            },
+            {
+                name: Lang.getRef('jobOptions.all', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('jobOptions.all'),
+                value: JobOption.ALL,
+            },
+        ],
     };
 }
