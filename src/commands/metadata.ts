@@ -401,10 +401,6 @@ export const ChatCommandMetadata: {
         name_localizations: Lang.getRefLocalizationMap('chatCommands.set-job-interval'),
         description: Lang.getRef('commandDescs.setJobInterval', Language.Default),
         description_localizations: Lang.getRefLocalizationMap('commandDescs.setJobInterval'),
-        dm_permission: false,
-        default_member_permissions: PermissionsBitField.resolve([
-            PermissionFlagsBits.Administrator,
-        ]).toString(),
         options: [
             { ...Args.SET_JOB_INTERVAL_MINUTES, required: true },
             { ...Args.SET_JOB_INTERVAL_JOB, required: true },
@@ -416,7 +412,6 @@ export const ChatCommandMetadata: {
         name_localizations: Lang.getRefLocalizationMap('chatCommands.user-settings'),
         description: Lang.getRef('commandDescs.userSettings', Language.Default),
         description_localizations: Lang.getRefLocalizationMap('commandDescs.userSettings'),
-        dm_permission: true,
         default_member_permissions: undefined,
         options: [
             {
