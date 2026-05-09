@@ -29,4 +29,4 @@ export { ThemeResetCommand } from './theme-reset-command.js';
 export { ThemeClearCommand } from './theme-clear-command.js';
 export { SetGameContextCommand } from './set-game-context-command.js';
 export { ScoreBugCommand } from './scorebug-command.js';
-export { SetJobIntervalCommand } from './set-job-interval-command';
+export { SetJobIntervalCommand } from './set-job-interval-command.js';
