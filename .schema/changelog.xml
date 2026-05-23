@@ -314,4 +314,9 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="Jaera" id="24">
+        <addColumn tableName="player">
+            <column name="injury" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

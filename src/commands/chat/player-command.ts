@@ -63,6 +63,7 @@ export class PlayerCommand implements Command {
                 POSITION_VALUE: positions,
                 IMAGE_LINK: result[0].card_url,
                 SEASON: result[0].year.toString(),
+                INJURY: result[0].injury ?? 'None',
             })
             await EmbedUtils.applyUserTheme(embed, this.databaseService, intr.user.id, intr.guildId);
 

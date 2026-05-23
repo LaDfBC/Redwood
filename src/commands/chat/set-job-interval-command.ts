@@ -51,7 +51,7 @@ export class SetJobIntervalCommand implements Command {
                         { JOB_NAME: 'Game Report' }));
                 return;
             }
-            changes.push(`Game Report → every ${minutes} minute(s)`);
+            changes.push(`Game Report → every ${minutes} minute` + (minutes === 1 ? 's' : ''));
         }
 
         if (job === JobOption.TRANSACTION_REPORT || job === JobOption.ALL) {
@@ -62,7 +62,7 @@ export class SetJobIntervalCommand implements Command {
                         { JOB_NAME: 'Transaction Report' }));
                 return;
             }
-            changes.push(`Transaction Report → every ${minutes} minute(s)`);
+            changes.push(`Transaction Report → every ${minutes} minute` + (minutes === 1 ? 's' : ''));
         }
 
         const embed: EmbedBuilder = Lang.getEmbed('errorEmbeds.setJobIntervalSuccess', data.lang,

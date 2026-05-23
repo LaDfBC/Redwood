@@ -8,4 +8,5 @@ export interface PlayerRow {
     player_type: PlayerType,
     year: number;
     active: boolean;
+    injury?: string;
 }

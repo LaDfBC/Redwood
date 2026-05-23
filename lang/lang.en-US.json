@@ -587,6 +587,10 @@
                     {
                         "name": "Season",
                         "value": "{{SEASON}}"
+                    },
+                    {
+                        "name": "Injury",
+                        "value": "{{INJURY}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
