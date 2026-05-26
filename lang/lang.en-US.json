@@ -582,15 +582,17 @@
                 "fields": [
                     {
                         "name": "{{POSITION_NAME}}",
-                        "value": "{{POSITION_VALUE}}"
+                        "value": "{{POSITION_VALUE}}",
+                        "inline": true
+                    },
+                    {
+                        "name": "Injury",
+                        "value": "{{INJURY}}",
+                        "inline": true
                     },
                     {
                         "name": "Season",
                         "value": "{{SEASON}}"
-                    },
-                    {
-                        "name": "Injury",
-                        "value": "{{INJURY}}"
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
