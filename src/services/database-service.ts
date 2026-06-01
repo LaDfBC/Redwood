@@ -22,6 +22,7 @@ import {
   FieldingRangeRow,
   GameContextRow,
   GameReportRow,
+  JobSettingsRow,
   TransactionReportRow,
   PlayerPositionRow,
   RollMapping,
@@ -611,6 +612,24 @@ export class DatabaseService {
                 channel_id: channelId,
                 posted_at: new Date(),
             });
+        });
+    }
+
+    public async fetchJobSchedule(jobName: string): Promise<string | null> {
+        return await this.retryOnce(async (): Promise<string | null> => {
+            const row = await knex<JobSettingsRow>('job_settings')
+                .where({ job_name: jobName })
+                .first();
+            return row?.cron_schedule ?? null;
+        });
+    }
+
+    public async upsertJobSchedule(jobName: string, cronSchedule: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<JobSettingsRow>('job_settings')
+                .insert({ job_name: jobName, cron_schedule: cronSchedule, updated_at: new Date() })
+                .onConflict('job_name')
+                .merge();
         });
     }
 }

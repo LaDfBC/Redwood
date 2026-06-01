@@ -319,4 +319,17 @@
             <column name="injury" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>
+    <changeSet author="Jaera" id="25">
+        <createTable tableName="job_settings">
+            <column name="job_name" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cron_schedule" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

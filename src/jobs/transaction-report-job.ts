@@ -107,5 +107,9 @@ function buildEmbed(row: any[]): EmbedBuilder {
     const logoUrl = get(COL.LOGO_URL);
     if (logoUrl) embed.setThumbnail(logoUrl);
 
+    embed.setFooter({
+        text: `Transaction ID: ${get(COL.TRANS_ID)}`
+    })
+
     return embed;
 }

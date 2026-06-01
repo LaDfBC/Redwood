@@ -93,10 +93,17 @@ async function start(): Promise<void> {
     });
 
     // Jobs
-    let jobs: Job[] = [
-        new GameReportJob(client, databaseService, googleSheetsService),
-        new TransactionReportJob(client, databaseService, googleSheetsService),
-    ];
+    const gameJob = new GameReportJob(client, databaseService, googleSheetsService);
+    const transJob = new TransactionReportJob(client, databaseService, googleSheetsService);
+
+    const [dbGameSchedule, dbTransSchedule] = await Promise.all([
+        databaseService.fetchJobSchedule('Game Report'),
+        databaseService.fetchJobSchedule('Transaction Report'),
+    ]);
+    if (dbGameSchedule) gameJob.schedule = dbGameSchedule;
+    if (dbTransSchedule) transJob.schedule = dbTransSchedule;
+
+    let jobs: Job[] = [gameJob, transJob];
     let jobService = new JobService(jobs);
 
     // Commands
