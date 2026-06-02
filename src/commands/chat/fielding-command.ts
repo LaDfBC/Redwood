@@ -64,6 +64,26 @@ export async function executeFielding(
         ERROR_TEXT: errorText,
         USER: displayName
     });
+
+    const EMBED_WIDTH = 50;
+    if (embed.data.fields) {
+        embed.setFields(
+            embed.data.fields.map(field => ({
+                ...field,
+                value: field.value.replace(
+                    /```(\w*)\n([\s\S]*?)```/g,
+                    (_match, lang, content) => {
+                        const padded = content
+                            .split('\n')
+                            .map((line: string) => line.padEnd(EMBED_WIDTH))
+                            .join('\n');
+                        return `\`\`\`${lang}\n${padded}\`\`\``;
+                    }
+                )
+            }))
+        );
+    }
+
     await EmbedUtils.applyUserTheme(embed, databaseService, userId, guildId);
     return { embed };
 }

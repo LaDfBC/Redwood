@@ -30,3 +30,4 @@ export { ThemeClearCommand } from './theme-clear-command.js';
 export { SetGameContextCommand } from './set-game-context-command.js';
 export { ScoreBugCommand } from './scorebug-command.js';
 export { SetJobIntervalCommand } from './set-job-interval-command.js';
+export { GoddammitDonutCommand } from './goddammit-donut-command.js';

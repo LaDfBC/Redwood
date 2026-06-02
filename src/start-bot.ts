@@ -36,6 +36,7 @@ import {
   SetGameContextCommand,
   ScoreBugCommand,
   SetJobIntervalCommand,
+  GoddammitDonutCommand,
 } from "./commands/chat/index.js";
 import {
     ChatCommandMetadata,
@@ -142,6 +143,7 @@ async function start(): Promise<void> {
         new SetGameContextCommand(databaseService),
         new ScoreBugCommand(databaseService, googleSheetsService),
         new SetJobIntervalCommand(jobService, databaseService),
+        new GoddammitDonutCommand(databaseService),
 
         // Message Context Commands
         new ViewDateSent(),

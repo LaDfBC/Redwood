@@ -332,4 +332,27 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="Jaera" id="26">
+        <createTable tableName="achievement">
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="achievement_name" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="level" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="earned_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Jaera" id="27">
+        <addColumn tableName="achievement">
+            <column name="cancelled" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

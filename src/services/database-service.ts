@@ -34,6 +34,7 @@ import AWS, {AWSError} from "aws-sdk";
 import {PromiseResult} from "aws-sdk/lib/request";
 import {DeleteObjectOutput} from "aws-sdk/clients/s3";
 import {MessagePaginationRow} from "../models/database/message-pagination-row";
+import {AchievementRow, AchievementLevel} from "../models/database/achievement-row";
 import * as sea from "node:sea";
 
 const require = createRequire(import.meta.url);
@@ -630,6 +631,34 @@ export class DatabaseService {
                 .insert({ job_name: jobName, cron_schedule: cronSchedule, updated_at: new Date() })
                 .onConflict('job_name')
                 .merge();
+        });
+    }
+
+    public async fetchAchievement(userId: string, achievementName: string): Promise<AchievementRow | undefined> {
+        return await this.retryOnce(async (): Promise<AchievementRow | undefined> => {
+            return knex<AchievementRow>('achievement')
+                .where({ user_id: userId, achievement_name: achievementName })
+                .first();
+        });
+    }
+
+    public async insertAchievement(userId: string, level: AchievementLevel, achievementName: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<AchievementRow>('achievement').insert({
+                user_id: userId,
+                level: level,
+                achievement_name: achievementName,
+                earned_at: new Date(),
+                cancelled: false,
+            });
+        });
+    }
+
+    public async cancelAchievement(userId: string, achievementName: string): Promise<void> {
+        return await this.retryOnce(async (): Promise<void> => {
+            await knex<AchievementRow>('achievement')
+                .where({ user_id: userId, achievement_name: achievementName })
+                .update({ cancelled: true });
         });
     }
 }

@@ -3,15 +3,22 @@
         "displayEmbeds": {
             "welcome": {
                 "title": "Thank you for using {{COM:bot.name}}!",
-                "description": ["{{REF:bot.description}}"],
+                "description": [
+                    "{{REF:bot.description}}"
+                ],
                 "fields": [
                     {
                         "name": "Important {{REF:fields.commands}}",
-                        "value": ["{{CMD_LINK_HELP}} - {{REF:commandDescs.help}}"]
+                        "value": [
+                            "{{CMD_LINK_HELP}} - {{REF:commandDescs.help}}"
+                        ]
                     },
                     {
                         "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.docsEmbed}}", "{{REF:links.supportEmbed}}"]
+                        "value": [
+                            "{{REF:links.docsEmbed}}",
+                            "{{REF:links.supportEmbed}}"
+                        ]
                     }
                 ]
             },
@@ -23,7 +30,9 @@
                 "fields": [
                     {
                         "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.supportEmbed}}"]
+                        "value": [
+                            "{{REF:links.supportEmbed}}"
+                        ]
                     }
                 ]
             },
@@ -33,44 +42,44 @@
                     {
                         "name": "Metadata",
                         "value": [
-                          "*To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.*",
-                          "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
-                          "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}"
+                            "*To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.*",
+                            "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
+                            "{{CMD_LINK_INFO}} - {{REF:commandDescs.info}}"
                         ]
                     },
                     {
                         "name": "Core Commands",
                         "value": [
-                          "{{CMD_LINK_AB}} - {{REF:commandDescs.ab}}",
-                          "{{CMD_LINK_AB_HISTORY}} - {{REF:commandDescs.abHistory}}",
-                          "{{CMD_LINK_FIELDING}} - {{REF:commandDescs.fielding}}",
-                          "{{CMD_LINK_JUMP}} - {{REF:commandDescs.jump}}",
-                          "{{CMD_LINK_PLAYER}} - {{REF:commandDescs.playerFetch}}"
+                            "{{CMD_LINK_AB}} - {{REF:commandDescs.ab}}",
+                            "{{CMD_LINK_AB_HISTORY}} - {{REF:commandDescs.abHistory}}",
+                            "{{CMD_LINK_FIELDING}} - {{REF:commandDescs.fielding}}",
+                            "{{CMD_LINK_JUMP}} - {{REF:commandDescs.jump}}",
+                            "{{CMD_LINK_PLAYER}} - {{REF:commandDescs.playerFetch}}"
                         ]
                     },
                     {
                         "name": "Custom Command Managers",
                         "value": [
-                          "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
-                          "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
-                          "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}",
-                          "{{CMD_LINK_CC_MINE}} - {{REF:commandDescs.ccMine}}",
-                          "{{CMD_LINK_CC_USAGE}} - {{REF:commandDescs.ccUsage}}"
+                            "{{CMD_LINK_CC}} - {{REF:commandDescs.ccFetch}}",
+                            "{{CMD_LINK_CC_CREATE}} - {{REF:commandDescs.ccCreate}}",
+                            "{{CMD_LINK_CC_DELETE}} - {{REF:commandDescs.ccDelete}}",
+                            "{{CMD_LINK_CC_MINE}} - {{REF:commandDescs.ccMine}}",
+                            "{{CMD_LINK_CC_USAGE}} - {{REF:commandDescs.ccUsage}}"
                         ]
                     },
                     {
                         "name": "Chart Managers",
                         "value": [
-                          "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
-                          "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
-                          "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}",
-                          "{{CMD_LINK_CHART_EDIT}} - {{REF:commandDescs.chartEdit}}"
+                            "{{CMD_LINK_CHART}} - {{REF:commandDescs.chartFetch}}",
+                            "{{CMD_LINK_CHART_CREATE}} - {{REF:commandDescs.chartCreate}}",
+                            "{{CMD_LINK_CHART_DELETE}} - {{REF:commandDescs.chartDelete}}",
+                            "{{CMD_LINK_CHART_EDIT}} - {{REF:commandDescs.chartEdit}}"
                         ]
                     },
                     {
                         "name": "Other",
                         "value": [
-                          "{{CMD_LINK_D20}} - {{REF:commandDescs.d20}}"
+                            "{{CMD_LINK_D20}} - {{REF:commandDescs.d20}}"
                         ]
                     },
                     {
@@ -81,7 +90,10 @@
                     },
                     {
                         "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.docsEmbed}}", "{{REF:links.supportEmbed}}"]
+                        "value": [
+                            "{{REF:links.docsEmbed}}",
+                            "{{REF:links.supportEmbed}}"
+                        ]
                     }
                 ]
             },
@@ -90,7 +102,9 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -100,7 +114,9 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}\nDetails:[1d20 ({{ROLL_RESULT}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -110,7 +126,9 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["{{VIBE}}"]
+                        "value": [
+                            "{{VIBE}}"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -120,7 +138,9 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"
+                        ]
                     }
                 ],
                 "image": "https://online-pennant-static-assets.s3.us-east-1.amazonaws.com/Injury+Maxiums.png",
@@ -131,7 +151,9 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}{{ANSI_SUFFIX}}\nDetails: [1d6, 2d6, 1d20 ({{ANSI_PREFIX}}{{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}}{{ANSI_SUFFIX}})]```"]
+                        "value": [
+                            "```ansi\n# {{ANSI_PREFIX}}{{ROLL_SINGLE}}, {{ROLL_RESULT}}, {{ROLL_TWENTY}}{{ANSI_SUFFIX}}\nDetails: [1d6, 2d6, 1d20 ({{ANSI_PREFIX}}{{ROLL_SINGLE}} - {{ROLL_ONE}} {{ROLL_TWO}} - {{ROLL_TWENTY}}{{ANSI_SUFFIX}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}",
@@ -144,11 +166,15 @@
                 "fields": [
                     {
                         "name": "Wild Pitch Possible",
-                        "value": ["Check for wild pitch"]
+                        "value": [
+                            "Check for wild pitch"
+                        ]
                     },
                     {
                         "name": "Result",
-                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
+                        "value": [
+                            "```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -161,11 +187,15 @@
                 "fields": [
                     {
                         "name": "Passed Ball Possible",
-                        "value": ["Check for passed ball"]
+                        "value": [
+                            "Check for passed ball"
+                        ]
                     },
                     {
                         "name": "Result",
-                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
+                        "value": [
+                            "```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -178,11 +208,15 @@
                 "fields": [
                     {
                         "name": "Possible Balk!",
-                        "value": ["Check for balk"]
+                        "value": [
+                            "Check for balk"
+                        ]
                     },
                     {
                         "name": "Result",
-                        "value": ["```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"]
+                        "value": [
+                            "```ansi\n# {{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}}\nDetails: [1d20 ({{ANSI_PREFIX}}{{ROLL_RESULT}}{{ANSI_SUFFIX}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -232,18 +266,18 @@
                 "color": "{{COM:colors.success}}"
             },
             "ccCreateCommandNameAlreadyExists": {
-              "title": "Unsuccessful custom command creation",
-              "fields": [
-                {
-                  "name": "Error",
-                  "value": "There is already a different command with the name {{COMMAND_NAME}}."
-                  }
-              ],
-              "color": "{{COM:colors.error}}"
+                "title": "Unsuccessful custom command creation",
+                "fields": [
+                    {
+                        "name": "Error",
+                        "value": "There is already a different command with the name {{COMMAND_NAME}}."
+                    }
+                ],
+                "color": "{{COM:colors.error}}"
             },
             "ccCreateCommandSuccessful": {
-              "title": "Success - {{COMMAND_NAME}} is ready for use!",
-              "color": "{{COM:colors.success}}"
+                "title": "Success - {{COMMAND_NAME}} is ready for use!",
+                "color": "{{COM:colors.success}}"
             },
             "ccDeleteCommandSuccessful": {
                 "title": "Success - {{COMMAND_NAME}} has been deleted!",
@@ -269,7 +303,7 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
-            "ccDeleteUnknownError":  {
+            "ccDeleteUnknownError": {
                 "title": ":x: Failed to delete custom command",
                 "fields": [
                     {
@@ -329,7 +363,6 @@
                     {
                         "name": "Description",
                         "value": "{{DESCRIPTION}}"
-
                     }
                 ],
                 "image": "{{IMAGE_LINK}}",
@@ -393,7 +426,7 @@
                 ],
                 "color": "{{COM:colors.error}}"
             },
-            "chartDeleteUnknownError":  {
+            "chartDeleteUnknownError": {
                 "title": ":x: Failed to delete chart",
                 "fields": [
                     {
@@ -517,7 +550,10 @@
                 "fields": [
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}", "Details: [2d6 ({{ROLL_ONE}} {{ROLL_TWO}})]```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}",
+                            "Details: [2d6 ({{ROLL_ONE}} {{ROLL_TWO}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}",
@@ -530,11 +566,15 @@
                 "fields": [
                     {
                         "name": "Pickoff Attempt!",
-                        "value": ["If this number is greater than the runner's second running number, he is picked off"]
+                        "value": [
+                            "If this number is greater than the runner's second running number, he is picked off"
+                        ]
                     },
                     {
                         "name": "Pickoff Roll",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -547,11 +587,15 @@
                 "fields": [
                     {
                         "name": "Possible Balk!",
-                        "value": ["Check for balk"]
+                        "value": [
+                            "Check for balk"
+                        ]
                     },
                     {
                         "name": "Result",
-                        "value": ["```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"]
+                        "value": [
+                            "```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.chaos}}",
@@ -564,15 +608,21 @@
                 "fields": [
                     {
                         "name": "Roll Results",
-                        "value": ["```js\n# {{RANGE_ROLL}}, {{ERROR_ROLL_TOTAL}}\n\nDetails:\n1d20 | ({{RANGE_ROLL}})\n3d6 | ({{ERROR_ROLL_1}}, {{ERROR_ROLL_2}}, {{ERROR_ROLL_3}})```"]
+                        "value": [
+                            "```js\n# {{RANGE_ROLL}}, {{ERROR_ROLL_TOTAL}}\n\nDetails:\n1d20 | ({{RANGE_ROLL}})\n3d6 | ({{ERROR_ROLL_1}}, {{ERROR_ROLL_2}}, {{ERROR_ROLL_3}})```"
+                        ]
                     },
                     {
                         "name": "{{POSITION}} Range Result",
-                        "value": ["```js\n{{RANGE_NUMBERS}}\n{{RANGE_TEXT}}```"]
+                        "value": [
+                            "```js\n{{RANGE_NUMBERS}}\n{{RANGE_TEXT}}```"
+                        ]
                     },
                     {
                         "name": "Error Numbers",
-                        "value": ["```js\n{{ERROR_TEXT}}```"]
+                        "value": [
+                            "```js\n{{ERROR_TEXT}}```"
+                        ]
                     }
                 ],
                 "color": "{{COM:colors.success}}"
@@ -788,7 +838,10 @@
                 "title": "{{COM:bot.name}} - About",
                 "description": "{{REF:bot.description}}",
                 "fields": [
-                    { "name": "Author", "value": "{{REF:links.authorEmbed}}" },
+                    {
+                        "name": "Author",
+                        "value": "{{REF:links.authorEmbed}}"
+                    },
                     {
                         "name": "{{REF:fields.links}}",
                         "value": [
@@ -845,6 +898,11 @@
                         ]
                     }
                 ]
+            },
+            "goddammitDonut": {
+                "title": "New Achievement! Data Miner!",
+                "description": ["{{TEXT}}"],
+                "color": "{{COM:colors.success}}"
             }
         },
         "validationEmbeds": {
@@ -906,7 +964,12 @@
             },
             "setJobIntervalSuccess": {
                 "title": "Job Intervals Updated",
-                "fields": [{ "name": "Changes Applied", "value": "{{CHANGES}}" }],
+                "fields": [
+                    {
+                        "name": "Changes Applied",
+                        "value": "{{CHANGES}}"
+                    }
+                ],
                 "color": "{{COM:colors.success}}"
             },
             "setJobIntervalNoArgs": {
@@ -966,7 +1029,8 @@
             "test-sheets": "test-sheets",
             "set-game-context": "set-game-context",
             "scorebug": "scorebug",
-            "set-job-interval": "set-job-interval"
+            "set-job-interval": "set-job-interval",
+            "goddammit-donut": "goddammit-donut"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -1036,7 +1100,8 @@
             "testSheets": "Fetch a value from Google Sheets",
             "setGameContext": "Set the active game spreadsheet for this channel.",
             "scorebug": "Display the current game scorebug for this channel.",
-            "setJobInterval": "Set the polling interval (in minutes) for the Game Report and/or Transaction Report jobs."
+            "setJobInterval": "Set the polling interval (in minutes) for the Game Report and/or Transaction Report jobs.",
+            "goddammitDonut": "Mongo is appalled!"
         },
         "argDescs": {
             "devCommand": "Command.",
@@ -1138,16 +1203,16 @@
             "commands": "Commands"
         },
         "helpOptionDescs": {
-            "contactSupport": "❓ {{REF:helpOptions.contactSupport}} ❓",
+            "contactSupport": "\u2753 {{REF:helpOptions.contactSupport}} \u2753",
             "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
         },
         "ccCreateOptions": {
-          "name": "Name",
-          "action": "Action"
+            "name": "Name",
+            "action": "Action"
         },
         "ccCreateOptionDescs": {
-          "name": "What do you want to name this command?",
-          "action": "What do you want this command to do?"
+            "name": "What do you want to name this command?",
+            "action": "What do you want this command to do?"
         },
         "ccUsageMessages": {
             "previouslyCount": "Used {{USAGE_COUNT}} times",

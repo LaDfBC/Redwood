@@ -406,6 +406,15 @@ export const ChatCommandMetadata: {
             { ...Args.SET_JOB_INTERVAL_JOB, required: true },
         ],
     },
+    GODDAMMIT_DONUT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.goddammit-donut', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.goddammit-donut'),
+        description: Lang.getRef('commandDescs.goddammitDonut', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.goddammitDonut'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    },
     USER_SETTINGS: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.user-settings', Language.Default),
