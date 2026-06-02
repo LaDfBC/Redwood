@@ -177,7 +177,7 @@ async function buildEmbed(row: any[], spreadsheetId: string, gameLogTab: string,
 
     let chartUrl: string
     try {
-        const logRows = await googleSheetsService.fetchRange(gameLogTab, 'DR20:DR', sheetId);
+        const logRows = await googleSheetsService.fetchRange(gameLogTab, 'F1:F', sheetId);
         if (logRows && logRows.length > 0) {
             const values = logRows
                 .map(r => parseFloat(r[0]))
