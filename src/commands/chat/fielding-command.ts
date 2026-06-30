@@ -7,6 +7,12 @@ import { EmbedUtils, InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 import {FieldingErrorRow, FieldingRangeRow} from "../../models/database";
 
+// Hit outcomes that should render blue in the Range Result (trailing '#' is ignored when matching).
+const BLUE_VALUES: Set<string> = new Set(['SI1', 'SI2', 'DO2', 'DO3', 'T']);
+// ANSI escape codes for Discord ```ansi code blocks: blue text (34) and reset (0). Mirrors ab-command.ts.
+const ANSI_BLUE = '[34m';
+const ANSI_RESET = '[0m';
+
 export async function executeFielding(
     databaseService: DatabaseService,
     userId: string,
@@ -34,6 +40,12 @@ export async function executeFielding(
         .join('|')
         .slice(1)
 
+    // Hit outcomes are colored blue via ANSI codes (the Range Result uses an ```ansi block).
+    // ANSI codes are zero-width on screen, so the number row above still lines up with the plain widths.
+    const rangeValuesColored: string = rangeValuesSplit
+        .map((value: string) => (BLUE_VALUES.has(value.replace('#', '')) ? `${ANSI_BLUE}${value}${ANSI_RESET}` : value))
+        .join(' | ')
+
     const errorData = await databaseService.fetchFieldingErrorData(position, errorRollTotal)
     const errorBaseCountMap = errorData.reduce((acc: any, row: FieldingErrorRow) => {
         if (row.value) {
@@ -60,7 +72,7 @@ export async function executeFielding(
         ERROR_ROLL_TOTAL: errorRollTotal.toString(),
         POSITION: position,
         RANGE_NUMBERS: rangeNumbersFormatted,
-        RANGE_TEXT: rangeValuesFormatted,
+        RANGE_TEXT: rangeValuesColored,
         ERROR_TEXT: errorText,
         USER: displayName
     });

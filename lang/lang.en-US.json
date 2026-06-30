@@ -615,7 +615,7 @@
                     {
                         "name": "{{POSITION}} Range Result",
                         "value": [
-                            "```js\n{{RANGE_NUMBERS}}\n{{RANGE_TEXT}}```"
+                            "```ansi\n{{RANGE_NUMBERS}}\n{{RANGE_TEXT}}```"
                         ]
                     },
                     {
@@ -785,10 +785,7 @@
             "scorebug": {
                 "title": "{{GAME_TITLE}}",
                 "description": "{{SCOREBUG}}",
-                "color": "{{COM:colors.success}}",
-                "footer": {
-                    "text": "This command is in beta; you may encounter issues.  Please provide any feedback or problems you have in #redwood-help, thanks!"
-                }
+                "color": "{{COM:colors.success}}"
             },
             "scorebugNoContext": {
                 "title": "No Active Game",

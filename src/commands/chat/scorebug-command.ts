@@ -31,8 +31,6 @@ export class ScoreBugCommand implements Command {
             return;
         }
 
-        await InteractionUtils.send(intr, "Talking to Sheets...A few seconds please!");
-
         let awayAbbrVal: any, homeAbbrVal: any, awayRunsVal: any, homeRunsVal: any;
         let halfVal: any, inningVal: any, outsVal: any;
         let pitcherVal: any, batterVal: any, basesVal: any;
