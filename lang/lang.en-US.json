@@ -141,6 +141,12 @@
                         "value": [
                             "```js\n# {{ROLL_RESULT}}\nDetails: [1d20 ({{ROLL_RESULT}})]\nInjury: {{INJURY}}```"
                         ]
+                    },
+                    {
+                        "name": "Description",
+                        "value": [
+                            "When the result of an at bat roll includes \"... plus injury\" - or the pitcher's injury number is rolled - the injured player rolls a d20 to determine the length of the injury. If the REM result is rolled, batters are out for the remainder of the game and pitchers become fatigued. If a pitcher has accumulated any mandatory rest from the current game, this is added to the result from the chart, increasing their games missed. If a pitcher was already fatigued at the time an REM result is rolled, they must be removed from the game. Make sure to note the maximum games each player can be injured."
+                        ]
                     }
                 ],
                 "image": "https://online-pennant-static-assets.s3.us-east-1.amazonaws.com/Injury+Maxiums.png",
